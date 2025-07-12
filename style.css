@@ -1,0 +1,103 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: white;
+  color: black;
+  text-align: center;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 5%;
+  background-color: #f6f6f6;
+  border-bottom: 1px solid #ddd;
+}
+
+
+.logo-text {
+  font-size: 64px;
+  font-weight: bold;
+  color: #D32E11;
+  line-height: 1;
+}
+
+.logo p {
+  margin: 0;
+  font-size: 14px;
+  color: #D32E11;
+}
+
+nav ul{
+    list-style: none;
+    display: flex;
+    gap: 25px;
+    margin: 0;
+    padding: 20;
+}
+
+nav a{
+    color: black;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+main {
+  padding: 15px 20px;
+}
+
+main h1{
+    font-size: 50px;
+}
+
+.highlight{
+    color: #d62811;
+    font-weight: bold;
+}
+
+.motto{
+    justify-content: center;
+    margin: 20px 0 40px;
+    color: rgba(0, 0, 0, 0.566);
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.HomePage_buttons{
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+}
+
+button{
+  transition: background-color 0.3s ease;
+  padding: 12px 28px;
+  font-size: 15px;
+  font-weight: 300;
+  border-radius: 30px;
+  border: 1px solid #444;
+  cursor: pointer;
+  background-color: rgb(239, 239, 239);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+  
+}
+
+
+button.red{
+    background-color: #D32E11;
+    color: white;
+    border: 0.2px;
+
+}
+
+button:hover{
+    background-color: #9c9c9c;
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+button.red:hover{
+    background-color: #a31900;
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2);
+}
