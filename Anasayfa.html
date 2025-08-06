@@ -9,7 +9,7 @@
 <body>
     
     <header>
-        <a href = "Anasayfa.html"><img class ="navigatorLogo" src="./assets/mec_logo400x174.png"/></a>
+        <a href = "Anasayfa.html"><img class ="navigatorLogo" src="./assets/mecwhite.png"/></a>
         <nav>
             <ul>
                 <li><a href="./Anasayfa.html">Anasayfa</a></li>
@@ -26,16 +26,35 @@
     <div class="overlay"></div>
     <div class="content">
       <h1>Bilkent Üniversitesi</h1>
-      <h1><span class="highlight">Management & Economics</span><br>Community</h1>
+      <h1><span class="highlight">Management & Economics<br>Community</span></h1>
       <p class="motto">"Neque porro quisquam est..."</p>
       <div class="HomePage_buttons">
-        <button onclick="goTo('Etkinliklerimiz')">Etkinliklerimiz</button>
-        <button class="red" onclick="goTo('Hakkımızda')">Hakkımızda</button>
+        <a href="./Etkinliklerimiz.html"><button >Etkinliklerimiz</button></a>
+        <a href="./About.html"><button class="red" onclick="goTo('Hakkımızda')">Hakkımızda</button></a>
       </div>
     </div>
   </section>
 
   <section class="normalContent">
+    <section class ="container">
+        <div class = "slider-wrapper">
+          <div class = "slider" id="slider">
+            <div class="slide"><img src="./assets/mecslider_1.jpeg"></div>
+            <div class="slide"><img src="./assets/mecslider_2.png"></div>
+            <div class="slide"><img src="./assets/mecslider_3.jpeg"></div>
+          </div>
+
+          <div class="slider-nav">
+              <button class="dot" data-index="0"></button>
+              <button class="dot" data-index="1"></button>
+              <button class="dot" data-index="2"></button>
+          </div>  
+
+          <button class="slider-btn left" id="btn-left">&#10094;</button>
+          <button class="slider-btn right" id="btn-right">&#10095;</button>
+        </div>
+
+    </section>
     <p>Buraya normal içerik gelecek.</p>
     <p>x</p><p>x</p><p>x</p><p>x</p><p>x</p><p>x</p><p>x</p><p>x</p><p>x</p><p>x</p><p>x</p><p>x</p>
   </section>
@@ -45,6 +64,6 @@
 
 
 
-
+<script src="script.js"></script>
 </body>
 </html>
