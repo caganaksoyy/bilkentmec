@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css" />
+  
+
     <title>MEC - Bilkent Üniversitesi Ekonomi & İşletme Topluluğu</title>
 </head>
 <body>
@@ -13,36 +15,38 @@
         <nav>
             <ul>
                 <li><a href="./Anasayfa.html">Anasayfa</a></li>
-                <li><a href ="./Anasayfa.html">Etkinliklerimiz</a></li>
+                <li><a href ="#events">Etkinliklerimiz</a></li>
                 <li><a href ="./About.html">Hakkımızda</a></li>
-                <li><a href ="./Sponsorts.html">Sponsorlarımız</a></li>
-                <li><a href ="./Ekibimiz.html">Ekibimiz</a></li>
+                <li><a href ="#sponsors">Sponsorlarımız</a></li>
             </ul>
         </nav>
     </header>
 
     <main>
-  <section class="hero">
-    <div class="overlay"></div>
-    <div class="content">
-      <h1>Bilkent Üniversitesi</h1>
-      <h1><span class="highlight">Management & Economics<br>Community</span></h1>
-      <p class="motto">"Neque porro quisquam est..."</p>
-      <div class="HomePage_buttons">
-        <a href="./Etkinliklerimiz.html"><button >Etkinliklerimiz</button></a>
-        <a href="./About.html"><button class="red" onclick="goTo('Hakkımızda')">Hakkımızda</button></a>
-      </div>
-    </div>
-  </section>
-
-  <section class="normalContent">
-    <section class ="container">
-        <div class = "slider-wrapper">
-          <div class = "slider" id="slider">
-            <div class="slide"><img src="./assets/mecslider_1.jpeg"></div>
-            <div class="slide"><img src="./assets/mecslider_2.png"></div>
-            <div class="slide"><img src="./assets/mecslider_3.jpeg"></div>
+      <section class="hero">
+        <div class="overlay"></div>
+        <div class="content">
+          <h1>Bilkent Üniversitesi</h1>
+          <h1><span class="highlight">Management & Economics<br>Community</span></h1>
+          <p class="motto">Yaratıcı ruh, profesyonel iş
+            
+          </p>
+          <div class="HomePage_buttons">
+            <a href="#events"><button >Etkinliklerimiz</button></a>
+            <a href="#about"><button class="red">Hakkımızda</button></a>
           </div>
+        </div>
+      </section>
+
+
+      <section class="normalContent">
+        <section class ="container">
+            <div class = "slider-wrapper">
+              <div class = "slider" id="slider">
+                <div class="slide"><a href="#events"><img src="./assets/etkinlik1.jpeg"></a></div>
+                <div class="slide"><a href="#events"><img src="./assets/etkinlik2.jpeg"></a></div>
+                <div class="slide"><a href="#events"><img src="./assets/etkinlik3.jpeg"></a></div>
+              </div>
 
           <div class="slider-nav">
               <button class="dot" data-index="0"></button>
@@ -53,12 +57,124 @@
           <button class="slider-btn left" id="btn-left">&#10094;</button>
           <button class="slider-btn right" id="btn-right">&#10095;</button>
         </div>
-
     </section>
-    <p>Buraya normal içerik gelecek.</p>
-    <p>x</p><p>x</p><p>x</p><p>x</p><p>x</p><p>x</p><p>x</p><p>x</p><p>x</p><p>x</p><p>x</p><p>x</p>
-  </section>
-</main>
+
+    
+    <div id="about" class = "about-general">
+    <div class="about-content">
+    <h3 class ="since fade-in-up">1988'den bugüne</h2>
+    <h2 class="fade-in-up">MEC Bilkent</h2>
+    <div class = "about-above fade-in-up">
+    <img src ="assets/mec_logo400x174.png"/>
+    <p>
+       MEC Bilkent, 1988 yılından beri öğrencilerin kişisel ve profesyonel gelişimine katkı sağlayan etkinlikler düzenlemektedir. Kariyer zirveleri, vaka yarışmaları ve sosyal etkinliklerle her yıl binlerce kişiye ulaşmaktadır.
+    </div>
+    <p class="fade-in-up">
+      Amacımız, öğrencilere kariyer yolculuklarında rehberlik etmek ve onlara iş dünyasına dair bir vizyon kazandırmaktır.
+      Bu doğrultuda düzenlediğimiz etkinlikler:
+      Şirket turları
+      Konferanslar
+      Vaka çalışmaları ve seminerler
+      Etkinliklerimiz sayesinde:
+      Öğrenciler profesyonel dünyayla doğrudan etkileşim kurma fırsatı bulur.
+      Şirketler, nitelikli ve istekli öğrencilerle tanışma ve kendilerini tanıtma fırsatı bulur.
+    </p>
+   </div>
+    <ul class="fade-in-right">
+      <li><span class="list-emogy">🎯</span><br>Son 5 yılda <br>1.000+ üye</li>
+    <li><span class="list-emogy">🎓</span><br>3 Ana Başlıkta <br>237 etkinlik</li>
+    <li><span class="list-emogy">🌍</span><br>Uluslararası<br> Amsterdam ve Londra ziyaretleri</li>
+    <li><span class="list-emogy">💼</span><br>10.000+ <br>katılımcı</li>
+    </ul>
+    </div>
+
+    <section id="events" class="events-section fade-in-up">
+      <h2>Yaklaşan Etkinliklerimiz</h2>
+      <div class="events-grid">
+        
+        <div class="event-card">
+          <img src="./assets/insta.jpeg" alt="Etkinlik 1">
+          <div class="event-content">
+            <h3>Yaz Festivali</h3>
+            <p>Şehrin en büyük açık hava müzik ve sanat festivali sizlerle.</p>
+            <span class="event-date">12 Ağu 2025</span>
+            <a href="#" class="event-btn">Detaylar</a>
+          </div>
+        </div>
+
+        <div class="event-card">
+          <img src="./assets/mecslider_2.png" alt="Etkinlik 2">
+          <div class="event-content">
+            <h3>Teknoloji Zirvesi</h3>
+            <p>Yapay zekâ, robotik ve inovasyon dolu bir gün.</p>
+            <span class="event-date">20 Eyl 2025</span>
+            <a href="#" class="event-btn">Detaylar</a>
+          </div>
+        </div>
+
+        <div class="event-card">
+          <img src="./assets/insta2.jpeg" alt="Etkinlik 3">
+          <div class="event-content">
+            <h3>Kitap Fuarı</h3>
+            <p>Yazarlarla buluşma ve imza günü fırsatı.</p>
+            <span class="event-date">05 Eki 2025</span>
+            <a href="#" class="event-btn">Detaylar</a>
+          </div>
+        </div>
+      </div>
+      <a href="Etkinliklerimiz.html"><button class="red-button">Tüm Etkinlikler</button></a>
+</section>
+
+<section id="sponsors" class="sponsors-section fade-in-up">
+  <h2>Sponsorlarımız</h2>
+  <br><br>
+  <h2>Career Trip</h2>
+  <div class="sponsors-grid">
+    <div class="sponsor-card">
+      <img src="./assets/sponsort_logo1.png" alt="Sponsor 1 Logo" />
+    </div>
+    <div class="sponsor-card">
+      <img src="./assets/sponsort_logo2.png" alt="Sponsor 2 Logo" />
+    </div>
+    <div class="sponsor-card">
+      <img src="./assets/sponsort_logo3.jpeg" alt="Sponsor 3 Logo" />
+    </div>
+    <!-- Daha fazla sponsor ekleyebilirsin -->
+  </div>
+  <h2>StepForward</h2>
+  <div class="sponsors-grid">
+    <div class="sponsor-card">
+      <img src="./assets/sponsort_logo1.png" alt="Sponsor 1 Logo" />
+    </div>
+    <div class="sponsor-card">
+      <img src="./assets/sponsort_logo2.png" alt="Sponsor 2 Logo" />
+    </div>
+    <div class="sponsor-card">
+      <img src="./assets/sponsort_logo3.jpeg" alt="Sponsor 3 Logo" />
+    </div>
+     <div class="sponsor-card">
+      <img src="./assets/sponsort_logo3.jpeg" alt="Sponsor 3 Logo" />
+    </div>
+     <div class="sponsor-card">
+      <img src="./assets/sponsort_logo3.jpeg" alt="Sponsor 3 Logo" />
+    </div>
+    <!-- Daha fazla sponsor ekleyebilirsin -->
+  </div>
+</section>
+
+    </main>
+
+    <footer class="site-footer">
+    <div class="footer-content">
+      <p>&copy; 2025 Bilkent Management & Economics Community (MEC). Tüm hakları saklıdır.</p>
+      <div class="footer-links">
+        <a href="#about">Hakkımızda</a> | 
+        <a href="#events">Etkinliklerimiz</a> | 
+        <a href="#sponsors">Sponsorlarımız</a> | 
+        <a href="#team">Ekibimiz</a>
+      </div>
+    </div>
+    </footer>
 
     
 

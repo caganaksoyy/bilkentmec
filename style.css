@@ -5,7 +5,25 @@
   --bg-color: #ffffff;
   --navigator-hover-color: #ababab;
 }
+html {
+  scroll-behavior: smooth;
+    height: 100%;
+}
 
+body {
+  display: flex;
+  flex-direction: column;
+    height: 100%;
+    margin: 0;
+}
+
+main {
+  flex: 1; 
+}
+
+#about, #events {
+  scroll-margin-top: 65px;
+}
 
 body {
   margin: 0;
@@ -13,6 +31,10 @@ body {
   background-color: var(--bg-color);
   color: var(--text-color);
   text-align: center;
+}
+
+p{
+  font-size: 20px;
 }
 
 
@@ -24,15 +46,16 @@ header {
   justify-content: space-between;
   align-items: center;
   padding: 10px 5%;
-  background-color: #d32e11;
+  background: linear-gradient(to right, #d32e11, #a31900);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.433);
+  transition: top 0.3s ease;
   
 }
 
-
-
 .navigatorLogo {
+  margin-left: 3rem;
   height: auto;
-  max-width: 180px;
+  max-width: 120px;
 }
 
 nav ul {
@@ -49,7 +72,6 @@ nav a {
   text-decoration: none;
   position: relative;
   padding-bottom: 5px;
-  text-decoration: none;
 }
 
 nav a::after {
@@ -69,15 +91,131 @@ nav a:hover::after {
   right: auto; /* Sağdan sola animasyon için */
 }
 
+
+.hero {
+  position: relative;
+  background-image: url('./assets/mec_grup.jpeg');
+  background-size: cover;
+  background-position: center;
+  padding: 100px 20px;
+  color: white;
+  text-align: center;
+  overflow: hidden;
+}
+
+.hero .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.659);
+  z-index: 1;
+}
+
+.hero .content {
+  position: relative;
+  z-index: 2;
+  
+}
+
+
+.hero h1 {
+  font-size: 3rem;
+  margin: 0;
+  border: black;
+  text-shadow: 0px 2px 8px rgba(0,0,0,0.5);
+  
+}
+.highlight {
+  color: var(--main-color);
+  font-weight: bold;
+}
+
+.motto {
+  padding-left: 10rem;
+  padding-right: 10rem;
+  margin: 20px 0 40px;
+  font-size: 20px;
+  color: #fff;
+   text-shadow: 0px 2px 8px rgba(0,0,0,0.5);
+}
+
+@media (max-width: 768px) {
+  .hero h1 {
+    font-size: 2.5rem;
+  }
+  .hero .motto {
+    font-size: 1rem;
+  }
+}
+
+
+.HomePage_buttons {
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+  flex-wrap: wrap;
+}
+
+.HomePage_buttons button{
+  padding: 12px 30px;
+  border-radius: 999px;
+  font-size: 15px;
+  font-weight: 500;
+  border: none;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.HomePage_buttons button:hover {
+  background: rgba(255, 255, 255, 0.4);
+  transform: scale(1.1);
+}
+
+.HomePage_buttons button.red{
+  background: linear-gradient(to right, #d32e11, #a31900);
+  color: white;
+}
+
+.HomePage_buttons button.red:hover {
+  background: linear-gradient(to right, #a31900, #7a0e00);
+}
+
+.red-button{
+  padding: 0.7rem;
+  border-radius: 15px;
+  border: none;
+  color: var(--bg-color);
+  background-color: var(--main-color);
+  margin: 3rem;
+  font-size: 20px;
+}
+
+.red-button:hover{
+  transform: scale(1.1);
+}
+
+
+.normalContent {
+  background-color: var(--bg-color);
+  padding: 60px 20px;
+  color: var(--text-color);
+}
+
 .container {
       padding: 2rem;
     }
 
     .slider-wrapper {
       position: relative;
-      max-width: 48rem;
+      max-width: 72rem;
       margin: 0 auto;
       overflow: hidden;
+      border-radius: 1rem;
     }
 
     .slider {
@@ -144,14 +282,14 @@ nav a:hover::after {
 
 
     .dot {
-      width: 0.5rem;              /* küçük boyut */
+      width: 0.5rem;             
       height: 0.5rem;
-      border-radius: 50%;         /* TAM yuvarlak */
+      border-radius: 50%;         
       background-color: #fff;
       opacity: 0.5;
       border: none;
       cursor: pointer;
-      padding: 0;                 /* button olduğunda şart */
+      padding: 0;               
       display: inline-block;
       transition: transform 0.2s ease, opacity 0.2s ease;
 }
@@ -159,100 +297,433 @@ nav a:hover::after {
     .dot:hover,
     .dot.active {
       opacity: 1;
-      transform: scale(1.3);     /* biraz büyüme efekti */
+      transform: scale(1.3);     
     }
 
+.about-general{
+  padding-left: 14rem;
+  padding-right: 14rem;
+  text-align: left;
+}
 
-.hero {
-  position: relative;
-  background-image: url('./assets/mecgrup.jpg');
-  background-size: cover;
-  background-position: center;
-  padding: 100px 20px;
-  color: white;
+
+.about-general h2 {
+  font-size: 40px;
+  font-weight: 600;
+  margin-top: 60px;
+  margin-bottom: 10px;
   text-align: center;
+  
+}
+.since {
+  font-size: 3rem;
+  font-weight: 400;
+  color: #a31900;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: -10px;
+  text-align: center;
+}
+
+
+.about-general p{
+  margin: 1%;
+  line-height: 1.6;
+}
+
+.about-above {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+
+.about-above p{
+  margin-left: 0%;
+  margin-top: 0%;
+  align-items: flex-start;
+}
+
+.about-general ul {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 sütun */
+  grid-template-rows: repeat(2, auto);   /* 2 satır */
+  gap: 1rem; 
+  
+  
+  padding: 2%;
+  list-style: none;
+  margin: 0;
+
+  /* sayfanın ortasında */
+  justify-content: center;
+  align-items: center;
+}
+
+.about-general li {
+  font-size: 24px;
+  text-align: center;
+  background: #f5f5f5a5; 
+  padding: 1rem;
+  border-radius: 50px;
+  transition: all 0.3s ease;
+}
+
+.list-emogy{
+  font-size: 4rem;
+}
+.about-general li:hover {
+  font-size: 24px;
+  text-align: center;
+  background: #ededed; 
+  padding: 1rem;
+  transform: scale(1.05) ;
+}
+
+
+.about-above img{
+  width: 30%;
+  max-height: 7rem;
+  margin-left: 3%;
+
+}
+
+
+.events-section {
+  padding: 4rem 2rem;
+
+  text-align: center;
+  background-color: var(--secondary-color);
+}
+
+.events-section h2 {
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+
+}
+
+.events-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(280px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.event-card {
+  background: var(--white);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.event-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.326);
+}
+
+.event-card img {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  aspect-ratio: 16/9;
+}
+
+
+
+.event-content {
+  padding: 1rem;
+}
+
+.event-date{
+  padding-right: 1rem;
+  
+}
+
+.event-content h3 {
+  font-size: 1.5rem;
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+
+.event-content p {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 1rem;
+}
+
+.event-btn {
+  display: inline-block;
+  color: var(--bg-color);
+  background-color: var(--main-color);
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  border: #1e1e1e;
+  font-size: 0.9rem;
+  transition: 0.3s ease;
+  text-decoration: none;
+}
+
+.event-btn:hover {
+  background: var(--hover-color);
+}
+
+/* SPONSORLAR BÖLÜMÜ GELİŞMİŞ TASARIM */
+.sponsors-section {
+  padding: 5rem 2rem;
+  text-align: center;
+  background-color: #f8f9fa; /* Daha soft bir arkaplan */
+  position: relative;
   overflow: hidden;
 }
 
-.hero .overlay {
+.sponsors-section::before {
+  content: '';
   position: absolute;
   top: 0;
   left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 1;
+  width: 100%;
+  height: 5px;
+  background: linear-gradient(90deg, #D32E11, #F57C00);
 }
 
-.hero .content {
+.sponsors-section h2 {
+  font-size: 2.8rem;
+  margin-bottom: 3rem;
+  color: #333;
   position: relative;
-  z-index: 2;
+  display: inline-block;
 }
 
-h1.About{
-
-  font-size: 50px;
-  padding-top: 10px;
-
+.sponsors-section h2::after {
+  content: '';
+  position: absolute;
+  width: 50%;
+  height: 3px;
+  background: #D32E11;
+  bottom: -10px;
+  left: 25%;
+  border-radius: 3px;
 }
 
-.hero h1 {
-  font-size: 50px;
-  margin: 0;
+.sponsors-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  align-items: center;
 }
 
-.highlight {
-  color: #D32E11;
-  font-weight: bold;
-}
-
-.motto {
-  margin: 20px 0 40px;
-  font-weight: bold;
-  font-size: 20px;
-  color: #fff;
-}
-
-
-.HomePage_buttons {
-  display: flex;
-  justify-content: center;
-  gap: 50px;
-  flex-wrap: wrap;
-}
-
-.HomePage_buttons button{
-  padding: 12px 30px;
-  border-radius: 999px;
-  font-size: 15px;
-  font-weight: 500;
-  border: none;
-  background: rgba(255, 255, 255, 0.2);
-  color: white;
+.sponsor-card {
+  padding: 2rem;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
 }
 
-.HomePage_buttons button:hover {
-  background: rgba(255, 255, 255, 0.4);
+.sponsor-card::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: #D32E11;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.4s ease;
+}
+
+.sponsor-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+}
+
+.sponsor-card:hover::before {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.sponsor-card img {
+  max-width: 100%;
+  max-height: 80px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  filter: grayscale(100%);
+  opacity: 0.8;
+  transition: all 0.4s ease;
+}
+
+.sponsor-card:hover img {
+  filter: grayscale(0);
+  opacity: 1;
+  transform: scale(1.05);
+}
+
+/* RESPONSIVE TASARIM */
+@media (max-width: 992px) {
+  .sponsors-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .sponsors-section {
+    padding: 4rem 1rem;
+  }
+  
+  .sponsors-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+  
+  .sponsor-card {
+    height: 130px;
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .sponsors-grid {
+    grid-template-columns: 1fr;
+    max-width: 300px;
+  }
+  
+  .sponsor-card {
+    height: 120px;
+  }
+}
+
+.team-section {
+  padding: 4rem 2rem;
+  text-align: center;
+  background-color: var(--bg-color);
+}
+
+.team-section h2 {
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+}
+
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(250px, 1fr));
+  gap: 3rem;
+  height: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  border: #1e1e1e 3px;
+  align-items: start;
+}
+
+
+.team-card {
+  background: #f8f7f7;
+  border-radius: 12px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+  padding: 1.5rem;
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+.team-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 12px 30px rgba(34, 15, 209, 0.28);
+}
+
+
+.team-card:hover .team-photo {
+  transform: scale(1.05);
+}
+.team-card:hover .Department {
+  font-weight: 600;
+}
+
+
+.team-info .Department{
+  position: relative;
+  display: inline-block;
+  padding-bottom: 2px;
+  transition: transform 0.3s ease;
+}
+
+.team-info .Department::after{
+   content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 0;
+  height: 2px; /* Çizgi kalınlığı */
+  
+  background-color: #1124d37f; /* MEC'in kırmızı rengi */
+  transition: width 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.team-card:hover .team-info .Department::after {
+    width: 100%;
+    left: 0%;
+    right: auto;
+
+}
+
+
+.team-photo {
+  transition: transform 0.3s ease;
+}
+
+.team-photo {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 1rem;
+  border: 5px solid #f5f5f5;
+
+}
+
+.team-info h3 {
+  margin: 0.5rem 0 0.3rem;
+  font-size: 1.3rem;
+}
+
+.team-info p {
+  margin: 0.2rem 0;
+  font-size: 1rem;
+  color: #333;
+}
+
+i.fab.fa-linkedin {
+  color: rgb(75, 140, 194);
+  font-size: 24px;
+  vertical-align: middle;
+  transition: transform 0.3s ease;
+  margin-top: 1rem;
+}
+
+i.fab.fa-linkedin:hover {
   transform: scale(1.1);
 }
 
-.HomePage_buttons button.red {
-  background: linear-gradient(to right, #d32e11, #a31900);
-  color: white;
-}
 
-.HomePage_buttons button.red:hover {
-  background: linear-gradient(to right, #a31900, #7a0e00);
-}
 
-.normalContent {
-  background-color: var(--bg-color);
-  padding: 60px 20px;
-  color: var(--text-color);
-}
+
 
 @keyframes fadeInUp {
   from {
@@ -265,6 +736,269 @@ h1.About{
   }
 }
 
+
+@keyframes fadeInUp2 {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in-up {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.fade-in-up.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.fade-in-right {
+  opacity: 0;
+  transform: translateX(100px);
+  transition: opacity 0.6s ease-out, transform 0.9s ease-out;
+}
+
+.fade-in-right.show {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+
+
+
+
 main h1, .motto, .HomePage_buttons {
   animation: fadeInUp 1s ease forwards;
 }
+
+.site-footer {
+  bottom: 0;
+  background-color: rgb(238, 238, 238);
+  color: rgb(0, 0, 0);
+  padding: 1.5rem 2rem;
+  text-align: center;
+  font-size: 14px;
+  margin-top: auto;
+}
+
+.footer-content {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.footer-links a {
+  color: rgb(0, 0, 0);
+  text-decoration: none;
+  margin: 0 0.5rem;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+  color: var(--hover-color);
+}
+
+ /* ETKİNLİKLER SAYFASI ÖZEL STİLLER */
+     /* ETKİNLİK LİSTE STİLLERİ */
+        .events-container {
+            max-width: 1000px;
+            margin: 3rem auto;
+            padding: 0 20px;
+        }
+        
+        .event-row{
+            display: flex;
+            margin-bottom: 2rem;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        
+
+
+        
+        .event-row:hover{
+            transform: translateY(-5px);
+        }
+        
+        .event-image {
+            flex: 0 0 300px;
+            height: 400px;
+        }
+        
+        .event-image img {
+            width: 100%;
+            height: 100%;
+        
+        }
+        
+        .event-content {
+            flex: 1;
+            padding: 1.5rem;
+            position: relative;
+            object-fit: contain;
+        }
+        
+        .event-date2 {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: rgb(0, 0, 0);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 5px;
+            font-size: 0.9rem;
+        }
+        
+        .event-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
+        }
+        
+        .event-content p {
+            color: #555;
+            margin-bottom: 1rem;
+        }
+        
+        .event-meta {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+        
+        .event-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+        
+        .event-btn {
+            display: inline-block;
+            background: var(--main-color);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 20px;
+            text-decoration: none;
+            transition: 0.3s ease;
+        }
+        
+        .event-btn:hover {
+            background: var(--hover-color);
+            transform: scale(1.05);
+        }
+        
+        @media (max-width: 768px) {
+            .event-row {
+                flex-direction: column;
+            }
+            
+            .event-image {
+                flex: 0 0 200px;
+                width: 100%;
+            }
+            
+            .event-date {
+                top: auto;
+                bottom: 1rem;
+            }
+        }
+
+       .social-medias {
+    display: flex;
+    gap: 1.8rem;
+    justify-content: center;
+    padding: 2rem 0;
+    flex-wrap: wrap;
+}
+
+.social-icon {
+    color: white;
+    width: 60px; /* Büyüttük */
+    height: 60px; /* Büyüttük */
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    font-size: 1.8rem; /* İkon boyutunu artırdık */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    position: relative;
+    overflow: hidden;
+    text-decoration: none
+}
+
+/* Platforma özel renkler */
+.social-icon.instagram { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
+.social-icon.twitter { background: #1DA1F2; }
+.social-icon.linkedin { background: #0077B5; }
+.social-icon.youtube { background: #FF0000; }
+.social-icon.email { background: #333; }
+
+/* Hover Efektleri */
+.social-icon:hover {
+    transform: translateY(-5px) scale(1.1);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.3);
+    filter: brightness(1.1);
+}
+
+/* Işıltı Efekti */
+.social-icon::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: rgba(255,255,255,0.1);
+    transform: rotate(45deg);
+    transition: all 0.3s ease;
+}
+
+.social-icon:hover::after {
+    left: 100%;
+    top: 100%;
+}
+
+/* Mobil Uyum */
+@media (max-width: 768px) {
+    .social-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 1.5rem;
+    }
+}
+/* Footer içinse farklı stil */
+.site-footer .social-medias {
+    padding: 1rem 0;
+}
+
+.site-footer .social-icon {
+    background-color: #333;
+    color: white;
+}
+
+.site-footer .social-icon:hover {
+    background-color: var(--main-color);
+}
+
+.social-icon.twitter { 
+    background: #000000; /* Twitter'ın yeni siyah rengi */
+    color: white !important; /* X ikonu beyaz olsun */
+}
+.social-icon.instagram { background: #E1306C; }
+.social-icon.twitter { background: #000000; }
+.social-icon.linkedin { background: #0077B5; }
+.social-icon.youtube { background: #FF0000; }
+.social-icon.mail { background: #333; }
