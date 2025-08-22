@@ -186,17 +186,20 @@ nav a:hover::after {
 }
 
 .red-button{
-  padding: 0.7rem;
-  border-radius: 15px;
+  padding: 0.5rem;
+  border-radius: 1rem;
   border: none;
   color: var(--bg-color);
-  background-color: var(--main-color);
-  margin: 3rem;
+  background: linear-gradient(to right, #d32e11, #a31900);
+  margin-top: 3rem;
   font-size: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 .red-button:hover{
   transform: scale(1.1);
+  
 }
 
 
@@ -309,10 +312,19 @@ nav a:hover::after {
 }
 
 .about-general{
-  padding-left: 14rem;
-  padding-right: 14rem;
+  max-width: 1200px;   
+  margin: 0 auto;     
+  padding: 0 2rem;   
   text-align: left;
 }
+
+@media (max-width: 768px) {
+  .about-general {
+    padding: 0 1rem;   
+    text-align: center;
+  }
+}
+
 
 
 .about-general h2 {
