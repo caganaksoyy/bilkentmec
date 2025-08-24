@@ -15,6 +15,7 @@ body {
   flex-direction: column;
     height: 100%;
     margin: 0;
+    padding-top: 70px;
 }
 
 main {
@@ -39,9 +40,11 @@ p{
 
 
 header {
-  position: sticky;
+  position: fixed;
   top: 0;
+  width: 90%;
   z-index: 1000;
+  
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -205,7 +208,7 @@ nav a:hover::after {
 
 .normalContent {
   background-color: var(--bg-color);
-  padding: 60px 20px;
+  padding: 60px 20px 0px 20px;
   color: var(--text-color);
 }
 
@@ -311,12 +314,31 @@ nav a:hover::after {
   }
 }
 
-.about-general{
-  max-width: 1200px;   
-  margin: 0 auto;     
-  padding: 0 2rem;   
-  text-align: left;
+.about-wrapper {
+  width: 100%; 
+  background-color: #f8f9fa; 
+  position: relative;
 }
+
+.about-wrapper::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, #D32E11, #F57C00);
+}
+
+.about-general {
+  max-width: 1200px;  
+  margin: 0 auto;
+  padding: 3rem 2rem;
+  position: relative;
+  z-index: 1; 
+}
+
+
 
 @media (max-width: 768px) {
   .about-general {
@@ -326,15 +348,6 @@ nav a:hover::after {
 }
 
 
-
-.about-general h2 {
-  font-size: 40px;
-  font-weight: 600;
-  margin-top: 60px;
-  margin-bottom: 10px;
-  text-align: center;
-  
-}
 .since {
   font-size: 3rem;
   font-weight: 400;
@@ -343,12 +356,24 @@ nav a:hover::after {
   text-transform: uppercase;
   margin-bottom: -10px;
   text-align: center;
+  margin-top: 1rem;
 }
+
+.about-general h2 {
+  font-size: 40px;
+  font-weight: 600;
+  margin-top: 30px;
+  margin-bottom: 10px;
+  text-align: center;
+  
+}
+
 
 
 .about-general p{
   margin: 1%;
   line-height: 1.6;
+  text-align: left;
 }
 
 .about-above {
@@ -374,7 +399,7 @@ nav a:hover::after {
   list-style: none;
   margin: 0;
 
-  /* sayfanın ortasında */
+
   justify-content: center;
   align-items: center;
 }
@@ -382,10 +407,11 @@ nav a:hover::after {
 .about-general li {
   font-size: 24px;
   text-align: center;
-  background: #f5f5f5a5; 
+  background: #f3f3f3; 
   padding: 1rem;
-  border-radius: 50px;
+  border-radius: 10rem;
   transition: all 0.3s ease;
+  max-width: 40rem
 }
 
 .list-emogy{
@@ -394,10 +420,20 @@ nav a:hover::after {
 .about-general li:hover {
   font-size: 24px;
   text-align: center;
-  background: #ededed; 
+  background: #5b5b5b83; 
   padding: 1rem;
-  transform: scale(1.05) ;
+
+  background: #e0dfdf;
+  transform: translateY(-6px) scale(1.03);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
 }
+
+.counter {
+  font-weight: bold;
+  font-size: 1.5rem;
+  color: #000000;
+}
+
 
 
 .about-above img{
@@ -631,6 +667,7 @@ nav a:hover::after {
   padding: 4rem 2rem;
   text-align: center;
   background-color: var(--bg-color);
+  
 }
 
 .team-section h2 {
@@ -666,12 +703,15 @@ nav a:hover::after {
 
 .team-card:hover {
   transform: translateY(-8px) scale(1.02);
+  background: linear-gradient(135deg, #ffffff, #f0f4ff);
   box-shadow: 0 12px 30px rgba(34, 15, 209, 0.28);
 }
 
 
 .team-card:hover .team-photo {
   transform: scale(1.05);
+  border-color: #1124d37f;
+  box-shadow: 0 0 15px rgba(34, 15, 209, 0.3);
 }
 .team-card:hover .Department {
   font-weight: 600;
@@ -705,9 +745,6 @@ nav a:hover::after {
 }
 
 
-.team-photo {
-  transition: transform 0.3s ease;
-}
 
 .team-photo {
   width: 150px;
@@ -716,6 +753,8 @@ nav a:hover::after {
   object-fit: cover;
   margin-bottom: 1rem;
   border: 5px solid #f5f5f5;
+    transition: all 0.4s ease;
+  
 
 }
 
@@ -826,11 +865,9 @@ main h1, .motto, .HomePage_buttons {
   color: var(--hover-color);
 }
 
- /* ETKİNLİKLER SAYFASI ÖZEL STİLLER */
-     /* ETKİNLİK LİSTE STİLLERİ */
         .events-container {
             max-width: 1000px;
-            margin: 3rem auto;
+            margin: 5rem auto;
             padding: 0 20px;
         }
         

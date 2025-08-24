@@ -117,17 +117,51 @@ const header = document.querySelector('header');
 
 window.addEventListener('scroll', () => {
   const currentScrollY = window.scrollY;
+  const headerHeight = header.offsetHeight;
 
   if (currentScrollY > lastScrollY && currentScrollY > 50) {
-    // Aşağı kaydırıyor ve biraz scroll olmuşsa gizle
-    header.style.top = `-100px`; // header yüksekliğinden fazla bir değer ver, mesela 100px
+    // Aşağı kaydırıyor → gizle
+    header.style.top = `-${headerHeight}px`;
   } else {
-    // Yukarı kaydırıyor veya çok başta scroll
+    // Yukarı kaydırıyor → göster
     header.style.top = '0';
   }
 
   lastScrollY = currentScrollY;
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+  const counters = document.querySelectorAll(".counter");
+  const duration = 2000; // animasyon süresi (ms)
+  const fps = 60; // frame sayısı
+
+  const startCounter = (counter) => {
+    const target = +counter.getAttribute("data-target");
+    let count = 0;
+    const increment = target / (duration / (1000 / fps)); // her frame artış miktarı
+    const interval = setInterval(() => {
+      count += increment;
+      if (count >= target) {
+        counter.innerText = target;
+        clearInterval(interval);
+      } else {
+        counter.innerText = Math.ceil(count);
+      }
+    }, 1000 / fps);
+  };
+
+  const observer = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        counters.forEach(counter => startCounter(counter));
+        observer.disconnect(); // sadece bir kere çalışsın
+      }
+    });
+  }, { threshold: 0.5 });
+
+  counters.forEach(counter => observer.observe(counter));
+});
+
 
 
 

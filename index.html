@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css" />
   
-
     <title>MEC - Bilkent Üniversitesi Ekonomi & İşletme Topluluğu</title>
 </head>
 <body>
-    
+
+    <!--Header-->
     <header>
         <a href = "index.html"><img class ="navigatorLogo" src="./assets/mecWhite.png"/></a>
         <nav>
@@ -23,6 +23,8 @@
     </header>
 
     <main>
+
+      <!--Anasayfa -->
       <section class="hero">
         <div class="overlay"></div>
         <div class="content">
@@ -43,15 +45,21 @@
         <section class ="container">
             <div class = "slider-wrapper">
               <div class = "slider" id="slider">
-                <div class="slide"><a href="#events"><img src="./assets/etkinlik1.jpeg"></a></div>
-                <div class="slide"><a href="#events"><img src="./assets/etkinlik2.jpeg"></a></div>
-                <div class="slide"><a href="#events"><img src="./assets/etkinlik3.jpeg"></a></div>
+                <div class="slide"><a href="#events"><img src="./assets/events/etkinlik1.jpeg"></a></div>
+                <div class="slide"><a href="#events"><img src="./assets/events/etkinlik2.jpeg"></a></div>
+                <div class="slide"><a href="#events"><img src="./assets/events/etkinlik3.jpeg"></a></div>
+                <div class="slide"><a href="#events"><img src="./assets/events/etkinlik4.png"></a></div>
+                <div class="slide"><a href="#events"><img src="./assets/events/etkinlik5.png"></a></div>
+                <div class="slide"><a href="#events"><img src="./assets/events/etkinlik6.png"></a></div>
               </div>
 
           <div class="slider-nav">
               <button class="dot" data-index="0"></button>
               <button class="dot" data-index="1"></button>
               <button class="dot" data-index="2"></button>
+              <button class="dot" data-index="3"></button>
+              <button class="dot" data-index="4"></button>
+              <button class="dot" data-index="5"></button>
          
            
           </div>  
@@ -61,36 +69,47 @@
         </div>
     </section>
 
-    
-    <div id="about" class = "about-general">
-    <div class="about-content">
-    <h3 class ="since fade-in-up">1988'den bugüne</h2>
-    <h2 class="fade-in-up">MEC Bilkent</h2>
-    <div class = "about-above fade-in-up">
-    <img src ="assets/mec_logo400x174.png"/>
-    <p>
-       MEC Bilkent, 1988 yılından beri öğrencilerin kişisel ve profesyonel gelişimine katkı sağlayan etkinlikler düzenlemektedir. Kariyer zirveleri, vaka yarışmaları ve sosyal etkinliklerle her yıl binlerce kişiye ulaşmaktadır.
-    </div>
-    <p class="fade-in-up">
-      Amacımız, öğrencilere kariyer yolculuklarında rehberlik etmek ve onlara iş dünyasına dair bir vizyon kazandırmaktır.
-      Bu doğrultuda düzenlediğimiz etkinlikler:
-      Şirket turları
-      Konferanslar
-      Vaka çalışmaları ve seminerler
-      Etkinliklerimiz sayesinde:
-      Öğrenciler profesyonel dünyayla doğrudan etkileşim kurma fırsatı bulur.
-      Şirketler, nitelikli ve istekli öğrencilerle tanışma ve kendilerini tanıtma fırsatı bulur.
-    </p>
-   </div>
-    <ul class="fade-in-right">
-      <li><span class="list-emogy">🎯</span><br>Son 5 yılda <br>1.000+ üye</li>
-    <li><span class="list-emogy">🎓</span><br>3 Ana Başlıkta <br>237 etkinlik</li>
-    <li><span class="list-emogy">🌍</span><br>Uluslararası<br> Amsterdam ve Londra ziyaretleri</li>
-    <li><span class="list-emogy">💼</span><br>10.000+ <br>katılımcı</li>
-    </ul>
+    <div class="about-wrapper">
+      <div id="about" class = "about-general">
+
+        <div class="about-content">
+          <h3 class ="since fade-in-up">1988'den bugüne</h2>
+          <h2 class="fade-in-up">MEC Bilkent</h2>
+          <div class = "about-above fade-in-up">
+            <img src ="assets/mec_logo400x174.png"/>
+            <p>
+              İşletme ve Ekonomi Topluluğu (MEC), 1988 yılında kurulmuş olup Bilkent Üniversitesi’nin en köklü ve aktif öğrenci kulüplerinden biridir. Kurulduğumuz günden bu yana misyonumuz, öğrencilerin kariyer yolculuklarına rehberlik etmek, onları iş dünyasıyla buluşturmak ve profesyonel gelişimlerine katkı sağlamaktır.
+            </p>
+          </div>
+            <p class="fade-in-up">
+              Amacımız, öğrencilere kariyer yolculuklarında rehberlik etmek ve onlara iş dünyasına dair bir vizyon kazandırmaktır.
+              Bu doğrultuda düzenlediğimiz etkinlikler:
+              Şirket turları
+              Konferanslar
+              Vaka çalışmaları ve seminerler
+              Etkinliklerimiz sayesinde:
+              Öğrenciler profesyonel dünyayla doğrudan etkileşim kurma fırsatı bulur.
+              Şirketler, nitelikli ve istekli öğrencilerle tanışma ve kendilerini tanıtma fırsatı bulur.
+            </p>
+        </div>
+
+        <ul class="fade-in-right">
+          <li><span class="list-emogy">🎯</span><br>Son 5 yılda <br>
+          <span class="counter" data-target="1000">0</span>+ üye</li>
+          <li><span class="list-emogy">🎓</span><br>3 Ana Başlıkta <br>
+            <span class="counter" data-target="237">0</span>
+            etkinlik</li>
+          <li><span class="list-emogy">🌍</span><br>Uluslararası<br> Amsterdam ve Londra ziyaretleri</li>
+          <li><span class="list-emogy">💼</span><br>
+            <span class="counter" data-target="10000">0</span>+ <br>katılımcı</li>
+        </ul>
+
+        <a href="About.html"><button class="red-button">Daha Fazla Öğren</button></a>
+      </div>
+
     </div>
 
-    <a href="About.html"><button class="red-button">Daha Fazla Öğren</button></a>
+    
 
     <section id="events" class="events-section fade-in-up">
       <h2>Yaklaşan Etkinliklerimiz</h2>
