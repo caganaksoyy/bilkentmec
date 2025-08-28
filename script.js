@@ -163,7 +163,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function closePopup() {
-      document.getElementById("welcomePopup").style.display = "none";
+      document.getElementById("welcomepopup").style.display = "none";
     }
 
 
