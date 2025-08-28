@@ -232,6 +232,7 @@ nav a:hover::after {
       aspect-ratio: 16/9;
       box-shadow: 0 1.5rem 3rem -0.75rem hsla(0, 0%, 0%, 0.25);
       scrollbar-width: none;
+      overflow-y: hidden;
     }
 
     .slider::-webkit-scrollbar {
@@ -1128,3 +1129,59 @@ main h1, .motto, .HomePage_buttons {
     font-size: 0.8rem;
   }
 }
+
+
+/* Arkaplan */
+    .welcome-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+
+    /* Popup kutusu */
+    .welcome-box {
+      background: white;
+      padding: 2rem;
+      border-radius: 1rem;
+      max-width: 400px;
+      text-align: center;
+      box-shadow: 0 0 20px rgba(0,0,0,0.3);
+      animation: fadeIn 0.4s ease;
+    }
+
+    .welcome-box h2 {
+      margin-bottom: 1rem;
+    }
+
+    .welcome-box button {
+      margin-top: 1rem;
+      padding: 0.5rem 1.5rem;
+      border: none;
+      border-radius: 0.5rem;
+      background: #d32e11;
+      color: white;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .welcome-image{
+      max-width: 50%;
+    }
+
+    .welcome-box button:hover {
+      background: #a31900;
+    }
+
+    .welcome-p{
+      color: var(--main-color);
+      text-decoration: none;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0; transform: scale(0.9);}
+      to   {opacity: 1; transform: scale(1);}
+    }

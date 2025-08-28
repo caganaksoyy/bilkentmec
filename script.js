@@ -162,6 +162,9 @@ document.addEventListener("DOMContentLoaded", () => {
   counters.forEach(counter => observer.observe(counter));
 });
 
+function closePopup() {
+      document.getElementById("welcomePopup").style.display = "none";
+    }
 
 
 
