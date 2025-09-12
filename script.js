@@ -166,6 +166,49 @@ function closePopup() {
       document.getElementById("welcomepopup").style.display = "none";
     }
 
+      const highlight = document.getElementById("highlight-text");
+  const texts = [
+    "MEC",
+    "Management & Economics Community"
+  ];
+
+  let index = 0;        // hangi metindeyiz
+  let charIndex = 0;    // harf ilerleyişi
+  let deleting = false; // yazıyor mu siliyor mu?
+
+  function typeEffect() {
+    const currentText = texts[index];
+
+    if (!deleting) {
+      // yazma
+      highlight.innerHTML = currentText.substring(0, charIndex + 1);
+      charIndex++;
+
+      if (charIndex === currentText.length) {
+        // yazı bittiyse biraz bekle
+        deleting = true;
+        setTimeout(typeEffect, 2000);
+        return;
+      }
+    } else {
+      // silme
+      highlight.innerHTML = currentText.substring(0, charIndex - 1);
+      charIndex--;
+
+      if (charIndex === 0) {
+        deleting = false;
+        index = (index + 1) % texts.length; // sıradaki metne geç
+      }
+    }
+
+    // hız ayarı
+    const speed = deleting ? 60 : 120; 
+    setTimeout(typeEffect, speed);
+  }
+
+  typeEffect(); // başlat
+
+    
 
 
 
