@@ -21,6 +21,12 @@ body {
     
 }
 
+@media (max-width: 768px) {
+  body {
+    overflow-x: hidden;
+  }
+}
+
 main {
   flex: 1; 
 }
@@ -57,6 +63,55 @@ header {
   transition: top 0.3s ease;
   
 }
+
+.hamburger {
+  display: none;
+  font-size: 30px;
+  cursor: pointer;
+  color: #333;
+  background: none;
+  border: none;
+  z-index: 1100;
+}
+@media (max-width: 768px) {
+  .hamburger {
+    display: block;
+  }
+
+  header nav ul {
+    display: none; /* başlangıçta gizli */
+    position: absolute;
+    top: 70px;
+    right: 5%;
+    background: white;
+    flex-direction: column;
+    width: 200px;
+    padding: 10px 0;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+  }
+
+  header nav ul.show {
+    display: flex; /* tıklanınca görünür */
+  }
+
+  header nav ul li {
+    padding: 10px 20px;
+    text-align: left;
+  }
+
+  header nav ul li a {
+    color: #333;
+    display: block;
+    width: 100%;
+  }
+
+  header nav ul li a:hover {
+    background: #f7f7f7;
+    color: #007bff;
+  }
+}
+
 
 
 
@@ -100,6 +155,8 @@ nav a:hover::after {
 }
 
 
+
+
 .hero {
   position: relative;
   background-image: url('./assets/mec_grup.jpeg');
@@ -141,6 +198,8 @@ nav a:hover::after {
   
 }
 
+
+
 .high{
   padding-top: 3rem;
 }
@@ -164,21 +223,37 @@ nav a:hover::after {
   font-size: 50px;
   color: #111111;
   text-shadow: 0px 2px 8px rgba(0,0,0,0.5);
-
+  max-width: 90%;
   font-family: 'Dancing Script', cursive; /* el yazısı */
   font-style: italic; /* italik dokunuş */
   font-weight: 600;   /* biraz kalınlık ver */
 }
+/* Mobil uyumluluk */
+@media (max-width: 768px) {
+  .motto {
+    font-size: 2rem; /* Küçük ekranlarda daha uygun boyut */
+  }
+}
 
+@media (max-width: 480px) {
+  .motto {
+    font-size: 2rem;
+  }
+}
 
 @media (max-width: 768px) {
   .hero h1 {
     font-size: 2.5rem;
+    padding-top: 3rem;
   }
   .hero .motto {
     font-size: 1rem;
   }
+
 }
+
+
+
 
 
 .HomePage_buttons {
@@ -810,6 +885,34 @@ i.fab.fa-linkedin:hover {
   transform: scale(1.1);
 }
 
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  padding: 1rem;
+}
+
+/* Tablet için */
+@media (max-width: 1024px) {
+  .team-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Mobil için */
+@media (max-width: 768px) {
+  .team-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .team-card {
+    text-align: center;
+  }
+
+  .team-photo {
+    margin: 0 auto 1rem auto;
+  }
+}
 
 
 
@@ -1114,9 +1217,11 @@ main h1, .motto, .HomePage_buttons {
   }
 
   .hero h1 {
-    font-size: 1.5rem; /* Başlığı küçült */
+    font-size: 2rem; /* Başlığı küçült */
     text-align: center;
   }
+  
+  
 
   .HomePage_buttons {
     flex-direction: column;
@@ -1158,6 +1263,8 @@ main h1, .motto, .HomePage_buttons {
     font-size: 0.8rem;
   }
 }
+
+
 
 
 /* Arkaplan */
@@ -1232,3 +1339,45 @@ main h1, .motto, .HomePage_buttons {
         min-width: 44px;
       }
     }
+
+    @media (max-width: 768px) {
+    .about-general .events-container{
+      padding-top: 3rem;
+    }
+
+}
+
+/* Hamburger görünümü */
+#hamburger {
+  display: none; /* Masaüstünde gizle */
+  flex-direction: column;
+  cursor: pointer;
+  gap: 5px;
+}
+#hamburger span {
+  width: 25px;
+  height: 3px;
+  background-color: #333;
+  border-radius: 2px;
+}
+
+/* Mobil görünüm */
+@media (max-width: 768px) {
+  #hamburger {
+    display: flex;
+  }
+  #nav-links {
+    display: none;
+    flex-direction: column;
+    gap: 10px;
+  }
+  #nav-links.show {
+    display: flex;
+  }
+}
+
+@media (max-width: 768px) {
+    .about-general h2{
+      padding-top: 3rem;
+    }
+  }
