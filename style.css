@@ -68,7 +68,7 @@ header {
   display: none;
   font-size: 30px;
   cursor: pointer;
-  color: #333;
+  color: #d6d4d4;
   background: none;
   border: none;
   z-index: 1100;
@@ -77,12 +77,20 @@ header {
   .hamburger {
     display: block;
   }
+  header{
+    align-items: center;
+  }
+
+  header nav{
+      justify-content: center;
+      max-width: 70%;
+  }
 
   header nav ul {
+  
     display: none; /* başlangıçta gizli */
     position: absolute;
-    top: 70px;
-    right: 5%;
+    margin-top: 10px;
     background: white;
     flex-direction: column;
     width: 200px;
@@ -1357,7 +1365,7 @@ main h1, .motto, .HomePage_buttons {
 #hamburger span {
   width: 25px;
   height: 3px;
-  background-color: #333;
+  background-color: #ffffff;
   border-radius: 2px;
 }
 
@@ -1372,6 +1380,7 @@ main h1, .motto, .HomePage_buttons {
     gap: 10px;
   }
   #nav-links.show {
+    
     display: flex;
   }
 }
