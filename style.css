@@ -218,15 +218,17 @@ nav a:hover::after {
   border-right: 2px solid white; /* imleç efekti */
   padding-right: 5px;
   font-weight: bold;
-  white-space: nowrap;
+  white-space: normal;
   overflow: hidden;
-}
+  text-align: center;
+  
+  }
 
 
 
 .motto {
-  padding-left: 10rem;
-  padding-right: 10rem;
+  padding-left: 5rem;
+  padding-right: 5rem;
   margin: 20px 0 40px;
   font-size: 50px;
   color: #111111;
@@ -239,13 +241,15 @@ nav a:hover::after {
 /* Mobil uyumluluk */
 @media (max-width: 768px) {
   .motto {
-    font-size: 2rem; /* Küçük ekranlarda daha uygun boyut */
+    font-size: 2.5rem; /* Küçük ekranlarda daha uygun boyut */
+     text-align: center;
   }
 }
 
 @media (max-width: 480px) {
   .motto {
-    font-size: 2rem;
+    font-size: 2.5rem;
+    text-align: center;
   }
 }
 
@@ -417,6 +421,8 @@ nav a:hover::after {
       opacity: 1;
       transform: scale(1.3);     
     }
+
+   
 
 
 @media (max-width: 768px) {
@@ -1255,7 +1261,7 @@ main h1, .motto, .HomePage_buttons {
   }
 
   .hero p.motto {
-    font-size: 0.9rem;
+    font-size: 1.2rem;
   }
 
   .slider img {
@@ -1344,9 +1350,9 @@ main h1, .motto, .HomePage_buttons {
     }
     
     @media (max-width: 768px) {
-      button, .event-btn {
+       .event-btn {
         min-height: 44px;
-        min-width: 44px;
+        min-width: 30px;
       }
     }
 
@@ -1392,3 +1398,28 @@ main h1, .motto, .HomePage_buttons {
       padding-top: 3rem;
     }
   }
+
+   @media (max-width: 768px) {
+  .dot {
+    width: 20px;
+    height: 20px;
+    
+  }
+}
+
+@media (max-width: 768px) {
+ .slider-wrapper {
+      position: relative;
+      width: 100%;
+      margin: 0 auto;
+      overflow: hidden;
+      border-radius: 1rem;
+    }
+
+  .container{
+    padding: 0;
+  }
+}
+
+
+ 
