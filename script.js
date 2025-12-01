@@ -208,6 +208,99 @@ function closePopup() {
 
   typeEffect(); // başlat
 
+// COUNTDOWN TIMER
+function initCountdown() {
+  const countdownElement = document.getElementById('countdown-welcome');
+  if (!countdownElement) return;
+
+  function updateCountdown() {
+    // Hedef tarihi belirle: 7 Aralık 2025, Saat 11:00
+    const targetDate = new Date('December 7, 2025 11:00:00').getTime();
+    const now = new Date().getTime();
+    const difference = targetDate - now;
+
+    // Zaman hesaplamaları
+    const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((difference / 1000 / 60) % 60);
+    const seconds = Math.floor((difference / 1000) % 60);
+
+    // DOM'u güncelle
+    document.getElementById('days-welcome').innerText = days < 10 ? '0' + days : days;
+    document.getElementById('hours-welcome').innerText = hours < 10 ? '0' + hours : hours;
+    document.getElementById('minutes-welcome').innerText = minutes < 10 ? '0' + minutes : minutes;
+    document.getElementById('seconds-welcome').innerText = seconds < 10 ? '0' + seconds : seconds;
+
+    // Eğer zaman bitirse
+    if (difference < 0) {
+      document.getElementById('days-welcome').innerText = '00';
+      document.getElementById('hours-welcome').innerText = '00';
+      document.getElementById('minutes-welcome').innerText = '00';
+      document.getElementById('seconds-welcome').innerText = '00';
+      clearInterval(countdownInterval);
+    }
+  }
+
+  updateCountdown(); // Sayfayı yüklediğinde hemen çalıştır
+  const countdownInterval = setInterval(updateCountdown, 1000); // Her saniyede güncelle
+}
+
+// Sayfa yüklendiğinde countdown'ı başlat
+document.addEventListener('DOMContentLoaded', initCountdown);
+
+// ETKINLIK YÖNETİMİ - Firebase'den etkinlikleri yükle
+function loadEventsFromStorage() {
+  try {
+    // Firebase'den etkinlikleri oku
+    db.collection('events').orderBy('date', 'asc').limit(3).onSnapshot((snapshot) => {
+      const events = [];
+      snapshot.forEach((doc) => {
+        events.push({
+          id: doc.id,
+          ...doc.data()
+        });
+      });
+      
+      const eventsGrid = document.getElementById('eventsGrid');
+      
+      // Eğer etkinlik yoksa hiç bir şey gösterme
+      if (events.length === 0) {
+        eventsGrid.innerHTML = '<p style="color: #666; grid-column: 1/-1; text-align: center; padding: 2rem;">Henüz etkinlik eklenmedi.</p>';
+        return;
+      }
+
+      // Firebase'daki etkinlikleri HTML'e çevir
+      const eventsHTML = events.map(event => `
+        <div class="event-card">
+          ${event.image ? `<img src="${event.image}" loading="lazy" alt="${event.title}">` : '<div style="background: #ddd; height: 300px; display: flex; align-items: center; justify-content: center;">Resim Yok</div>'}
+          <div class="event-content">
+            <h3>${event.title}</h3>
+            <p>${event.description}</p>
+            <span class="event-date">${new Date(event.date).toLocaleString('tr-TR', { 
+              year: 'numeric', 
+              month: 'long', 
+              day: 'numeric',
+              hour: '2-digit',
+              minute: '2-digit'
+            })}</span>
+            <a href="${event.link || 'https://instagram.com/bilkentmec'}" class="event-btn">Detaylar</a>
+          </div>
+        </div>
+      `).join('');
+
+      eventsGrid.innerHTML = eventsHTML;
+      console.log('Firebase\'den etkinlikler yüklendi:', events.length);
+    });
+  } catch (err) {
+    console.error('Etkinlik yükleme hatası:', err);
+  }
+}
+
+// Sayfa yüklendikten sonra etkinlikleri göster (Firebase'nin başlatılmasını bekle)
+document.addEventListener('DOMContentLoaded', function() {
+  setTimeout(loadEventsFromStorage, 500);
+});
+
     
 
 

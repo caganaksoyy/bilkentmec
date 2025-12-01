@@ -17,7 +17,25 @@
     <div class="welcome-box">
       <img class = "welcome-image" src="assets/events/stepforward-new.jpeg"/>
       <h2>StepForward Çok Yakında!🎉</h2>
-      <a class = "welcome-p" href="https://docs.google.com/forms/d/e/1FAIpQLSexxjYDRs3VsBnKCLemA5gWUsb1PbFbcKPMFJ0kUxdhIuDKtg/viewform?usp=dialog" ><p>Bilgi almak için tıkla!</p></a>
+      <div class="countdown" id="countdown-welcome">
+        <div class="countdown-item">
+          <span class="countdown-number" id="days-welcome">0</span>
+          <span class="countdown-label">Gün</span>
+        </div>
+        <div class="countdown-item">
+          <span class="countdown-number" id="hours-welcome">0</span>
+          <span class="countdown-label">Saat</span>
+        </div>
+        <div class="countdown-item">
+          <span class="countdown-number" id="minutes-welcome">0</span>
+          <span class="countdown-label">Dakika</span>
+        </div>
+        <div class="countdown-item">
+          <span class="countdown-number" id="seconds-welcome">0</span>
+          <span class="countdown-label">Saniye</span>
+        </div>
+      </div>
+      <a class = "welcome-p" href="https://www.biletimgo.com/etkinlik/bilkent-mec-stepforward-20380" ><p>Sınırlı sayıda biletler için tıkla!</p></a>
       <button onclick="closePopup()">Kapat</button>
     </div>
   </div>
@@ -33,6 +51,7 @@
                 <li><a href ="#events">Etkinliklerimiz</a></li>
                 <li><a href ="./About.html">Hakkımızda</a></li>
                 <li><a href ="#sponsors">Sponsorlarımız</a></li>
+                <!-- Admin link removed from header to avoid public discovery; admin page is still reachable by direct URL -->
             </ul>
         </nav>
     </header>
@@ -132,40 +151,8 @@
 
     <section id="events" class="events-section fade-in-up">
       <h2>Yaklaşan Etkinliklerimiz</h2>
-      <div class="events-grid">
-        
-        <div class="event-card">
-          <img src="./assets/events/turk-traktor-new.jpeg" loading="lazy" alt="Etkinlik 1">
-          <div class="event-content">
-            <h3>MCT Ankara Türk Traktör</h3>
-            <p>MEC Career Trip ile Ankara Türk Traktör ziyareti.</p>
-            <span class="event-date">01 Eki 2025</span>
-            <a href="https://instagram.com/bilkentmec" class="event-btn">Detaylar</a>
-          </div>
-        </div>
-
-        <div class="event-card">
-          <img src="./assets/events/MCTIstanbul.jpeg" loading="lazy" alt="Etkinlik 2">
-          <div class="event-content">
-            <h3>MCT Istanbul</h3>
-            <p>MEC Career Trip ile Istanbul.</p>
-            <span class="event-date">17-18 Eki 2025</span>
-            <a href="https://instagram.com/bilkentmec" class="event-btn">Detaylar</a>
-          </div>
-        </div>
-
-         <div class="event-card">
-          <img src="./assets/events/stepforward-new.jpeg" loading="lazy" alt="Etkinlik 3">
-          <div class="event-content">
-            <h3>StepForward</h3>
-            <p>Türkiye’nin önde gelen isimlerini öğrencilerle buluşturan geniş katılımlı bir konferans serisi.</p>
-            <span class="event-date">6 Ara 2025</span>
-            <a href="https://instagram.com/bilkentmec" class="event-btn">Detaylar</a>
-          </div>
-        </div>
-
-    
-
+      <div class="events-grid" id="eventsGrid">
+        <!-- Etkinlikler buraya dinamik olarak eklenecek -->
       </div>
       <a href="Etkinliklerimiz.html"><button class="red-button">Tüm Etkinlikler</button></a>
 </section>
@@ -248,6 +235,27 @@
     
 
 
+
+<!-- Firebase SDK (v8 CDN - exposes global `firebase`) -->
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+<script>
+  // Firebase Config
+  const firebaseConfig = {
+    apiKey: "AIzaSyBl2kj0jv7ygo4o6XR03nOf4Pr1rWpKMO8",
+    authDomain: "bilkentmec-b2e41.firebaseapp.com",
+    projectId: "bilkentmec-b2e41",
+    storageBucket: "bilkentmec-b2e41.firebasestorage.app",
+    messagingSenderId: "487196460894",
+    appId: "1:487196460894:web:afac01f54c496fc4de71cf",
+    measurementId: "G-JZW2WY854K"
+  };
+
+  // Firebase Initialize (must run before main scripts)
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
+  console.log('Firebase initialized on index.html', typeof firebase, db ? 'db ok' : 'no db');
+</script>
 
 <script src="./script.js"></script>
 <script src="./hamburger.js"></script>
