@@ -253,8 +253,8 @@
 
   // Firebase Initialize (must run before main scripts)
   firebase.initializeApp(firebaseConfig);
-  const db = firebase.firestore();
-  console.log('Firebase initialized on index.html', typeof firebase, db ? 'db ok' : 'no db');
+  window.db = firebase.firestore(); // Make db global so script.js can access it
+  console.log('✅ Firebase initialized on index.html', typeof firebase, window.db ? 'window.db ok' : 'no db');
 </script>
 
 <script src="./script.js"></script>

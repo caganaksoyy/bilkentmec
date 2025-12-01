@@ -211,7 +211,12 @@ function closePopup() {
 // COUNTDOWN TIMER
 function initCountdown() {
   const countdownElement = document.getElementById('countdown-welcome');
-  if (!countdownElement) return;
+  if (!countdownElement) {
+    console.warn('Countdown element not found');
+    return;
+  }
+
+  let countdownInterval; // Declare in outer scope so clearInterval works
 
   function updateCountdown() {
     // Hedef tarihi belirle: 7 Aralık 2025, Saat 11:00
@@ -237,12 +242,13 @@ function initCountdown() {
       document.getElementById('hours-welcome').innerText = '00';
       document.getElementById('minutes-welcome').innerText = '00';
       document.getElementById('seconds-welcome').innerText = '00';
-      clearInterval(countdownInterval);
+      if (countdownInterval) clearInterval(countdownInterval);
     }
   }
 
   updateCountdown(); // Sayfayı yüklediğinde hemen çalıştır
-  const countdownInterval = setInterval(updateCountdown, 1000); // Her saniyede güncelle
+  countdownInterval = setInterval(updateCountdown, 1000); // Her saniyede güncelle
+  console.log('✅ Countdown timer initialized');
 }
 
 // Sayfa yüklendiğinde countdown'ı başlat
@@ -250,9 +256,17 @@ document.addEventListener('DOMContentLoaded', initCountdown);
 
 // ETKINLIK YÖNETİMİ - Firebase'den etkinlikleri yükle
 function loadEventsFromStorage() {
+  // Defensive check: wait for db to be defined (check window.db since we make it global in index.html)
+  if (typeof window.db === 'undefined') {
+    console.warn('⚠️ Firebase db not initialized yet, retrying in 500ms...');
+    setTimeout(loadEventsFromStorage, 500);
+    return;
+  }
+
   try {
+    console.log('📂 Loading events from Firebase...');
     // Firebase'den etkinlikleri oku
-    db.collection('events').orderBy('date', 'asc').limit(3).onSnapshot((snapshot) => {
+    window.db.collection('events').orderBy('date', 'asc').limit(3).onSnapshot((snapshot) => {
       const events = [];
       snapshot.forEach((doc) => {
         events.push({
@@ -266,6 +280,7 @@ function loadEventsFromStorage() {
       // Eğer etkinlik yoksa hiç bir şey gösterme
       if (events.length === 0) {
         eventsGrid.innerHTML = '<p style="color: #666; grid-column: 1/-1; text-align: center; padding: 2rem;">Henüz etkinlik eklenmedi.</p>';
+        console.log('ℹ️ No events found in Firebase');
         return;
       }
 
@@ -289,16 +304,17 @@ function loadEventsFromStorage() {
       `).join('');
 
       eventsGrid.innerHTML = eventsHTML;
-      console.log('Firebase\'den etkinlikler yüklendi:', events.length);
+      console.log('✅ Firebase events loaded:', events.length);
     });
   } catch (err) {
-    console.error('Etkinlik yükleme hatası:', err);
+    console.error('❌ Event loading error:', err);
   }
 }
 
 // Sayfa yüklendikten sonra etkinlikleri göster (Firebase'nin başlatılmasını bekle)
 document.addEventListener('DOMContentLoaded', function() {
-  setTimeout(loadEventsFromStorage, 500);
+  console.log('📍 DOMContentLoaded fired, checking Firebase...');
+  setTimeout(loadEventsFromStorage, 100);
 });
 
     
