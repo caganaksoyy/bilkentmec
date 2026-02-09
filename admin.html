@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="tr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -26,7 +27,7 @@
             background: white;
             padding: 3rem;
             border-radius: 15px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
             max-width: 400px;
             width: 100%;
             text-align: center;
@@ -120,7 +121,7 @@
         }
 
         .logout-btn {
-            background: rgba(255,255,255,0.2);
+            background: rgba(255, 255, 255, 0.2);
             color: white;
             border: 2px solid white;
             padding: 10px 20px;
@@ -172,7 +173,7 @@
             background: white;
             padding: 2rem;
             border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
 
         .tab-content.active {
@@ -366,13 +367,14 @@
         }
     </style>
 </head>
+
 <body>
     <!-- Login Section -->
     <div class="login-container" id="loginContainer">
         <h1>🔐 Admin Panel</h1>
         <p>Bilkent MEC Admin Paneline Hoş Geldiniz</p>
         <form class="login-form" id="loginForm">
-                <input type="password" id="passwordInput" placeholder="Şifreyi girin" required autocomplete="new-password">
+            <input type="password" id="passwordInput" placeholder="Şifreyi girin" required autocomplete="new-password">
             <button type="submit">Giriş Yap</button>
             <div class="error-message" id="errorMessage">Hatalı şifre!</div>
         </form>
@@ -398,7 +400,7 @@
             <!-- Events Tab -->
             <div id="events" class="tab-content active">
                 <h2>Etkinlikler Yönetimi</h2>
-                
+
                 <div style="margin: 2rem 0; padding: 2rem; background: #f0f0f0; border-radius: 10px;">
                     <h3>Yeni Etkinlik Ekle</h3>
                     <form id="eventForm">
@@ -408,7 +410,8 @@
                         </div>
                         <div class="form-group">
                             <label>Açıklama</label>
-                            <textarea id="eventDescription" placeholder="Etkinlik hakkında açıklama" required></textarea>
+                            <textarea id="eventDescription" placeholder="Etkinlik hakkında açıklama"
+                                required></textarea>
                         </div>
                         <div class="form-group">
                             <label>Tarih ve Saat</label>
@@ -436,7 +439,21 @@
             <!-- Sponsors Tab -->
             <div id="sponsors" class="tab-content">
                 <h2>Sponsorlar Yönetimi</h2>
-                
+
+                <div
+                    style="margin: 2rem 0; padding: 2rem; background: #e8f4fd; border-radius: 10px; border: 1px solid #b6e0fe;">
+                    <h3>Sponsor Gruplarını Yönet</h3>
+                    <div style="display: flex; gap: 10px; margin-bottom: 1rem;">
+                        <input type="text" id="newGroupName" placeholder="Yeni Grup Adı (örn: Platin Sponsorlar)"
+                            style="flex: 1;">
+                        <button type="button" class="btn-primary" onclick="addSponsorGroup()">Grup Ekle</button>
+                    </div>
+                    <div id="groupList" style="display: flex; flex-wrap: wrap; gap: 10px;">
+                        <!-- Grupler buraya dinamik gelecek -->
+                        <span style="color: #666;">Yükleniyor...</span>
+                    </div>
+                </div>
+
                 <div style="margin: 2rem 0; padding: 2rem; background: #f0f0f0; border-radius: 10px;">
                     <h3>Yeni Sponsor Ekle</h3>
                     <form id="sponsorForm">
@@ -447,9 +464,7 @@
                         <div class="form-group">
                             <label>Sponsor Grubu</label>
                             <select id="sponsorGroup" required>
-                                <option value="">Seç...</option>
-                                <option value="MBS">MBS</option>
-                                <option value="StepForward">StepForward</option>
+                                <option value="">Yükleniyor...</option>
                             </select>
                         </div>
                         <div class="form-group">
@@ -513,9 +528,9 @@
         // Firebase Initialize
         firebase.initializeApp(firebaseConfig);
         window.db = firebase.firestore(); // Make db global
-        
+
         console.log('Firebase initialized!', window.db);
-        
+
         // Cloudinary Config
         const cloudinaryConfig = {
             cloudName: 'dud2jiqap',
@@ -526,7 +541,7 @@
         let isLoggedIn = false;
 
         // Sayfanın en başında localStorage'ı kontrol et ve temizle
-        window.addEventListener('load', function() {
+        window.addEventListener('load', function () {
             console.log('Admin panel yükleniyor...');
             console.log('localStorage adminLoggedIn:', localStorage.getItem('adminLoggedIn'));
             // İlk ziyarette localStorage'ı temizle
@@ -538,12 +553,12 @@
         });
 
         // Login Handler
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
+        document.getElementById('loginForm').addEventListener('submit', function (e) {
             e.preventDefault();
             const passwordInput = document.getElementById('passwordInput');
             const password = passwordInput.value;
-            
-            
+
+
             if (password === ADMIN_PASSWORD) {
                 console.log('✅ Login başarılı!');
                 isLoggedIn = true;
@@ -562,7 +577,7 @@
         });
 
         // Check if already logged in
-        window.addEventListener('load', function() {
+        window.addEventListener('load', function () {
             if (localStorage.getItem('adminLoggedIn') === 'true') {
                 isLoggedIn = true;
                 document.getElementById('loginContainer').style.display = 'none';
@@ -593,8 +608,8 @@
         // Cloudinary Upload Handler
         function uploadToCloudinary(inputId, previewId) {
             const input = document.getElementById(inputId);
-            
-            input.addEventListener('change', async function(e) {
+
+            input.addEventListener('change', async function (e) {
                 const file = e.target.files[0];
                 if (!file) return;
 
@@ -618,13 +633,13 @@
 
                     const data = await response.json();
                     console.log('Upload başarılı:', data.secure_url);
-                    
+
                     // Hidden input ile URL'i saklayalım
                     const existingInput = preview.querySelector('.imageUrl');
                     if (existingInput) {
                         existingInput.remove();
                     }
-                    
+
                     preview.innerHTML = `
                         <img src="${data.secure_url}" alt="preview" style="max-width: 200px; max-height: 200px; border-radius: 8px;">
                         <input type="hidden" class="imageUrl" value="${data.secure_url}">
@@ -640,13 +655,191 @@
         uploadToCloudinary('eventImage', 'eventImagePreview');
         uploadToCloudinary('sponsorImage', 'sponsorImagePreview');
 
-        // Add Event
-        document.getElementById('eventForm').addEventListener('submit', async function(e) {
+        // SPONSOR GRUP YÖNETİMİ
+        const SETTINGS_DOC_ID = 'site_metadata'; // Tek bir döküman altında tutacağız
+
+        async function loadSponsorGroups() {
+            const groupSelect = document.getElementById('sponsorGroup');
+            const groupList = document.getElementById('groupList');
+
+            if (!groupSelect || !groupList) return;
+
+            try {
+                const doc = await window.db.collection('settings').doc(SETTINGS_DOC_ID).get();
+                let groups = [];
+
+                if (doc.exists && doc.data().sponsorGroups) {
+                    groups = doc.data().sponsorGroups;
+                } else {
+                    // İlk kez çalışıyorsa varsayılanları ekle
+                    groups = ['Investment Weekend', 'StepForward'];
+                    await window.db.collection('settings').doc(SETTINGS_DOC_ID).set({ sponsorGroups: groups }, { merge: true });
+                }
+
+                // Dropdown'u doldur
+                groupSelect.innerHTML = '<option value="">Seç...</option>' +
+                    groups.map(g => `<option value="${g}">${g}</option>`).join('');
+
+                // Yönetim listesini doldur
+                groupList.innerHTML = groups.map(g => `
+                    <div style="background: white; padding: 5px 10px; border-radius: 5px; border: 1px solid #ccc; display: flex; align-items: center; gap: 5px;">
+                        <span>${g}</span>
+                        <button onclick="renameSponsorGroup('${g}')" style="background: none; border: none; color: blue; cursor: pointer; font-weight: bold;" title="Yeniden Adlandır">✎</button>
+                        <button onclick="deleteSponsorGroup('${g}')" style="background: none; border: none; color: red; cursor: pointer; font-weight: bold;" title="Sil">✕</button>
+                    </div>
+                `).join('');
+
+            } catch (error) {
+                console.error("Grup yükleme hatası:", error);
+                groupList.innerHTML = '<span style="color:red">Hata oluştu</span>';
+            }
+        }
+
+        async function addSponsorGroup() {
+            const input = document.getElementById('newGroupName');
+            const newGroup = input.value.trim();
+
+            if (!newGroup) return alert("Lütfen bir grup adı yazın.");
+
+            try {
+                await window.db.collection('settings').doc(SETTINGS_DOC_ID).set({
+                    sponsorGroups: firebase.firestore.FieldValue.arrayUnion(newGroup)
+                }, { merge: true });
+                input.value = ''; // Temizle
+                loadSponsorGroups(); // Listeyi yenile
+                alert("Grup eklendi!");
+            } catch (error) {
+                console.error("Grup ekleme hatası:", error);
+
+                alert("Hata oluştu: " + error.message);
+            }
+        }
+
+        window.deleteSponsorGroup = async function (groupName) {
+            if (!confirm(`"${groupName}" grubunu silmek istediğine emin misin?`)) return;
+
+            try {
+                await window.db.collection('settings').doc(SETTINGS_DOC_ID).update({
+                    sponsorGroups: firebase.firestore.FieldValue.arrayRemove(groupName)
+                });
+                loadSponsorGroups(); // Listeyi yenile
+            } catch (error) {
+                console.error("Grup silme hatası:", error);
+                alert("Silinirken hata oluştu.");
+            }
+        };
+
+
+        // Login başarılı olduğunda veya sayfa yüklendiğinde verileri çek
+        function loadData() {
+            loadEvents();
+            loadSponsors();
+            loadSponsorGroups(); // Grupları da yükle
+
+            // Site ayarlarını da yükle (mevcut kodun devamı olabilir)
+            const siteTitle = document.getElementById('siteTitle');
+            if (siteTitle) {
+                const savedTitle = localStorage.getItem('siteTitle');
+                if (savedTitle) siteTitle.value = savedTitle;
+            }
+        }
+
+
+
+
+
+        async function addSponsorGroup() {
+            const input = document.getElementById('newGroupName');
+            const newGroup = input.value.trim();
+
+            if (!newGroup) return alert("Lütfen bir grup adı yazın.");
+
+            try {
+                await window.db.collection('settings').doc(SETTINGS_DOC_ID).set({
+                    sponsorGroups: firebase.firestore.FieldValue.arrayUnion(newGroup)
+                }, { merge: true });
+                input.value = ''; // Temizle
+                loadSponsorGroups(); // Listeyi yenile
+                alert("Grup eklendi!");
+            } catch (error) {
+                console.error("Grup ekleme hatası:", error);
+                // Eğer döküman yoksa update hata verebilir, set ile deneyelim (fakat loadSponsorGroups zaten oluşturmalı)
+                alert("Hata oluştu: " + error.message);
+            }
+        }
+
+        async function renameSponsorGroup(oldName) {
+            const newName = prompt(`"${oldName}" grubunun yeni adını girin:`, oldName);
+            if (!newName || newName === oldName) return;
+
+            try {
+                // 1. Ayarları güncelle (eskiyi sil, yeniyi ekle - aslında dizide replace yapmak daha iyi)
+                const settingsRef = window.db.collection('settings').doc(SETTINGS_DOC_ID);
+                const doc = await settingsRef.get();
+                if (!doc.exists) return;
+
+                let groups = doc.data().sponsorGroups || [];
+                const index = groups.indexOf(oldName);
+                if (index !== -1) {
+                    groups[index] = newName; // Yerinde güncelle (sıralamayı koru)
+                    await settingsRef.update({ sponsorGroups: groups });
+                }
+
+                // 2. Bu gruba ait sponsorları güncelle
+                const sponsorsRef = window.db.collection('sponsors');
+                const snapshot = await sponsorsRef.where('group', '==', oldName).get();
+
+                // Batch update (max 500 operations)
+                const batch = window.db.batch();
+                snapshot.forEach(doc => {
+                    batch.update(doc.ref, { group: newName });
+                });
+                await batch.commit();
+
+                alert("Grup ismi ve ilgili sponsorlar güncellendi!");
+                loadSponsorGroups();
+                loadSponsors(); // Listeyi yenile
+            } catch (error) {
+                console.error("Grup güncelleme hatası:", error);
+                alert("Hata: " + error.message);
+            }
+        }
+        window.renameSponsorGroup = renameSponsorGroup;
+
+        window.deleteSponsorGroup = async function (groupName) {
+            if (!confirm(`"${groupName}" grubunu silmek istediğine emin misin?`)) return;
+
+            try {
+                await window.db.collection('settings').doc(SETTINGS_DOC_ID).update({
+                    sponsorGroups: firebase.firestore.FieldValue.arrayRemove(groupName)
+                });
+                loadSponsorGroups(); // Listeyi yenile
+            } catch (error) {
+                console.error("Grup silme hatası:", error);
+                alert("Silinirken hata oluştu.");
+            }
+        };
+
+
+        // Login başarılı olduğunda veya sayfa yüklendiğinde verileri çek
+        function loadData() {
+            loadEvents();
+            loadSponsors();
+            loadSponsorGroups(); // Grupları da yükle
+
+            // Site ayarlarını da yükle (mevcut kodun devamı olabilir)
+            const siteTitle = document.getElementById('siteTitle');
+            if (siteTitle) {
+                const savedTitle = localStorage.getItem('siteTitle');
+                if (savedTitle) siteTitle.value = savedTitle;
+            }
+        }
+        document.getElementById('eventForm').addEventListener('submit', async function (e) {
             e.preventDefault();
-            
+
             const imageUrlInput = document.querySelector('#eventImagePreview .imageUrl');
             const imageUrl = imageUrlInput ? imageUrlInput.value : '';
-            
+
             const eventData = {
                 title: document.getElementById('eventTitle').value,
                 description: document.getElementById('eventDescription').value,
@@ -660,7 +853,7 @@
                 // Firebase'e kaydet
                 await db.collection('events').add(eventData);
                 console.log('Firebase\'ye kaydedildi:', eventData);
-                
+
                 showSuccess();
                 document.getElementById('eventForm').reset();
                 document.getElementById('eventImagePreview').innerHTML = '';
@@ -672,17 +865,17 @@
         });
 
         // Add Sponsor
-        document.getElementById('sponsorForm').addEventListener('submit', async function(e) {
+        document.getElementById('sponsorForm').addEventListener('submit', async function (e) {
             e.preventDefault();
-            
+
             const imageUrlInput = document.querySelector('#sponsorImagePreview .imageUrl');
             const imageUrl = imageUrlInput ? imageUrlInput.value : '';
-            
+
             if (!imageUrl) {
                 alert('Lütfen sponsor logosunu yükleyin!');
                 return;
             }
-            
+
             const sponsorData = {
                 name: document.getElementById('sponsorName').value,
                 group: document.getElementById('sponsorGroup').value,
@@ -694,7 +887,7 @@
                 // Firebase'e kaydet
                 await db.collection('sponsors').add(sponsorData);
                 console.log('Firebase\'ye kaydedildi:', sponsorData);
-                
+
                 showSuccess();
                 document.getElementById('sponsorForm').reset();
                 document.getElementById('sponsorImagePreview').innerHTML = '';
@@ -720,7 +913,7 @@
                     console.log('Firebase\'den etkinlikler yüklendi:', events.length);
 
                     const eventsList = document.getElementById('eventsList');
-                    
+
                     if (events.length === 0) {
                         eventsList.innerHTML = '<p style="color: #666;">Henüz etkinlik eklenmedi.</p>';
                         return;
@@ -759,7 +952,7 @@
                     console.log('Firebase\'den sponsorlar yüklendi:', sponsors.length);
 
                     const sponsorsList = document.getElementById('sponsorsList');
-                    
+
                     if (sponsors.length === 0) {
                         sponsorsList.innerHTML = '<p style="color: #666;">Henüz sponsor eklenmedi.</p>';
                         return;
@@ -831,4 +1024,5 @@
         }
     </script>
 </body>
+
 </html>

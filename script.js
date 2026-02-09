@@ -177,10 +177,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function closePopup() {
-  const popup = document.getElementById("welcomepopup");
-  if (popup) {
-    popup.style.display = "none";
-  }
+  document.getElementById("welcomepopup").style.display = "none";
 }
 
 const highlight = document.getElementById("highlight-text");
@@ -459,7 +456,13 @@ function loadAllEventsPage() {
 }
 
 // SPONSOR YÖNETİMİ - Firebase'den sponsorları yükle
+// SPONSOR YÖNETİMİ - Firebase'den sponsorları yükle
 function loadSponsorsFromStorage() {
+  const container = document.getElementById('dynamic-sponsors-container');
+  // Admin panelde bu container yoksa, eski id'leri de kontrol etmemize gerek yok çünkü admin panelde liste farklı yükleniyor.
+  // Ancak admin panelinde "Mevcut Sponsorlar" listesi var, o ayrı. Bu fonksiyon sadece index.html için.
+  if (!container) return;
+
   if (typeof window.db === 'undefined') {
     setTimeout(loadSponsorsFromStorage, 500);
     return;
@@ -476,48 +479,60 @@ function loadSponsorsFromStorage() {
         });
       });
 
-      console.log('📦 Indirilen sponsorlar:', sponsors); // DEBUG LOG
+      console.log('📦 Indirilen sponsorlar:', sponsors);
 
-      const mbsGrid = document.getElementById('mbs-sponsors');
-      const stepGrid = document.getElementById('stepforward-sponsors');
+      if (sponsors.length === 0) {
+        container.innerHTML = '<p style="text-align: center; color: #666;">Henüz sponsor eklenmedi.</p>';
+        return;
+      }
 
-
-      let mbsHTML = '';
-      let stepHTML = '';
-
-      // Gruplara ayır
+      // 1. Gruplara Ayır
+      // groups = { "Ana Sponsorlar": [obj, obj], "Medya": [obj] }
+      const groups = {};
       sponsors.forEach(sponsor => {
-        const cardHTML = `
-          <div class="sponsor-card">
-            ${sponsor.image ? `<img src="${sponsor.image}" loading="lazy" alt="${sponsor.name}">` : '<div style="display:flex;align-items:center;justify-content:center;height:100%;width:100%;color:#ccc;">Logo Yok</div>'}
-          </div>
-        `;
-
-        if (sponsor.group === 'MBS') {
-          mbsHTML += cardHTML;
-        } else if (sponsor.group === 'StepForward') {
-          stepHTML += cardHTML;
+        const groupName = sponsor.group || 'Diğer'; // Grup yoksa "Diğer"
+        if (!groups[groupName]) {
+          groups[groupName] = [];
         }
+        groups[groupName].push(sponsor);
       });
 
-      // HTML'e bas
-      if (mbsGrid) {
-        mbsGrid.innerHTML = mbsHTML || '<p style="grid-column: 1/-1; text-align: center; color: #666;">Henüz MBS sponsoru eklenmedi.</p>';
-      }
+      // 2. HTML Üret
+      let finalHTML = '';
 
-      if (stepGrid) {
-        stepGrid.innerHTML = stepHTML || '<p style="grid-column: 1/-1; text-align: center; color: #666;">Henüz StepForward sponsoru eklenmedi.</p>';
-      }
+      // Grupları döngüye al
+      Object.keys(groups).forEach(groupName => {
+        const groupSponsors = groups[groupName];
 
-      console.log('✅ Firebase sponsors loaded:', sponsors.length);
+        // Başlık
+        finalHTML += `<h2>${groupName}</h2>`;
+
+        // Grid Başlangıcı
+        finalHTML += `<div class="sponsors-grid">`;
+
+        // Kartlar
+        groupSponsors.forEach(sponsor => {
+          finalHTML += `
+            <div class="sponsor-card">
+              ${sponsor.image ? `<img src="${sponsor.image}" loading="lazy" alt="${sponsor.name}">` : '<div style="display:flex;align-items:center;justify-content:center;height:100%;width:100%;color:#ccc;">Logo Yok</div>'}
+            </div>
+          `;
+        });
+
+        // Grid Bitişi
+        finalHTML += `</div><br>`;
+      });
+
+      container.innerHTML = finalHTML;
+      console.log('✅ Firebase sponsors loaded & grouped:', Object.keys(groups));
+    }, (error) => {
+      console.error("❌ Sponsor snapshot error:", error);
+      container.innerHTML = '<p style="color:red; text-align:center">Sponsorlar yüklenirken hata oluştu.</p>';
     });
   } catch (err) {
     console.error('❌ Sponsor loading error:', err);
   }
 }
-
-
-
 
 
 
