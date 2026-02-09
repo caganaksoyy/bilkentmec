@@ -1,22 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./style.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="icon" href="./assets/mec_logo400x174.png" type="image/x-icon">
-    <title>Bilkent MEC - Bilkent University Management and Economics Community</title>
-    <meta name="description" content="Bilkent MEC Resmi Sayfası">
-    
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@400;600;700&display=swap"
+    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="icon" href="./assets/mec_logo400x174.png" type="image/x-icon">
+  <title>Bilkent MEC - Bilkent University Management and Economics Community</title>
+  <meta name="description" content="Bilkent MEC Resmi Sayfası">
+
 </head>
+
 <body>
 
-   <div class="welcome-overlay" id="welcomepopup">
+  <div class="welcome-overlay" id="welcomepopup">
     <div class="welcome-box">
-      <img class = "welcome-image" src="assets/events/stepforward-new.jpeg"/>
-      <h2>StepForward Çok Yakında!🎉</h2>
+      <img class="welcome-image" src="assets/events/investmentw.png" />
+      <h2>Investment Weekend Çok Yakında!🎉</h2>
       <div class="countdown" id="countdown-welcome">
         <div class="countdown-item">
           <span class="countdown-number" id="days-welcome">0</span>
@@ -35,229 +38,197 @@
           <span class="countdown-label">Saniye</span>
         </div>
       </div>
-      <a class = "welcome-p" href="https://www.biletimgo.com/etkinlik/bilkent-mec-stepforward-20380" ><p>Sınırlı sayıda biletler için tıkla!</p></a>
+
+      <!--
+      <a class="welcome-p" href="https://www.biletimgo.com/etkinlik/bilkent-mec-stepforward-20380">
+        <p>Sınırlı sayıda biletler için tıkla!</p>
+      </a>
+      -->
       <button onclick="closePopup()">Kapat</button>
     </div>
   </div>
 
-    <!--Header-->
-    <header>
-        <a href = "index.html"><img class ="navigatorLogo" src="./assets/mecwhite.png" loading="lazy"/></a>
-        <div class="hamburger" id="hamburger">☰</div>
 
-        <nav>
-            <ul class = "nav-links">
-                <li><a href="./index.html">Anasayfa</a></li>
-                <li><a href ="#events">Etkinliklerimiz</a></li>
-                <li><a href ="./About.html">Hakkımızda</a></li>
-                <li><a href ="#sponsors">Sponsorlarımız</a></li>
-                <!-- Admin link removed from header to avoid public discovery; admin page is still reachable by direct URL -->
-            </ul>
-        </nav>
-    </header>
+  <!--Header-->
+  <header>
+    <a href="index.html"><img class="navigatorLogo" src="./assets/mecwhite.png" loading="lazy" /></a>
+    <div class="hamburger" id="hamburger">☰</div>
 
-    <main>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="./index.html">Anasayfa</a></li>
+        <li><a href="#events">Etkinliklerimiz</a></li>
+        <li><a href="./About.html">Hakkımızda</a></li>
+        <li><a href="#sponsors">Sponsorlarımız</a></li>
+        <!-- Admin link removed from header to avoid public discovery; admin page is still reachable by direct URL -->
+      </ul>
+    </nav>
+  </header>
 
-      <!--Anasayfa -->
-  <section class="hero">
-  <div class="overlay"></div>
-  <div class="content">
-    <h1>Bilkent Üniversitesi</h1>
-    <h1 class ="high">
-      <span class="highlight" id="highlight-text"></span>
-    </h1>
+  <main>
 
-    <div class="HomePage_buttons">
-      <a href="#events"><button>Etkinliklerimiz</button></a>
-      <a href="#about"><button class="red">Bizi Tanıyın!</button></a>
-    </div>
-  </div>
-</section>
+    <!--Anasayfa -->
+    <section class="hero">
+      <div class="overlay"></div>
+      <div class="content">
+        <h1>Bilkent Üniversitesi</h1>
+        <h1 class="high">
+          <span class="highlight" id="highlight-text"></span>
+        </h1>
+
+        <div class="HomePage_buttons">
+          <a href="#events"><button>Etkinliklerimiz</button></a>
+          <a href="#about"><button class="red">Bizi Tanıyın!</button></a>
+        </div>
+      </div>
+    </section>
 
 
 
-      <section class="normalContent">
-        <p class="motto">Yaratıcı ruh, profesyonel iş.
-        </p>
+    <section class="normalContent">
+      <p class="motto">Yaratıcı ruh, profesyonel iş.
+      </p>
 
-        <section class ="container">
-            <div class = "slider-wrapper">
-              <div class = "slider" id="slider">
-                <div class="slide"><a href="#events"><img src="./assets/events/etkinlik1.jpeg" loading="lazy"></a></div>
-                <div class="slide"><a href="#events"><img src="./assets/events/shell.jpeg" loading="lazy"></a></div>
-                <div class="slide"><a href="#events"><img src="./assets/events/vodafone1.jpeg" loading="lazy"></a></div>
-                <div class="slide"><a href="#events"><img src="./assets/events/etkinlik4.png" loading="lazy"></a></div>
-                <div class="slide"><a href="#events"><img src="./assets/events/etkinlik5.png" loading="lazy"></a></div>
-                <div class="slide"><a href="#events"><img src="./assets/events/etkinlik6.png" loading="lazy"></a></div>
-              </div>
+      <section class="container">
+        <div class="slider-wrapper">
+          <div class="slider" id="slider">
+            <div class="slide"><a href="#events"><img src="./assets/events/etkinlik1.jpeg" loading="lazy"></a></div>
+            <div class="slide"><a href="#events"><img src="./assets/events/shell.jpeg" loading="lazy"></a></div>
+            <div class="slide"><a href="#events"><img src="./assets/events/vodafone1.jpeg" loading="lazy"></a></div>
+            <div class="slide"><a href="#events"><img src="./assets/events/etkinlik4.png" loading="lazy"></a></div>
+            <div class="slide"><a href="#events"><img src="./assets/events/etkinlik5.png" loading="lazy"></a></div>
+            <div class="slide"><a href="#events"><img src="./assets/events/vodafone1.jpeg" loading="lazy"></a></div>
+          </div>
 
           <div class="slider-nav">
-              <button class="dot" data-index="0"></button>
-              <button class="dot" data-index="1"></button>
-              <button class="dot" data-index="2"></button>
-              <button class="dot" data-index="3"></button>
-              <button class="dot" data-index="4"></button>
-              <button class="dot" data-index="5"></button>
-         
-           
-          </div>  
+            <button class="dot" data-index="0"></button>
+            <button class="dot" data-index="1"></button>
+            <button class="dot" data-index="2"></button>
+            <button class="dot" data-index="3"></button>
+            <button class="dot" data-index="4"></button>
+            <button class="dot" data-index="5"></button>
+
+
+          </div>
 
           <button class="slider-btn left" id="btn-left">&#10094;</button>
           <button class="slider-btn right" id="btn-right">&#10095;</button>
         </div>
-    </section>
+      </section>
 
-    <div class="about-wrapper">
-      <div id="about" class = "about-general">
+      <div class="about-wrapper">
+        <div id="about" class="about-general">
 
-        <div class="about-content">
-          <h3 class ="since fade-in-up">1988'den bugüne</h2>
-          <h2 class="fade-in-up">MEC Bilkent</h2>
-          <div class = "about-above fade-in-up">
-            <img src ="assets/mec_logo400x174.png" loading="lazy"/>
-            <p>
-              İşletme ve Ekonomi Topluluğu (MEC), 1988 yılında kurulmuş olup Bilkent Üniversitesi’nin en köklü ve aktif öğrenci kulüplerinden biridir. Kurulduğumuz günden bu yana misyonumuz, öğrencilerin kariyer yolculuklarına rehberlik etmek, onları iş dünyasıyla buluşturmak ve profesyonel gelişimlerine katkı sağlamaktır.
-            </p>
+          <div class="about-content">
+            <h3 class="since fade-in-up">1988'den bugüne</h2>
+              <h2 class="fade-in-up">MEC Bilkent</h2>
+              <div class="about-above fade-in-up">
+                <img src="assets/mec_logo400x174.png" loading="lazy" />
+                <p>
+                  İşletme ve Ekonomi Topluluğu (MEC), 1988 yılında kurulmuş olup Bilkent Üniversitesi’nin en köklü ve
+                  aktif öğrenci kulüplerinden biridir. Kurulduğumuz günden bu yana misyonumuz, öğrencilerin kariyer
+                  yolculuklarına rehberlik etmek, onları iş dünyasıyla buluşturmak ve profesyonel gelişimlerine katkı
+                  sağlamaktır.
+                </p>
+              </div>
+              <p class="fade-in-up">
+                Amacımız, öğrencilere kariyer yolculuklarında rehberlik etmek ve onlara iş dünyasına dair bir vizyon
+                kazandırmaktır.
+                Bu doğrultuda düzenlediğimiz etkinlikler:
+                Şirket turları
+                Konferanslar
+                Vaka çalışmaları ve seminerler
+                Etkinliklerimiz sayesinde:
+                Öğrenciler profesyonel dünyayla doğrudan etkileşim kurma fırsatı bulur.
+                Şirketler, nitelikli ve istekli öğrencilerle tanışma ve kendilerini tanıtma fırsatı bulur.
+              </p>
           </div>
-            <p class="fade-in-up">
-              Amacımız, öğrencilere kariyer yolculuklarında rehberlik etmek ve onlara iş dünyasına dair bir vizyon kazandırmaktır.
-              Bu doğrultuda düzenlediğimiz etkinlikler:
-              Şirket turları
-              Konferanslar
-              Vaka çalışmaları ve seminerler
-              Etkinliklerimiz sayesinde:
-              Öğrenciler profesyonel dünyayla doğrudan etkileşim kurma fırsatı bulur.
-              Şirketler, nitelikli ve istekli öğrencilerle tanışma ve kendilerini tanıtma fırsatı bulur.
-            </p>
+
+          <ul class="fade-in-right">
+            <li><span class="list-emogy">🎯</span><br>Son 5 yılda <br>
+              <span class="counter" data-target="1000">0</span>+ üye
+            </li>
+            <li><span class="list-emogy">🎓</span><br>3 Ana Başlıkta <br>
+              <span class="counter" data-target="237">0</span>
+              etkinlik
+            </li>
+            <li><span class="list-emogy">🌍</span><br>Uluslararası<br> Amsterdam ve Londra ziyaretleri</li>
+            <li><span class="list-emogy">💼</span><br>
+              <span class="counter" data-target="10000">0</span>+ <br>katılımcı
+            </li>
+          </ul>
+
+          <a href="About.html"><button class="red-button">Daha Fazla Öğren</button></a>
         </div>
 
-        <ul class="fade-in-right">
-          <li><span class="list-emogy">🎯</span><br>Son 5 yılda <br>
-          <span class="counter" data-target="1000">0</span>+ üye</li>
-          <li><span class="list-emogy">🎓</span><br>3 Ana Başlıkta <br>
-            <span class="counter" data-target="237">0</span>
-            etkinlik</li>
-          <li><span class="list-emogy">🌍</span><br>Uluslararası<br> Amsterdam ve Londra ziyaretleri</li>
-          <li><span class="list-emogy">💼</span><br>
-            <span class="counter" data-target="10000">0</span>+ <br>katılımcı</li>
-        </ul>
-
-        <a href="About.html"><button class="red-button">Daha Fazla Öğren</button></a>
       </div>
 
-    </div>
 
-    
 
-    <section id="events" class="events-section fade-in-up">
-      <h2>Yaklaşan Etkinliklerimiz</h2>
-      <div class="events-grid" id="eventsGrid">
-        <!-- Etkinlikler buraya dinamik olarak eklenecek -->
-      </div>
-      <a href="Etkinliklerimiz.html"><button class="red-button">Tüm Etkinlikler</button></a>
-</section>
+      <section id="events" class="events-section fade-in-up">
+        <h2>Yaklaşan Etkinliklerimiz</h2>
+        <div class="events-grid" id="eventsGrid">
+          <!-- Etkinlikler buraya dinamik olarak eklenecek -->
+        </div>
+        <a href="Etkinliklerimiz.html"><button class="red-button">Tüm Etkinlikler</button></a>
+      </section>
 
-<section id="sponsors" class="sponsors-section fade-in-up">
-  <h2>Sponsorlarımız</h2>
-  <br><br>
-  <h2>MBS</h2>
-  <div class="sponsors-grid">
-    <div class="sponsor-card">
-      <img src="./assets/sponsorts/mbs/btcturk-logo.png" loading="lazy" alt="Sponsor 1 Logo" />
-    </div>
-    <div class="sponsor-card">
-      <img src="./assets/sponsorts/mbs/digital_hub-logo.jpeg" loading="lazy" alt="Sponsor 2 Logo" />
-    </div>
-    <div class="sponsor-card">
-      <img src="./assets/sponsorts/mbs/dimes-logo.png" loading="lazy" alt="Sponsor 3 Logo" />
-    </div>
-    <div class="sponsor-card">
-      <img src="./assets/sponsorts/mbs/goodyear-logo.svg" loading="lazy" alt="Sponsor 4 Logo" />
-    </div>
-    <div class="sponsor-card">
-      <img src="./assets/sponsorts/mbs/nestle-logo.svg" loading="lazy" alt="Sponsor 5 Logo" />
-    </div>
-    <div class="sponsor-card">
-      <img src="./assets/sponsorts/mbs/unalkuruyemis-logo.jpeg" loading="lazy" alt="Sponsor 6 Logo" />
-    </div>
-    <!-- Daha fazla sponsor ekleyebilirsin -->
-  </div>
-  <h2>StepForward</h2>
-  <div class="sponsors-grid">
-    <div class="sponsor-card">
-      <img src="./assets/sponsorts/stepForward/tepe-betopan-logo.png" loading="lazy" alt="Sponsor 1 Logo" />
-    </div>
-    <div class="sponsor-card">
-      <img src="./assets/sponsorts/stepForward/turkiye-is-bankasi-logo.png" loading="lazy" alt="Sponsor 2 Logo" />
-    </div>
-    <div class="sponsor-card">
-      <img src="./assets/sponsorts/stepForward/procter-gamble-logo.svg" loading="lazy" alt="Sponsor 3 Logo" />
-    </div>
-     <div class="sponsor-card">
-      <img src="./assets/sponsorts/stepForward/barilla-logo.png" loading="lazy" alt="Sponsor 4 Logo" />
-    </div>
-     <div class="sponsor-card">
-      <img src="./assets/sponsorts/stepForward/mapa-logo.png" loading="lazy" alt="Sponsor 5 Logo" />
-    </div>
-    <div class="sponsor-card">
-      <img src="./assets/sponsorts/stepForward/nays-logo.png" loading="lazy" alt="Sponsor 6 Logo" />
-    </div>
-    <div class="sponsor-card">
-      <img src="./assets/sponsorts/stepForward/gama_enerji-logo.jpeg"loading="lazy" alt="Sponsor 7 Logo" />
-    </div>
-    <div class="sponsor-card">
-      <img src="./assets/sponsorts/stepForward/samsung-logo.png" loading="lazy" alt="Sponsor 8 Logo" />
-    </div>
-    <div class="sponsor-card">
-      <img src="./assets/sponsorts/stepForward/kervan-logo.png" loading="lazy" alt="Sponsor 9 Logo" />
-    </div>
-    <div class="sponsor-card">
-      <img src="./assets/sponsorts/stepForward/roastnberry-logo.png" loading="lazy" alt="Sponsor 10 Logo" />
-    </div>
-    <!-- Daha fazla sponsor ekleyebilirsin -->
-  </div>
-</section>
+      <section id="sponsors" class="sponsors-section fade-in-up">
+        <h2>Sponsorlarımız</h2>
+        <br><br>
+        <h2>MBS</h2>
+        <div class="sponsors-grid" id="mbs-sponsors">
+          <!-- MBS Sponsorları buraya dinamik olarak eklenecek -->
+          <p style="grid-column: 1/-1; text-align: center; color: #666;">Yükleniyor...</p>
+        </div>
+        <h2>StepForward</h2>
+        <div class="sponsors-grid" id="stepforward-sponsors">
+          <!-- StepForward Sponsorları buraya dinamik olarak eklenecek -->
+          <p style="grid-column: 1/-1; text-align: center; color: #666;">Yükleniyor...</p>
+        </div>
+      </section>
 
-    </main>
+  </main>
 
-    <footer class="site-footer">
+  <footer class="site-footer">
     <div class="footer-content">
       <p>&copy; 2025 Bilkent Management & Economics Community (MEC). Tüm hakları saklıdır.</p>
       <div class="footer-links">
-        <a href="#about">Hakkımızda</a> | 
-        <a href="#events">Etkinliklerimiz</a> | 
-        <a href="#sponsors">Sponsorlarımız</a> | 
+        <a href="#about">Hakkımızda</a> |
+        <a href="#events">Etkinliklerimiz</a> |
+        <a href="#sponsors">Sponsorlarımız</a> |
         <a href="#team">Ekibimiz</a>
       </div>
     </div>
-    </footer>
-
-    
+  </footer>
 
 
 
-<!-- Firebase SDK (v8 CDN - exposes global `firebase`) -->
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
-<script>
-  // Firebase Config
-  const firebaseConfig = {
-    apiKey: "AIzaSyBl2kj0jv7ygo4o6XR03nOf4Pr1rWpKMO8",
-    authDomain: "bilkentmec-b2e41.firebaseapp.com",
-    projectId: "bilkentmec-b2e41",
-    storageBucket: "bilkentmec-b2e41.firebasestorage.app",
-    messagingSenderId: "487196460894",
-    appId: "1:487196460894:web:afac01f54c496fc4de71cf",
-    measurementId: "G-JZW2WY854K"
-  };
 
-  // Firebase Initialize (must run before main scripts)
-  firebase.initializeApp(firebaseConfig);
-  window.db = firebase.firestore(); // Make db global so script.js can access it
-  console.log('✅ Firebase initialized on index.html', typeof firebase, window.db ? 'window.db ok' : 'no db');
-</script>
 
-<script src="./script.js"></script>
-<script src="./hamburger.js"></script>
+  <!-- Firebase SDK (v8 CDN - exposes global `firebase`) -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+  <script>
+    // Firebase Config
+    const firebaseConfig = {
+      apiKey: "AIzaSyBl2kj0jv7ygo4o6XR03nOf4Pr1rWpKMO8",
+      authDomain: "bilkentmec-b2e41.firebaseapp.com",
+      projectId: "bilkentmec-b2e41",
+      storageBucket: "bilkentmec-b2e41.firebasestorage.app",
+      messagingSenderId: "487196460894",
+      appId: "1:487196460894:web:afac01f54c496fc4de71cf",
+      measurementId: "G-JZW2WY854K"
+    };
+
+    // Firebase Initialize (must run before main scripts)
+    firebase.initializeApp(firebaseConfig);
+    window.db = firebase.firestore(); // Make db global so script.js can access it
+    console.log('✅ Firebase initialized on index.html', typeof firebase, window.db ? 'window.db ok' : 'no db');
+  </script>
+
+  <script src="./script.js"></script>
+  <script src="./hamburger.js"></script>
 </body>
+
 </html>

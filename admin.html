@@ -543,13 +543,6 @@
             const passwordInput = document.getElementById('passwordInput');
             const password = passwordInput.value;
             
-            console.log('=== LOGIN ATTEMPT ===');
-            console.log('Girilen şifre:', password);
-            console.log('Girilen şifre length:', password.length);
-            console.log('Doğru şifre:', ADMIN_PASSWORD);
-            console.log('Doğru şifre length:', ADMIN_PASSWORD.length);
-            console.log('Eşit mi?:', password === ADMIN_PASSWORD);
-            console.log('Eşit (trim ile):', password.trim() === ADMIN_PASSWORD.trim());
             
             if (password === ADMIN_PASSWORD) {
                 console.log('✅ Login başarılı!');

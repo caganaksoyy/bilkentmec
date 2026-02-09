@@ -88,7 +88,7 @@ btnRight.addEventListener('mouseleave', () => {
 // İlk dot'u aktif yap
 updateDots();
 
-  document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", () => {
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -105,10 +105,10 @@ updateDots();
     observer.observe(el);
 
   });
-    document.querySelectorAll('.fade-in-right').forEach(el => {
-        observer.observe(el);
+  document.querySelectorAll('.fade-in-right').forEach(el => {
+    observer.observe(el);
 
-    });
+  });
 
 });
 
@@ -163,50 +163,50 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function closePopup() {
-      document.getElementById("welcomepopup").style.display = "none";
+  document.getElementById("welcomepopup").style.display = "none";
+}
+
+const highlight = document.getElementById("highlight-text");
+const texts = [
+  "MEC",
+  "Management & Economics Community"
+];
+
+let index = 0;        // hangi metindeyiz
+let charIndex = 0;    // harf ilerleyişi
+let deleting = false; // yazıyor mu siliyor mu?
+
+function typeEffect() {
+  const currentText = texts[index];
+
+  if (!deleting) {
+    // yazma
+    highlight.innerHTML = currentText.substring(0, charIndex + 1);
+    charIndex++;
+
+    if (charIndex === currentText.length) {
+      // yazı bittiyse biraz bekle
+      deleting = true;
+      setTimeout(typeEffect, 2000);
+      return;
     }
+  } else {
+    // silme
+    highlight.innerHTML = currentText.substring(0, charIndex - 1);
+    charIndex--;
 
-      const highlight = document.getElementById("highlight-text");
-  const texts = [
-    "MEC",
-    "Management & Economics Community"
-  ];
-
-  let index = 0;        // hangi metindeyiz
-  let charIndex = 0;    // harf ilerleyişi
-  let deleting = false; // yazıyor mu siliyor mu?
-
-  function typeEffect() {
-    const currentText = texts[index];
-
-    if (!deleting) {
-      // yazma
-      highlight.innerHTML = currentText.substring(0, charIndex + 1);
-      charIndex++;
-
-      if (charIndex === currentText.length) {
-        // yazı bittiyse biraz bekle
-        deleting = true;
-        setTimeout(typeEffect, 2000);
-        return;
-      }
-    } else {
-      // silme
-      highlight.innerHTML = currentText.substring(0, charIndex - 1);
-      charIndex--;
-
-      if (charIndex === 0) {
-        deleting = false;
-        index = (index + 1) % texts.length; // sıradaki metne geç
-      }
+    if (charIndex === 0) {
+      deleting = false;
+      index = (index + 1) % texts.length; // sıradaki metne geç
     }
-
-    // hız ayarı
-    const speed = deleting ? 60 : 120; 
-    setTimeout(typeEffect, speed);
   }
 
-  typeEffect(); // başlat
+  // hız ayarı
+  const speed = deleting ? 60 : 120;
+  setTimeout(typeEffect, speed);
+}
+
+typeEffect(); // başlat
 
 // COUNTDOWN TIMER
 function initCountdown() {
@@ -220,7 +220,7 @@ function initCountdown() {
 
   function updateCountdown() {
     // Hedef tarihi belirle: 7 Aralık 2025, Saat 11:00
-    const targetDate = new Date('December 7, 2025 11:00:00').getTime();
+    const targetDate = new Date('February 15, 2026 10:00:00').getTime();
     const now = new Date().getTime();
     const difference = targetDate - now;
 
@@ -274,9 +274,9 @@ function loadEventsFromStorage() {
           ...doc.data()
         });
       });
-      
+
       const eventsGrid = document.getElementById('eventsGrid');
-      
+
       // Eğer etkinlik yoksa hiç bir şey gösterme
       if (events.length === 0) {
         eventsGrid.innerHTML = '<p style="color: #666; grid-column: 1/-1; text-align: center; padding: 2rem;">Henüz etkinlik eklenmedi.</p>';
@@ -291,13 +291,13 @@ function loadEventsFromStorage() {
           <div class="event-content">
             <h3>${event.title}</h3>
             <p>${event.description}</p>
-            <span class="event-date">${new Date(event.date).toLocaleString('tr-TR', { 
-              year: 'numeric', 
-              month: 'long', 
-              day: 'numeric',
-              hour: '2-digit',
-              minute: '2-digit'
-            })}</span>
+            <span class="event-date">${new Date(event.date).toLocaleString('tr-TR', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+      })}</span>
             <a href="${event.link || 'https://instagram.com/bilkentmec'}" class="event-btn">Detaylar</a>
           </div>
         </div>
@@ -312,12 +312,63 @@ function loadEventsFromStorage() {
 }
 
 // Sayfa yüklendikten sonra etkinlikleri göster (Firebase'nin başlatılmasını bekle)
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
   console.log('📍 DOMContentLoaded fired, checking Firebase...');
   setTimeout(loadEventsFromStorage, 100);
+  setTimeout(loadSponsorsFromStorage, 100);
 });
 
-    
+// SPONSOR YÖNETİMİ - Firebase'den sponsorları yükle
+function loadSponsorsFromStorage() {
+  if (typeof window.db === 'undefined') {
+    setTimeout(loadSponsorsFromStorage, 500);
+    return;
+  }
+
+  try {
+    console.log('📂 Loading sponsors from Firebase...');
+    window.db.collection('sponsors').orderBy('createdAt', 'desc').onSnapshot((snapshot) => {
+      const sponsors = [];
+      snapshot.forEach((doc) => {
+        sponsors.push({
+          id: doc.id,
+          ...doc.data()
+        });
+      });
+
+      const mbsGrid = document.getElementById('mbs-sponsors');
+      const stepGrid = document.getElementById('stepforward-sponsors');
+
+      let mbsHTML = '';
+      let stepHTML = '';
+
+      // Gruplara ayır
+      sponsors.forEach(sponsor => {
+        const cardHTML = `
+          <div class="sponsor-card">
+            ${sponsor.image ? `<img src="${sponsor.image}" loading="lazy" alt="${sponsor.name}">` : '<div style="display:flex;align-items:center;justify-content:center;height:100%;width:100%;color:#ccc;">Logo Yok</div>'}
+          </div>
+        `;
+
+        if (sponsor.group === 'MBS') {
+          mbsHTML += cardHTML;
+        } else if (sponsor.group === 'StepForward') {
+          stepHTML += cardHTML;
+        }
+      });
+
+      // HTML'e bas
+      if (mbsGrid) mbsGrid.innerHTML = mbsHTML || '<p style="grid-column: 1/-1; text-align: center; color: #666;">Henüz MBS sponsoru eklenmedi.</p>';
+      if (stepGrid) stepGrid.innerHTML = stepHTML || '<p style="grid-column: 1/-1; text-align: center; color: #666;">Henüz StepForward sponsoru eklenmedi.</p>';
+
+      console.log('✅ Firebase sponsors loaded:', sponsors.length);
+    });
+  } catch (err) {
+    console.error('❌ Sponsor loading error:', err);
+  }
+}
+
+
 
 
 
