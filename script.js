@@ -216,11 +216,12 @@ function initCountdown() {
     return;
   }
 
-  let countdownInterval; // Declare in outer scope so clearInterval works
+  let countdownInterval = null; // Initialize to null to avoid ReferenceError
 
   function updateCountdown() {
-    // Hedef tarihi belirle: 7 Aralık 2025, Saat 11:00
-    const targetDate = new Date('February 15, 2026 10:00:00').getTime();
+    // Hedef tarihi belirle: 15 Şubat 2026, Saat 10:00:00
+    // Safari ve mobil uyumluluğu için ISO formatı (YYYY-MM-DDTHH:mm:ss) kullanıyoruz
+    const targetDate = new Date('2026-02-15T10:00:00').getTime();
     const now = new Date().getTime();
     const difference = targetDate - now;
 
@@ -231,24 +232,35 @@ function initCountdown() {
     const seconds = Math.floor((difference / 1000) % 60);
 
     // DOM'u güncelle
-    document.getElementById('days-welcome').innerText = days < 10 ? '0' + days : days;
-    document.getElementById('hours-welcome').innerText = hours < 10 ? '0' + hours : hours;
-    document.getElementById('minutes-welcome').innerText = minutes < 10 ? '0' + minutes : minutes;
-    document.getElementById('seconds-welcome').innerText = seconds < 10 ? '0' + seconds : seconds;
+    const dElem = document.getElementById('days-welcome');
+    if (dElem) dElem.innerText = days < 10 ? '0' + days : days;
+
+    const hElem = document.getElementById('hours-welcome');
+    if (hElem) hElem.innerText = hours < 10 ? '0' + hours : hours;
+
+    const mElem = document.getElementById('minutes-welcome');
+    if (mElem) mElem.innerText = minutes < 10 ? '0' + minutes : minutes;
+
+    const sElem = document.getElementById('seconds-welcome');
+    if (sElem) sElem.innerText = seconds < 10 ? '0' + seconds : seconds;
 
     // Eğer zaman bitirse
     if (difference < 0) {
-      document.getElementById('days-welcome').innerText = '00';
-      document.getElementById('hours-welcome').innerText = '00';
-      document.getElementById('minutes-welcome').innerText = '00';
-      document.getElementById('seconds-welcome').innerText = '00';
+      if (dElem) dElem.innerText = '00';
+      if (hElem) hElem.innerText = '00';
+      if (mElem) mElem.innerText = '00';
+      if (sElem) sElem.innerText = '00';
       if (countdownInterval) clearInterval(countdownInterval);
     }
   }
 
-  updateCountdown(); // Sayfayı yüklediğinde hemen çalıştır
-  countdownInterval = setInterval(updateCountdown, 1000); // Her saniyede güncelle
-  console.log('✅ Countdown timer initialized');
+  // İlk çalıştırma (hata vermemesi için try-catch)
+  try {
+    updateCountdown();
+  } catch (e) { console.error("Countdown error:", e); }
+
+  countdownInterval = setInterval(updateCountdown, 1000);
+  console.log('✅ Countdown timer initialized for 2026-02-15T10:00:00');
 }
 
 // Sayfa yüklendiğinde countdown'ı başlat
@@ -279,7 +291,7 @@ function loadEventsFromStorage() {
 
       // Eğer etkinlik yoksa hiç bir şey gösterme
       if (events.length === 0) {
-        eventsGrid.innerHTML = '<p style="color: #666; grid-column: 1/-1; text-align: center; padding: 2rem;">Henüz etkinlik eklenmedi.</p>';
+        if (eventsGrid) eventsGrid.innerHTML = '<p style="color: #666; grid-column: 1/-1; text-align: center; padding: 2rem;">Henüz etkinlik eklenmedi.</p>';
         console.log('ℹ️ No events found in Firebase');
         return;
       }
@@ -303,8 +315,10 @@ function loadEventsFromStorage() {
         </div>
       `).join('');
 
-      eventsGrid.innerHTML = eventsHTML;
+      if (eventsGrid) eventsGrid.innerHTML = eventsHTML;
       console.log('✅ Firebase events loaded:', events.length);
+    }, (error) => {
+      console.error("Error getting events:", error);
     });
   } catch (err) {
     console.error('❌ Event loading error:', err);
@@ -336,8 +350,11 @@ function loadSponsorsFromStorage() {
         });
       });
 
+      console.log('📦 Indirilen sponsorlar:', sponsors); // DEBUG LOG
+
       const mbsGrid = document.getElementById('mbs-sponsors');
       const stepGrid = document.getElementById('stepforward-sponsors');
+
 
       let mbsHTML = '';
       let stepHTML = '';
