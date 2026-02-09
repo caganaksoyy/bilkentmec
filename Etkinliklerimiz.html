@@ -1,22 +1,26 @@
 <!DOCTYPE html>
 <html lang="tr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Etkinliklerimiz | MEC Bilkent</title>
-       <meta name="description" content="Bilkent MEC Resmi Sayfası">
+    <meta name="description" content="Bilkent MEC Resmi Sayfası">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-     <link rel="icon" href="./assets/mec_logo400x174.png" type="image/x-icon">
-    </head>
-    <body>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@400;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="icon" href="./assets/mec_logo400x174.png" type="image/x-icon">
+</head>
+
+<body>
     <header>
-        <a href="index.html"><img class="navigatorLogo" src="./assets/mecwhite.png"/></a>
+        <a href="index.html"><img class="navigatorLogo" src="./assets/mecwhite.png" /></a>
         <div class="hamburger" id="hamburger">☰</div>
 
         <nav>
-            <ul class = "nav-links">
+            <ul class="nav-links">
                 <li><a href="./index.html">Anasayfa</a></li>
                 <li><a href="./Etkinliklerimiz.html">Etkinliklerimiz</a></li>
                 <li><a href="./index.html">Hakkımızda</a></li>
@@ -28,63 +32,12 @@
     <main>
         <div class="events-container">
             <h1>Etkinliklerimiz</h1>
-            
-            
-            <!-- ETKİNLİK 1 -->
-            <div class="event-row">
-                <div class="event-image">
-                    <img src="./assets/events/turk-traktor-new.jpeg" alt="Yaz Festivali">
-                </div>
-                <div class="event-content">
-                    <span class="event-date2">01 Eki 2025</span>
-                    <h3>MCT Ankara Türk Traktör</h3>
-                    <div class="event-meta">
-                        <span><i class="fas fa-map-marker-alt"></i> Ankara Türk Traktör</span>
-                        <span><i class="fas fa-clock"></i> ?</span>
-                        <span><i class="fas fa-users"></i> 20+</span>
-                    </div>
-                    <p>Career Trip şirket gezileriyle öğrencilerin farklı sektör ve kurumları yakından tanımasını sağlar.
-Stepforward: Türkiye’nin önde gelen isimlerini öğrencilerle buluşturan geniş katılımlı bir konferans serisidir.</p>
-                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSexxjYDRs3VsBnKCLemA5gWUsb1PbFbcKPMFJ0kUxdhIuDKtg/viewform?usp=dialog" class="event-btn">Detaylar ve Kayıt</a>
-                </div>
+
+            <div id="allEventsGrid">
+                <!-- Etkinlikler buraya dinamik olarak yüklenecek -->
+                <p style="text-align: center; color: #666;">Yükleniyor...</p>
             </div>
-            
-            <!-- ETKİNLİK 2 -->
-            <div class="event-row">
-                <div class="event-image">
-                    <img src="./assets/events/etkinlik6.png" alt="Teknoloji Zirvesi">
-                </div>
-                <div class="event-content">
-                    <span class="event-date2">16-18 Eki 2025</span>
-                    <h3>MCT Istanbul</h3>
-                    <div class="event-meta">
-                        <span><i class="fas fa-map-marker-alt"></i> Istanbul</span>
-                        <span><i class="fas fa-clock"></i>?</span>
-                        <span><i class="fas fa-users"></i> 10+ Katılımcı</span>
-                    </div>
-                    <p>Career Trip şirket gezileriyle öğrencilerin farklı sektör ve kurumları yakından tanımasını sağlar.
-Stepforward: Türkiye’nin önde gelen isimlerini öğrencilerle buluşturan geniş katılımlı bir konferans serisidir.</p>
-                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSexxjYDRs3VsBnKCLemA5gWUsb1PbFbcKPMFJ0kUxdhIuDKtg/viewform?usp=dialog" class="event-btn">Detaylar ve Kayıt</a>
-            </div>
-            </div>
-            
-            <!-- ETKİNLİK 3 -->
-            <div class="event-row">
-                <div class="event-image">
-                    <img src="./assets/events/stepforward-new.jpeg" alt="Etkinlik 3">
-                </div>
-                <div class="event-content">
-                    <span class="event-date2">6 Ara 2025</span>
-                    <h3>StepForward</h3>
-                    <div class="event-meta">
-                        <span><i class="fas fa-map-marker-alt"></i>?</span>
-                        <span><i class="fas fa-clock"></i>?</span>
-                        <span><i class="fas fa-users"></i>500+</span>
-                    </div>
-                    <p>StepForward Türkiye’nin önde gelen iş, akademi ve kültür dünyasından isimlerini öğrencilerle buluşturarak bilgi ve deneyim aktarımını amaçlayan, gençlerin ilham almasını ve ufuklarını genişletmesini sağlayan, geniş katılımlı ve etkileşimli bir konferans serisidir.</p>
-                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSexxjYDRs3VsBnKCLemA5gWUsb1PbFbcKPMFJ0kUxdhIuDKtg/viewform?usp=dialog" class="event-btn">Detaylar ve Kayıt</a>
-                </div>
-            </div>
+
         </div>
     </main>
 
@@ -92,14 +45,38 @@ Stepforward: Türkiye’nin önde gelen isimlerini öğrencilerle buluşturan ge
         <div class="footer-content">
             <p>&copy; 2025 Bilkent Management & Economics Community (MEC). Tüm hakları saklıdır.</p>
             <div class="footer-links">
-                <a href="./About.html">Hakkımızda</a> | 
-                <a href="./Etkinliklerimiz.html">Etkinliklerimiz</a> | 
-                <a href="#./index">Sponsorlarımız</a> | 
+                <a href="./About.html">Hakkımızda</a> |
+                <a href="./Etkinliklerimiz.html">Etkinliklerimiz</a> |
+                <a href="#./index">Sponsorlarımız</a> |
                 <a href="./About.html#team">Ekibimiz</a>
             </div>
         </div>
     </footer>
+
+    <!-- Firebase SDK (v8 CDN) -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script>
+        // Firebase Config (index.html ile aynı)
+        const firebaseConfig = {
+            apiKey: "AIzaSyBl2kj0jv7ygo4o6XR03nOf4Pr1rWpKMO8",
+            authDomain: "bilkentmec-b2e41.firebaseapp.com",
+            projectId: "bilkentmec-b2e41",
+            storageBucket: "bilkentmec-b2e41.firebasestorage.app",
+            messagingSenderId: "487196460894",
+            appId: "1:487196460894:web:afac01f54c496fc4de71cf",
+            measurementId: "G-JZW2WY854K"
+        };
+
+        // Firebase Initialize
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
+        window.db = firebase.firestore();
+    </script>
+
     <script src="./script.js"></script>
     <script src="./hamburger.js"></script>
 </body>
+
 </html>

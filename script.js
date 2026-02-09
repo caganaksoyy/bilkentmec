@@ -6,87 +6,101 @@ const btnLeft = document.getElementById('btn-left');
 const btnRight = document.getElementById('btn-right');
 const dots = document.querySelectorAll('.dot');
 
-let currentIndex = 0;
+if (slider) {
+  let currentIndex = 0;
 
-// Dot güncelleme fonksiyonu
-function updateDots() {
+  // Dot güncelleme fonksiyonu
+  function updateDots() {
+    dots.forEach((dot, index) => {
+      dot.classList.toggle('active', index === currentIndex);
+    });
+  }
+
+  // Slider'ı belirli bir indekse kaydır
+  function goToSlide(index) {
+    const slideWidth = slider.clientWidth;
+    slider.scrollTo({
+      left: slideWidth * index,
+      behavior: 'smooth'
+    });
+    currentIndex = index;
+    updateDots();
+  }
+
+  // Sol buton için tıklama eventi
+  if (btnLeft) {
+    btnLeft.addEventListener('click', () => {
+      currentIndex = (currentIndex - 1 + slider.children.length) % slider.children.length;
+      goToSlide(currentIndex);
+    });
+  }
+
+  // Sağ buton için tıklama eventi
+  if (btnRight) {
+    btnRight.addEventListener('click', () => {
+      currentIndex = (currentIndex + 1) % slider.children.length;
+      goToSlide(currentIndex);
+    });
+  }
+
+  // Dot'lar için tıklama eventleri
   dots.forEach((dot, index) => {
-    dot.classList.toggle('active', index === currentIndex);
+    dot.addEventListener('click', () => {
+      goToSlide(index);
+    });
   });
-}
 
-// Slider'ı belirli bir indekse kaydır
-function goToSlide(index) {
-  const slideWidth = slider.clientWidth;
-  slider.scrollTo({
-    left: slideWidth * index,
-    behavior: 'smooth'
+  // Slider otomatik kaydırma (opsiyonel)
+  let autoSlide = setInterval(() => {
+    currentIndex = (currentIndex + 1) % slider.children.length;
+    goToSlide(currentIndex);
+  }, 2000);
+
+  // Slider'a hover olunca otomatik kaydırmayı durdur
+  slider.addEventListener('mouseenter', () => {
+    clearInterval(autoSlide);
   });
-  currentIndex = index;
+
+  if (btnLeft) {
+    btnLeft.addEventListener('mouseenter', () => {
+      clearInterval(autoSlide);
+    });
+  }
+
+  if (btnRight) {
+    btnRight.addEventListener('mouseenter', () => {
+      clearInterval(autoSlide);
+    });
+  }
+
+  slider.addEventListener('mouseleave', () => {
+    autoSlide = setInterval(() => {
+      currentIndex = (currentIndex + 1) % slider.children.length;
+      goToSlide(currentIndex);
+    }, 2000);
+  });
+
+  if (btnLeft) {
+    btnLeft.addEventListener('mouseleave', () => {
+      autoSlide = setInterval(() => {
+        currentIndex = (currentIndex + 1) % slider.children.length;
+        goToSlide(currentIndex);
+      }, 2000);
+    });
+  }
+
+  if (btnRight) {
+    btnRight.addEventListener('mouseleave', () => {
+      autoSlide = setInterval(() => {
+        currentIndex = (currentIndex + 1) % slider.children.length;
+        goToSlide(currentIndex);
+      }, 2000);
+    });
+  }
+
+  // İlk dot'u aktif yap
   updateDots();
 }
-
-// Sol buton için tıklama eventi
-btnLeft.addEventListener('click', () => {
-  currentIndex = (currentIndex - 1 + slider.children.length) % slider.children.length;
-  goToSlide(currentIndex);
-});
-
-// Sağ buton için tıklama eventi
-btnRight.addEventListener('click', () => {
-  currentIndex = (currentIndex + 1) % slider.children.length;
-  goToSlide(currentIndex);
-});
-
-// Dot'lar için tıklama eventleri
-dots.forEach((dot, index) => {
-  dot.addEventListener('click', () => {
-    goToSlide(index);
-  });
-});
-
-// Slider otomatik kaydırma (opsiyonel)
-let autoSlide = setInterval(() => {
-  currentIndex = (currentIndex + 1) % slider.children.length;
-  goToSlide(currentIndex);
-}, 2000);
-
-// Slider'a hover olunca otomatik kaydırmayı durdur
-slider.addEventListener('mouseenter', () => {
-  clearInterval(autoSlide);
-});
-
-btnLeft.addEventListener('mouseenter', () => {
-  clearInterval(autoSlide);
-});
-
-btnRight.addEventListener('mouseenter', () => {
-  clearInterval(autoSlide);
-});
-
-slider.addEventListener('mouseleave', () => {
-  autoSlide = setInterval(() => {
-    currentIndex = (currentIndex + 1) % slider.children.length;
-    goToSlide(currentIndex);
-  }, 2000);
-});
-
-btnLeft.addEventListener('mouseleave', () => {
-  autoSlide = setInterval(() => {
-    currentIndex = (currentIndex + 1) % slider.children.length;
-    goToSlide(currentIndex);
-  }, 2000);
-});
-
-btnRight.addEventListener('mouseleave', () => {
-  autoSlide = setInterval(() => {
-    currentIndex = (currentIndex + 1) % slider.children.length;
-    goToSlide(currentIndex);
-  }, 2000);
-});
-
-// İlk dot'u aktif yap
-updateDots();
 
 document.addEventListener("DOMContentLoaded", () => {
   const observer = new IntersectionObserver((entries) => {
@@ -163,7 +177,10 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function closePopup() {
-  document.getElementById("welcomepopup").style.display = "none";
+  const popup = document.getElementById("welcomepopup");
+  if (popup) {
+    popup.style.display = "none";
+  }
 }
 
 const highlight = document.getElementById("highlight-text");
@@ -172,41 +189,43 @@ const texts = [
   "Management & Economics Community"
 ];
 
-let index = 0;        // hangi metindeyiz
-let charIndex = 0;    // harf ilerleyişi
-let deleting = false; // yazıyor mu siliyor mu?
+if (highlight) {
+  let index = 0;        // hangi metindeyiz
+  let charIndex = 0;    // harf ilerleyişi
+  let deleting = false; // yazıyor mu siliyor mu?
 
-function typeEffect() {
-  const currentText = texts[index];
+  function typeEffect() {
+    const currentText = texts[index];
 
-  if (!deleting) {
-    // yazma
-    highlight.innerHTML = currentText.substring(0, charIndex + 1);
-    charIndex++;
+    if (!deleting) {
+      // yazma
+      highlight.innerHTML = currentText.substring(0, charIndex + 1);
+      charIndex++;
 
-    if (charIndex === currentText.length) {
-      // yazı bittiyse biraz bekle
-      deleting = true;
-      setTimeout(typeEffect, 2000);
-      return;
+      if (charIndex === currentText.length) {
+        // yazı bittiyse biraz bekle
+        deleting = true;
+        setTimeout(typeEffect, 2000);
+        return;
+      }
+    } else {
+      // silme
+      highlight.innerHTML = currentText.substring(0, charIndex - 1);
+      charIndex--;
+
+      if (charIndex === 0) {
+        deleting = false;
+        index = (index + 1) % texts.length; // sıradaki metne geç
+      }
     }
-  } else {
-    // silme
-    highlight.innerHTML = currentText.substring(0, charIndex - 1);
-    charIndex--;
 
-    if (charIndex === 0) {
-      deleting = false;
-      index = (index + 1) % texts.length; // sıradaki metne geç
-    }
+    // hız ayarı
+    const speed = deleting ? 60 : 120;
+    setTimeout(typeEffect, speed);
   }
 
-  // hız ayarı
-  const speed = deleting ? 60 : 120;
-  setTimeout(typeEffect, speed);
+  typeEffect(); // başlat
 }
-
-typeEffect(); // başlat
 
 // COUNTDOWN TIMER
 function initCountdown() {
@@ -216,7 +235,7 @@ function initCountdown() {
     return;
   }
 
-  let countdownInterval = null; // Initialize to null to avoid ReferenceError
+  let countdownInterval; // Declare in outer scope so clearInterval works
 
   function updateCountdown() {
     // Hedef tarihi belirle: 15 Şubat 2026, Saat 10:00:00
@@ -254,12 +273,8 @@ function initCountdown() {
     }
   }
 
-  // İlk çalıştırma (hata vermemesi için try-catch)
-  try {
-    updateCountdown();
-  } catch (e) { console.error("Countdown error:", e); }
-
-  countdownInterval = setInterval(updateCountdown, 1000);
+  updateCountdown(); // Sayfayı yüklediğinde hemen çalıştır
+  countdownInterval = setInterval(updateCountdown, 1000); // Her saniyede güncelle
   console.log('✅ Countdown timer initialized for 2026-02-15T10:00:00');
 }
 
@@ -329,8 +344,119 @@ function loadEventsFromStorage() {
 document.addEventListener('DOMContentLoaded', function () {
   console.log('📍 DOMContentLoaded fired, checking Firebase...');
   setTimeout(loadEventsFromStorage, 100);
+  setTimeout(loadAllEventsPage, 100);
   setTimeout(loadSponsorsFromStorage, 100);
 });
+
+// Helper: Get local ISO string for comparison (YYYY-MM-DDTHH:mm)
+function getLocalISOString() {
+  const now = new Date();
+  const offset = now.getTimezoneOffset() * 60000; // Offset in milliseconds
+  const localISOTime = (new Date(now - offset)).toISOString().slice(0, 16);
+  return localISOTime;
+}
+
+// ETKINLIK YÖNETİMİ (ANASAYFA) - Sadece GELECEK etkinlikleri yükle
+function loadEventsFromStorage() {
+  const eventsGrid = document.getElementById('eventsGrid');
+  if (!eventsGrid) return; // Eğer anasayfada değilsek çalışma
+
+  if (typeof window.db === 'undefined') {
+    setTimeout(loadEventsFromStorage, 500);
+    return;
+  }
+
+  try {
+    console.log('📂 Loading UPCOMING events from Firebase...');
+    const now = getLocalISOString();
+
+    window.db.collection('events')
+      .where('date', '>=', now) // Sadece bugünden sonraki etkinlikler
+      .orderBy('date', 'asc')   // En yakın tarihli en başta
+      .limit(3)
+      .onSnapshot((snapshot) => {
+        const events = [];
+        snapshot.forEach((doc) => {
+          events.push({ id: doc.id, ...doc.data() });
+        });
+
+        if (events.length === 0) {
+          eventsGrid.innerHTML = '<p style="color: #666; grid-column: 1/-1; text-align: center; padding: 2rem;">Yaklaşan etkinlik bulunmuyor.</p>';
+          return;
+        }
+
+        const eventsHTML = events.map(event => `
+          <div class="event-card">
+            ${event.image ? `<img src="${event.image}" loading="lazy" alt="${event.title}">` : '<div style="background: #ddd; height: 300px; display: flex; align-items: center; justify-content: center;">Resim Yok</div>'}
+            <div class="event-content">
+              <h3>${event.title}</h3>
+              <p>${event.description.substring(0, 100)}...</p>
+              <span class="event-date">${new Date(event.date).toLocaleString('tr-TR')}</span>
+              <a href="${event.link || '#'}" class="event-btn">Detaylar</a>
+            </div>
+          </div>
+        `).join('');
+
+        eventsGrid.innerHTML = eventsHTML;
+      });
+  } catch (err) {
+    console.error('❌ Homepage Event error:', err);
+  }
+}
+
+// TÜM ETKİNLİKLER SAYFASI - Tüm etkinlikleri yükle
+function loadAllEventsPage() {
+  const allEventsGrid = document.getElementById('allEventsGrid');
+  if (!allEventsGrid) return; // Eğer Etkinliklerimiz.html'de değilsek çalışma
+
+  if (typeof window.db === 'undefined') {
+    setTimeout(loadAllEventsPage, 500);
+    return;
+  }
+
+  try {
+    console.log('📂 Loading ALL events for separate page...');
+    window.db.collection('events').orderBy('date', 'desc').onSnapshot((snapshot) => {
+      const events = [];
+      snapshot.forEach((doc) => {
+        events.push({ id: doc.id, ...doc.data() });
+      });
+
+      console.log('📄 All Events Page: fetched ' + events.length + ' events.');
+
+      if (events.length === 0) {
+        allEventsGrid.innerHTML = '<p style="text-align: center; padding: 2rem;">Henüz etkinlik eklenmedi.</p>';
+        return;
+      }
+
+      // Etkinliklerimiz.html tarzı listeleme (yatay kartlar)
+      const eventsHTML = events.map(event => `
+        <div class="event-row">
+            <div class="event-image">
+                ${event.image ? `<img src="${event.image}" alt="${event.title}">` : '<div style="background:#eee;height:100%;display:flex;align-items:center;justify-content:center;">Resim Yok</div>'}
+            </div>
+            <div class="event-content">
+                <span class="event-date2">${new Date(event.date).toLocaleDateString('tr-TR', { day: 'numeric', month: 'long', year: 'numeric' })}</span>
+                <h3>${event.title}</h3>
+                <div class="event-meta">
+                    <span><i class="fas fa-clock"></i> ${new Date(event.date).toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' })}</span>
+                </div>
+                <p>${event.description}</p>
+                <a href="${event.link || '#'}" class="event-btn">Detaylar ve Kayıt</a>
+            </div>
+        </div>
+      `).join('');
+
+      allEventsGrid.innerHTML = eventsHTML;
+    }, (error) => {
+      console.error("❌ Firestore Snapshot Error (All Events):", error);
+      allEventsGrid.innerHTML = '<p style="text-align: center; color: red;">Veriler yüklenirken bir hata oluştu: ' + error.message + '</p>';
+    });
+  } catch (err) {
+    console.error('❌ All Events Page error:', err);
+    allEventsGrid.innerHTML = '<p style="text-align: center; color: red;">Beklenmedik bir hata oluştu.</p>';
+  }
+}
 
 // SPONSOR YÖNETİMİ - Firebase'den sponsorları yükle
 function loadSponsorsFromStorage() {
@@ -375,8 +501,13 @@ function loadSponsorsFromStorage() {
       });
 
       // HTML'e bas
-      if (mbsGrid) mbsGrid.innerHTML = mbsHTML || '<p style="grid-column: 1/-1; text-align: center; color: #666;">Henüz MBS sponsoru eklenmedi.</p>';
-      if (stepGrid) stepGrid.innerHTML = stepHTML || '<p style="grid-column: 1/-1; text-align: center; color: #666;">Henüz StepForward sponsoru eklenmedi.</p>';
+      if (mbsGrid) {
+        mbsGrid.innerHTML = mbsHTML || '<p style="grid-column: 1/-1; text-align: center; color: #666;">Henüz MBS sponsoru eklenmedi.</p>';
+      }
+
+      if (stepGrid) {
+        stepGrid.innerHTML = stepHTML || '<p style="grid-column: 1/-1; text-align: center; color: #666;">Henüz StepForward sponsoru eklenmedi.</p>';
+      }
 
       console.log('✅ Firebase sponsors loaded:', sponsors.length);
     });
