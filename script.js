@@ -433,10 +433,10 @@ function loadAllEventsPage() {
                 ${event.image ? `<img src="${event.image}" alt="${event.title}">` : '<div style="background:#eee;height:100%;display:flex;align-items:center;justify-content:center;">Resim Yok</div>'}
             </div>
             <div class="event-content">
-                <span class="event-date2">${new Date(event.date).toLocaleDateString('tr-TR', { day: 'numeric', month: 'long', year: 'numeric' })}</span>
+                
                 <h3>${event.title}</h3>
                 <div class="event-meta">
-                    <span><i class="fas fa-clock"></i> ${new Date(event.date).toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' })}</span>
+                    <span><i class="fas fa-clock"></i> ${new Date(event.date).toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' })} - ${new Date(event.date).toLocaleDateString('tr-TR', { day: 'numeric', month: 'long', year: 'numeric' })}</span>
                 </div>
                 <p>${event.description}</p>
                 <a href="${event.link || '#'}" class="event-btn">Detaylar ve Kayıt</a>

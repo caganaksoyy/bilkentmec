@@ -659,18 +659,26 @@
         const SETTINGS_DOC_ID = 'site_metadata'; // Tek bir döküman altında tutacağız
 
         async function loadSponsorGroups() {
+            console.log("🚀 loadSponsorGroups başlatıldı");
             const groupSelect = document.getElementById('sponsorGroup');
             const groupList = document.getElementById('groupList');
 
-            if (!groupSelect || !groupList) return;
+            if (!groupSelect) { console.error("❌ HATA: sponsorGroup elementi bulunamadı!"); return; }
+            if (!groupList) { console.error("❌ HATA: groupList elementi bulunamadı!"); return; }
+
+            // Kullanıcıya bilgi ver
+            groupList.innerHTML = '<span style="color:blue;">⏳ Veriler çekiliyor...</span>';
 
             try {
+                // Settings dökümanını al
                 const doc = await window.db.collection('settings').doc(SETTINGS_DOC_ID).get();
                 let groups = [];
 
                 if (doc.exists && doc.data().sponsorGroups) {
                     groups = doc.data().sponsorGroups;
+                    console.log("✅ Grupler yüklendi:", groups);
                 } else {
+                    console.warn("⚠️ Sponsor grupları bulunamadı, varsayılanlar oluşturuluyor...");
                     // İlk kez çalışıyorsa varsayılanları ekle
                     groups = ['Investment Weekend', 'StepForward'];
                     await window.db.collection('settings').doc(SETTINGS_DOC_ID).set({ sponsorGroups: groups }, { merge: true });
@@ -690,30 +698,13 @@
                 `).join('');
 
             } catch (error) {
-                console.error("Grup yükleme hatası:", error);
-                groupList.innerHTML = '<span style="color:red">Hata oluştu</span>';
+                console.error("❌ Grup yükleme hatası:", error);
+                groupList.innerHTML = '<span style="color:red">Hata: ' + error.message + '</span>';
+                alert("Sponsor grupları yüklenirken hata oluştu: " + error.message);
             }
         }
 
-        async function addSponsorGroup() {
-            const input = document.getElementById('newGroupName');
-            const newGroup = input.value.trim();
 
-            if (!newGroup) return alert("Lütfen bir grup adı yazın.");
-
-            try {
-                await window.db.collection('settings').doc(SETTINGS_DOC_ID).set({
-                    sponsorGroups: firebase.firestore.FieldValue.arrayUnion(newGroup)
-                }, { merge: true });
-                input.value = ''; // Temizle
-                loadSponsorGroups(); // Listeyi yenile
-                alert("Grup eklendi!");
-            } catch (error) {
-                console.error("Grup ekleme hatası:", error);
-
-                alert("Hata oluştu: " + error.message);
-            }
-        }
 
         window.deleteSponsorGroup = async function (groupName) {
             if (!confirm(`"${groupName}" grubunu silmek istediğine emin misin?`)) return;
@@ -731,16 +722,40 @@
 
 
         // Login başarılı olduğunda veya sayfa yüklendiğinde verileri çek
+        // Login başarılı olduğunda veya sayfa yüklendiğinde verileri çek
         function loadData() {
-            loadEvents();
-            loadSponsors();
-            loadSponsorGroups(); // Grupları da yükle
+            // Grupları en önce yükle (güvenli mod)
+            try {
+                if (typeof loadSponsorGroups === 'function') {
+                    loadSponsorGroups();
+                } else {
+                    console.error("loadSponsorGroups fonksiyonu bulunamadı!");
+                }
+            } catch (e) {
+                console.error("loadSponsorGroups hatası:", e);
+            }
 
-            // Site ayarlarını da yükle (mevcut kodun devamı olabilir)
-            const siteTitle = document.getElementById('siteTitle');
-            if (siteTitle) {
-                const savedTitle = localStorage.getItem('siteTitle');
-                if (savedTitle) siteTitle.value = savedTitle;
+            try {
+                loadEvents();
+            } catch (e) {
+                console.error("loadEvents hatası:", e);
+            }
+
+            try {
+                loadSponsors();
+            } catch (e) {
+                console.error("loadSponsors hatası:", e);
+            }
+
+            // Site ayarlarını da yükle
+            try {
+                const siteTitle = document.getElementById('siteTitle');
+                if (siteTitle) {
+                    const savedTitle = localStorage.getItem('siteTitle');
+                    if (savedTitle) siteTitle.value = savedTitle;
+                }
+            } catch (e) {
+                console.error("Site ayarları yükleme hatası:", e);
             }
         }
 
@@ -821,19 +836,6 @@
         };
 
 
-        // Login başarılı olduğunda veya sayfa yüklendiğinde verileri çek
-        function loadData() {
-            loadEvents();
-            loadSponsors();
-            loadSponsorGroups(); // Grupları da yükle
-
-            // Site ayarlarını da yükle (mevcut kodun devamı olabilir)
-            const siteTitle = document.getElementById('siteTitle');
-            if (siteTitle) {
-                const savedTitle = localStorage.getItem('siteTitle');
-                if (savedTitle) siteTitle.value = savedTitle;
-            }
-        }
         document.getElementById('eventForm').addEventListener('submit', async function (e) {
             e.preventDefault();
 
@@ -1017,11 +1019,7 @@
             setTimeout(() => msg.classList.remove('show'), 3000);
         }
 
-        // Load Data on Start
-        function loadData() {
-            loadEvents();
-            loadSponsors();
-        }
+
     </script>
 </body>
 
