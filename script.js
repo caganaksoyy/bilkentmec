@@ -278,64 +278,7 @@ function initCountdown() {
 // Sayfa yüklendiğinde countdown'ı başlat
 document.addEventListener('DOMContentLoaded', initCountdown);
 
-// ETKINLIK YÖNETİMİ - Firebase'den etkinlikleri yükle
-function loadEventsFromStorage() {
-  // Defensive check: wait for db to be defined (check window.db since we make it global in index.html)
-  if (typeof window.db === 'undefined') {
-    console.warn('⚠️ Firebase db not initialized yet, retrying in 500ms...');
-    setTimeout(loadEventsFromStorage, 500);
-    return;
-  }
 
-  try {
-    console.log('📂 Loading events from Firebase...');
-    // Firebase'den etkinlikleri oku
-    window.db.collection('events').orderBy('date', 'asc').limit(3).onSnapshot((snapshot) => {
-      const events = [];
-      snapshot.forEach((doc) => {
-        events.push({
-          id: doc.id,
-          ...doc.data()
-        });
-      });
-
-      const eventsGrid = document.getElementById('eventsGrid');
-
-      // Eğer etkinlik yoksa hiç bir şey gösterme
-      if (events.length === 0) {
-        if (eventsGrid) eventsGrid.innerHTML = '<p style="color: #666; grid-column: 1/-1; text-align: center; padding: 2rem;">Henüz etkinlik eklenmedi.</p>';
-        console.log('ℹ️ No events found in Firebase');
-        return;
-      }
-
-      // Firebase'daki etkinlikleri HTML'e çevir
-      const eventsHTML = events.map(event => `
-        <div class="event-card">
-          ${event.image ? `<img src="${event.image}" loading="lazy" alt="${event.title}">` : '<div style="background: #ddd; height: 300px; display: flex; align-items: center; justify-content: center;">Resim Yok</div>'}
-          <div class="event-content">
-            <h3>${event.title}</h3>
-            <p>${event.description}</p>
-            <span class="event-date">${new Date(event.date).toLocaleString('tr-TR', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit'
-      })}</span>
-            <a href="${event.link || 'https://instagram.com/bilkentmec'}" class="event-btn">Detaylar</a>
-          </div>
-        </div>
-      `).join('');
-
-      if (eventsGrid) eventsGrid.innerHTML = eventsHTML;
-      console.log('✅ Firebase events loaded:', events.length);
-    }, (error) => {
-      console.error("Error getting events:", error);
-    });
-  } catch (err) {
-    console.error('❌ Event loading error:', err);
-  }
-}
 
 // Sayfa yüklendikten sonra etkinlikleri göster (Firebase'nin başlatılmasını bekle)
 document.addEventListener('DOMContentLoaded', function () {
@@ -353,7 +296,7 @@ function getLocalISOString() {
   return localISOTime;
 }
 
-// ETKINLIK YÖNETİMİ (ANASAYFA) - Sadece GELECEK etkinlikleri yükle
+// ETKINLIK YÖNETİMİ (ANASAYFA) - Son 3 etkinliği yükle
 function loadEventsFromStorage() {
   const eventsGrid = document.getElementById('eventsGrid');
   if (!eventsGrid) return; // Eğer anasayfada değilsek çalışma
@@ -364,12 +307,10 @@ function loadEventsFromStorage() {
   }
 
   try {
-    console.log('📂 Loading UPCOMING events from Firebase...');
-    const now = getLocalISOString();
+    console.log('📂 Loading latest 3 events from Firebase...');
 
     window.db.collection('events')
-      .where('date', '>=', now) // Sadece bugünden sonraki etkinlikler
-      .orderBy('date', 'asc')   // En yakın tarihli en başta
+      .orderBy('date', 'desc')   // En son tarihli en başta
       .limit(3)
       .onSnapshot((snapshot) => {
         const events = [];
@@ -378,7 +319,7 @@ function loadEventsFromStorage() {
         });
 
         if (events.length === 0) {
-          eventsGrid.innerHTML = '<p style="color: #666; grid-column: 1/-1; text-align: center; padding: 2rem;">Yaklaşan etkinlik bulunmuyor.</p>';
+          eventsGrid.innerHTML = '<p style="color: #666; grid-column: 1/-1; text-align: center; padding: 2rem;">Etkinlik bulunmuyor.</p>';
           return;
         }
 
