@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 
 <head>
   <!-- Google tag (gtag.js) -->
@@ -18,21 +18,28 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@400;600;700&display=swap"
     rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <link rel="icon" href="./assets/mec_logo400x174.png" type="image/x-icon">
   <title>Bilkent MEC - Bilkent University Management and Economics Community</title>
-  <meta name="description" content="Bilkent MEC Resmi Sayfası">
+  <meta name="description" content="Bilkent Üniversitesi İşletme ve Ekonomi Topluluğu (MEC). 1988'den beri kariyer etkinlikleri, konferanslar, şirket turları ve vaka çalışmaları düzenliyoruz.">
+  <!-- Open Graph / Social Media -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Bilkent MEC - İşletme ve Ekonomi Topluluğu">
+  <meta property="og:description" content="Bilkent Üniversitesi'nin en köklü öğrenci topluluğu. Kariyer etkinlikleri, konferanslar ve şirket turları.">
+  <meta property="og:image" content="https://bilkentmec.com/assets/mec_logo400x174.png">
+  <meta property="og:url" content="https://bilkentmec.com">
+  <meta name="twitter:card" content="summary_large_image">
 
 </head>
 
 
 <body>
 
-  <div class="welcome-overlay" id="welcomepopup">
+  <!-- Dinamik Etkinlik Popup — sadece gelecekteki etkinlik varsa gösterilir -->
+  <div class="welcome-overlay" id="welcomepopup" style="display: none;">
     <div class="welcome-box">
-      <img class="welcome-image" src="assets/events/investmentw.png" />
-      <h2>Investment Weekend Çok Yakında!🎉</h2>
-
-      <!--
+      <img class="welcome-image" id="popup-image" src="" alt="" />
+      <h2 id="popup-title"></h2>
       <div class="countdown" id="countdown-welcome">
         <div class="countdown-item">
           <span class="countdown-number" id="days-welcome">0</span>
@@ -46,18 +53,14 @@
           <span class="countdown-number" id="minutes-welcome">0</span>
           <span class="countdown-label">Dakika</span>
         </div>
-
         <div class="countdown-item">
           <span class="countdown-number" id="seconds-welcome">0</span>
           <span class="countdown-label">Saniye</span>
         </div>
       </div>
-      -->
-      <!--
-      <a class="welcome-p" href="https://www.biletimgo.com/etkinlik/bilkent-mec-stepforward-20380">
-        <p>Sınırlı sayıda biletler için tıkla!</p>
+      <a class="welcome-p" id="popup-link" href="#" style="display: none;">
+        <p>Detaylar için tıkla!</p>
       </a>
-      -->
       <button onclick="closePopup()">Kapat</button>
     </div>
   </div>
@@ -66,7 +69,7 @@
   <!--Header-->
   <header>
     <a href="index.html"><img class="navigatorLogo" src="./assets/mecwhite.png" loading="lazy" /></a>
-    <div class="hamburger" id="hamburger">☰</div>
+    <div class="hamburger" id="hamburger" aria-label="Menüyü aç/kapat" role="button" tabindex="0">☰</div>
 
     <nav>
       <ul class="nav-links">
@@ -91,8 +94,8 @@
         </h1>
 
         <div class="HomePage_buttons">
-          <a href="#events"><button>Etkinliklerimiz</button></a>
-          <a href="#about"><button class="red">Bizi Tanıyın!</button></a>
+          <a href="#events" class="hero-btn">Etkinliklerimiz</a>
+          <a href="#about" class="hero-btn red">Bizi Tanıyın!</a>
         </div>
       </div>
     </section>
@@ -109,10 +112,9 @@
             <div class="slide"><a href="#events"><img src="./assets/events/etkinlik1.jpeg" loading="lazy"></a></div>
             <div class="slide"><a href="#events"><img src="./assets/events/shell.jpeg" loading="lazy"></a></div>
             <div class="slide"><a href="#events"><img src="./assets/events/vodafone1.jpeg" loading="lazy"></a></div>
-            <div class="slide"><a href="#events"><img src="./assets/events/etkinlik4.png" loading="lazy"></a></div>
-            <div class="slide"><a href="#events"><img src="./assets/events/etkinlik5.png" loading="lazy"></a></div>
-            <div class="slide"><a href="#events"><img
-                  src="./assets/events/WhatsApp Image 2025-10-22 at 16.37.59 (1).jpeg" loading="lazy"></a></div>
+            <div class="slide"><a href="#events"><img src="./assets/events/etkinlik4.jpg" loading="lazy" alt="MEC Etkinlik"></a></div>
+            <div class="slide"><a href="#events"><img src="./assets/events/etkinlik5.jpg" loading="lazy" alt="MEC Etkinlik"></a></div>
+            <div class="slide"><a href="#events"><img src="./assets/events/whatsapp-etkinlik.jpeg" loading="lazy" alt="MEC Etkinlik"></a></div>
           </div>
 
           <div class="slider-nav">
@@ -126,8 +128,8 @@
 
           </div>
 
-          <button class="slider-btn left" id="btn-left">&#10094;</button>
-          <button class="slider-btn right" id="btn-right">&#10095;</button>
+          <button class="slider-btn left" id="btn-left" aria-label="Önceki slayt">&#10094;</button>
+          <button class="slider-btn right" id="btn-right" aria-label="Sonraki slayt">&#10095;</button>
         </div>
       </section>
 
@@ -135,7 +137,7 @@
         <div id="about" class="about-general">
 
           <div class="about-content">
-            <h3 class="since fade-in-up">1988'den bugüne</h2>
+            <h3 class="since fade-in-up">1988'den bugüne</h3>
               <h2 class="fade-in-up">MEC Bilkent</h2>
               <div class="about-above fade-in-up">
                 <img src="assets/mec_logo400x174.png" loading="lazy" />
@@ -173,7 +175,7 @@
             </li>
           </ul>
 
-          <a href="About.html"><button class="red-button">Daha Fazla Öğren</button></a>
+          <a href="About.html" class="red-button">Daha Fazla Öğren</a>
         </div>
 
       </div>
@@ -185,7 +187,7 @@
         <div class="events-grid" id="eventsGrid">
           <!-- Etkinlikler buraya dinamik olarak eklenecek -->
         </div>
-        <a href="Etkinliklerimiz.html"><button class="red-button">Tüm Etkinlikler</button></a>
+        <a href="Etkinliklerimiz.html" class="red-button">Tüm Etkinlikler</a>
       </section>
 
       <section id="sponsors" class="sponsors-section fade-in-up">
@@ -201,13 +203,24 @@
 
   <footer class="site-footer">
     <div class="footer-content">
-      <p>&copy; 2025 Bilkent Management & Economics Community (MEC). Tüm hakları saklıdır.</p>
+      <div class="footer-social">
+        <a href="https://instagram.com/bilkentmec" target="_blank" rel="noopener" aria-label="Instagram">
+          <i class="fab fa-instagram"></i>
+        </a>
+        <a href="https://x.com/BilkentMEC" target="_blank" rel="noopener" aria-label="X (Twitter)">
+          <i class="fab fa-x-twitter"></i>
+        </a>
+        <a href="https://www.linkedin.com/company/bilkent-university-management-and-economics-community-mec-/" target="_blank" rel="noopener" aria-label="LinkedIn">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </div>
       <div class="footer-links">
         <a href="#about">Hakkımızda</a> |
         <a href="#events">Etkinliklerimiz</a> |
         <a href="#sponsors">Sponsorlarımız</a> |
         <a href="About.html#team">Ekibimiz</a>
       </div>
+      <p>&copy; <script>document.write(new Date().getFullYear())</script> Bilkent Management & Economics Community (MEC). Tüm hakları saklıdır.</p>
     </div>
   </footer>
 

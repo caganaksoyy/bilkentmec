@@ -14,7 +14,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Etkinliklerimiz | MEC Bilkent</title>
-    <meta name="description" content="Bilkent MEC Resmi Sayfası">
+    <meta name="description" content="Bilkent MEC etkinlikleri: konferanslar, şirket turları, vaka çalışmaları ve kariyer fuarları. Tüm etkinliklerimizi keşfedin.">
+    <meta property="og:title" content="Etkinliklerimiz | MEC Bilkent">
+    <meta property="og:description" content="Bilkent MEC etkinlikleri: konferanslar, şirket turları, vaka çalışmaları.">
+    <meta property="og:image" content="https://bilkentmec.com/assets/mec_logo400x174.png">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link
@@ -26,7 +29,7 @@
 <body>
     <header>
         <a href="index.html"><img class="navigatorLogo" src="./assets/mecwhite.png" /></a>
-        <div class="hamburger" id="hamburger">☰</div>
+        <div class="hamburger" id="hamburger" aria-label="Menüyü aç/kapat" role="button" tabindex="0">☰</div>
 
         <nav>
             <ul class="nav-links">
@@ -52,13 +55,24 @@
 
     <footer class="site-footer">
         <div class="footer-content">
-            <p>&copy; 2025 Bilkent Management & Economics Community (MEC). Tüm hakları saklıdır.</p>
+            <div class="footer-social">
+                <a href="https://instagram.com/bilkentmec" target="_blank" rel="noopener" aria-label="Instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="https://x.com/BilkentMEC" target="_blank" rel="noopener" aria-label="X (Twitter)">
+                    <i class="fab fa-x-twitter"></i>
+                </a>
+                <a href="https://www.linkedin.com/company/bilkent-university-management-and-economics-community-mec-/" target="_blank" rel="noopener" aria-label="LinkedIn">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+            </div>
             <div class="footer-links">
                 <a href="./About.html">Hakkımızda</a> |
                 <a href="./Etkinliklerimiz.html">Etkinliklerimiz</a> |
                 <a href="index.html#sponsors">Sponsorlarımız</a> |
                 <a href="./About.html#team">Ekibimiz</a>
             </div>
+            <p>&copy; <script>document.write(new Date().getFullYear())</script> Bilkent Management & Economics Community (MEC). Tüm hakları saklıdır.</p>
         </div>
     </footer>
 

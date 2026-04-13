@@ -54,7 +54,7 @@ if (slider) {
   let autoSlide = setInterval(() => {
     currentIndex = (currentIndex + 1) % slider.children.length;
     goToSlide(currentIndex);
-  }, 2000);
+  }, 4500);
 
   // Slider'a hover olunca otomatik kaydırmayı durdur
   slider.addEventListener('mouseenter', () => {
@@ -77,7 +77,7 @@ if (slider) {
     autoSlide = setInterval(() => {
       currentIndex = (currentIndex + 1) % slider.children.length;
       goToSlide(currentIndex);
-    }, 2000);
+    }, 4500);
   });
 
   if (btnLeft) {
@@ -85,7 +85,7 @@ if (slider) {
       autoSlide = setInterval(() => {
         currentIndex = (currentIndex + 1) % slider.children.length;
         goToSlide(currentIndex);
-      }, 2000);
+      }, 4500);
     });
   }
 
@@ -94,7 +94,7 @@ if (slider) {
       autoSlide = setInterval(() => {
         currentIndex = (currentIndex + 1) % slider.children.length;
         goToSlide(currentIndex);
-      }, 2000);
+      }, 4500);
     });
   }
 
@@ -224,65 +224,103 @@ if (highlight) {
   typeEffect(); // başlat
 }
 
-// COUNTDOWN TIMER
-function initCountdown() {
-  const countdownElement = document.getElementById('countdown-welcome');
-  if (!countdownElement) {
-    console.warn('Countdown element not found');
+// DİNAMİK POPUP — En yakın gelecekteki etkinliği göster
+function loadUpcomingEventPopup() {
+  const popup = document.getElementById('welcomepopup');
+  if (!popup) return;
+
+  if (typeof window.db === 'undefined') {
+    setTimeout(loadUpcomingEventPopup, 500);
     return;
   }
 
-  let countdownInterval; // Declare in outer scope so clearInterval works
+  try {
+    const now = new Date().toISOString();
 
-  function updateCountdown() {
-    // Hedef tarihi belirle: 15 Şubat 2026, Saat 10:00:00
-    // Safari ve mobil uyumluluğu için ISO formatı (YYYY-MM-DDTHH:mm:ss) kullanıyoruz
-    const targetDate = new Date('2026-02-15T10:00:00').getTime();
-    const now = new Date().getTime();
-    const difference = targetDate - now;
+    // Gelecekteki en yakın etkinliği al
+    window.db.collection('events')
+      .where('date', '>', now)
+      .orderBy('date', 'asc')
+      .limit(1)
+      .get()
+      .then((snapshot) => {
+        if (snapshot.empty) {
+          console.log('ℹ️ Gelecekte etkinlik yok, popup gösterilmiyor.');
+          return;
+        }
 
-    // Zaman hesaplamaları
-    const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
-    const minutes = Math.floor((difference / 1000 / 60) % 60);
-    const seconds = Math.floor((difference / 1000) % 60);
+        const doc = snapshot.docs[0];
+        const event = doc.data();
+        const eventDate = new Date(event.date);
 
-    // DOM'u güncelle
-    const dElem = document.getElementById('days-welcome');
-    if (dElem) dElem.innerText = days < 10 ? '0' + days : days;
+        console.log('🎉 Yaklaşan etkinlik bulundu:', event.title);
 
-    const hElem = document.getElementById('hours-welcome');
-    if (hElem) hElem.innerText = hours < 10 ? '0' + hours : hours;
+        // Popup içeriğini doldur
+        const popupTitle = document.getElementById('popup-title');
+        const popupImage = document.getElementById('popup-image');
+        const popupLink = document.getElementById('popup-link');
 
-    const mElem = document.getElementById('minutes-welcome');
-    if (mElem) mElem.innerText = minutes < 10 ? '0' + minutes : minutes;
+        if (popupTitle) popupTitle.textContent = event.title + ' Çok Yakında! 🎉';
+        if (popupImage && event.image) {
+          popupImage.src = event.image;
+          popupImage.alt = event.title;
+        } else if (popupImage) {
+          popupImage.style.display = 'none';
+        }
+        if (popupLink && event.link) {
+          popupLink.href = event.link;
+          popupLink.style.display = 'block';
+        }
 
-    const sElem = document.getElementById('seconds-welcome');
-    if (sElem) sElem.innerText = seconds < 10 ? '0' + seconds : seconds;
+        // Countdown başlat
+        const targetTime = eventDate.getTime();
 
-    // Eğer zaman bitirse
-    if (difference < 0) {
-      if (dElem) dElem.innerText = '00';
-      if (hElem) hElem.innerText = '00';
-      if (mElem) mElem.innerText = '00';
-      if (sElem) sElem.innerText = '00';
-      if (countdownInterval) clearInterval(countdownInterval);
-    }
+        function updatePopupCountdown() {
+          const nowMs = new Date().getTime();
+          const diff = targetTime - nowMs;
+
+          if (diff <= 0) {
+            // Etkinlik başlamış, popup'ı gösterme
+            popup.style.display = 'none';
+            if (countdownInterval) clearInterval(countdownInterval);
+            return;
+          }
+
+          const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+          const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+          const minutes = Math.floor((diff / 1000 / 60) % 60);
+          const seconds = Math.floor((diff / 1000) % 60);
+
+          const dElem = document.getElementById('days-welcome');
+          const hElem = document.getElementById('hours-welcome');
+          const mElem = document.getElementById('minutes-welcome');
+          const sElem = document.getElementById('seconds-welcome');
+
+          if (dElem) dElem.innerText = days < 10 ? '0' + days : days;
+          if (hElem) hElem.innerText = hours < 10 ? '0' + hours : hours;
+          if (mElem) mElem.innerText = minutes < 10 ? '0' + minutes : minutes;
+          if (sElem) sElem.innerText = seconds < 10 ? '0' + seconds : seconds;
+        }
+
+        updatePopupCountdown();
+        let countdownInterval = setInterval(updatePopupCountdown, 1000);
+
+        // Popup'ı göster
+        popup.style.display = 'flex';
+      })
+      .catch((err) => {
+        console.error('❌ Popup etkinlik yükleme hatası:', err);
+      });
+  } catch (err) {
+    console.error('❌ Popup error:', err);
   }
-
-  updateCountdown(); // Sayfayı yüklediğinde hemen çalıştır
-  countdownInterval = setInterval(updateCountdown, 1000); // Her saniyede güncelle
-  console.log('✅ Countdown timer initialized for 2026-02-15T10:00:00');
 }
 
-// Sayfa yüklendiğinde countdown'ı başlat
-document.addEventListener('DOMContentLoaded', initCountdown);
 
-
-
-// Sayfa yüklendikten sonra etkinlikleri göster (Firebase'nin başlatılmasını bekle)
+// Sayfa yüklendikten sonra her şeyi başlat (Firebase'nin başlatılmasını bekle)
 document.addEventListener('DOMContentLoaded', function () {
   console.log('📍 DOMContentLoaded fired, checking Firebase...');
+  setTimeout(loadUpcomingEventPopup, 300);
   setTimeout(loadEventsFromStorage, 100);
   setTimeout(loadAllEventsPage, 100);
   setTimeout(loadSponsorsFromStorage, 100);
@@ -371,7 +409,7 @@ function loadAllEventsPage() {
       const eventsHTML = events.map(event => `
         <div class="event-row">
             <div class="event-image">
-                ${event.image ? `<img src="${event.image}" alt="${event.title}">` : '<div style="background:#eee;height:100%;display:flex;align-items:center;justify-content:center;">Resim Yok</div>'}
+                ${event.image ? `<img src="${event.image}" loading="lazy" alt="${event.title}">` : '<div style="background:#eee;height:100%;display:flex;align-items:center;justify-content:center;">Resim Yok</div>'}
             </div>
             <div class="event-content">
                 

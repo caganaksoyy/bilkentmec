@@ -14,11 +14,13 @@ html {
 body {
   display: flex;
   flex-direction: column;
-    height: 100%;
-    margin: 0;
-    padding-top: 70px;
-    
-    
+  height: 100%;
+  margin: 0;
+  padding-top: 70px;
+  font-family: 'Poppins', 'Inter', Arial, sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  text-align: center;
 }
 
 @media (max-width: 768px) {
@@ -31,17 +33,11 @@ main {
   flex: 1; 
 }
 
-#about, #events {
+#about, #events, #sponsors {
   scroll-margin-top: 65px;
 }
 
-body {
-  margin: 0;
-  font-family: 'Poppins', 'Inter', Arial, sans-serif;
-  background-color: var(--bg-color);
-  color: var(--text-color);
-  text-align: center;
-}
+/* body duplicate removed — merged into first body block above */
 
 p{
   font-size: 20px;
@@ -276,7 +272,8 @@ nav a:hover::after {
   flex-wrap: wrap;
 }
 
-.HomePage_buttons button{
+.HomePage_buttons button,
+.HomePage_buttons .hero-btn {
   padding: 12px 30px;
   border-radius: 999px;
   font-size: 15px;
@@ -287,24 +284,29 @@ nav a:hover::after {
   cursor: pointer;
   transition: all 0.3s ease;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  text-decoration: none;
+  display: inline-block;
 }
 
-.HomePage_buttons button:hover {
+.HomePage_buttons button:hover,
+.HomePage_buttons .hero-btn:hover {
   background: rgba(255, 255, 255, 0.4);
   transform: scale(1.1);
 }
 
-.HomePage_buttons button.red{
+.HomePage_buttons button.red,
+.HomePage_buttons .hero-btn.red {
   background: linear-gradient(to right, #d32e11, #a31900);
   color: white;
 }
 
-.HomePage_buttons button.red:hover {
+.HomePage_buttons button.red:hover,
+.HomePage_buttons .hero-btn.red:hover {
   background: linear-gradient(to right, #a31900, #7a0e00);
 }
 
-.red-button{
-  padding: 0.5rem;
+.red-button {
+  padding: 0.5rem 1.2rem;
   border-radius: 1rem;
   border: none;
   color: var(--bg-color);
@@ -313,6 +315,8 @@ nav a:hover::after {
   font-size: 20px;
   cursor: pointer;
   transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
 }
 
 .red-button:hover{
@@ -899,12 +903,7 @@ i.fab.fa-linkedin:hover {
   transform: scale(1.1);
 }
 
-.team-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 2rem;
-  padding: 1rem;
-}
+/* team-grid duplicate removed — using auto-fit version below */
 
 /* Tablet için */
 @media (max-width: 1024px) {
@@ -997,6 +996,25 @@ main h1, .motto, .HomePage_buttons {
 .footer-content {
   max-width: 900px;
   margin: 0 auto;
+}
+
+.footer-social {
+  display: flex;
+  gap: 1.2rem;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.footer-social a {
+  color: #555;
+  font-size: 1.4rem;
+  transition: color 0.3s ease, transform 0.3s ease;
+  text-decoration: none;
+}
+
+.footer-social a:hover {
+  color: var(--main-color);
+  transform: translateY(-3px);
 }
 
 .footer-links a {
@@ -1147,7 +1165,7 @@ main h1, .motto, .HomePage_buttons {
 
 /* Platforma özel renkler */
 .social-icon.instagram { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
-.social-icon.twitter { background: #1DA1F2; }
+.social-icon.twitter { background: #000000; }
 .social-icon.linkedin { background: #0077B5; }
 .social-icon.youtube { background: #FF0000; }
 .social-icon.email { background: #333; }
@@ -1199,15 +1217,7 @@ main h1, .motto, .HomePage_buttons {
     background-color: var(--main-color);
 }
 
-.social-icon.twitter { 
-    background: #000000; /* Twitter'ın yeni siyah rengi */
-    color: white !important; /* X ikonu beyaz olsun */
-}
-.social-icon.instagram { background: #E1306C; }
-.social-icon.twitter { background: #000000; }
-.social-icon.linkedin { background: #0077B5; }
-.social-icon.youtube { background: #FF0000; }
-.social-icon.mail { background: #333; }
+/* Duplicate social icon colors removed — using definitions from lines ~1149 */
 
 /* Tablet (max 1024px) */
 @media (max-width: 1024px) {
@@ -1338,16 +1348,7 @@ main h1, .motto, .HomePage_buttons {
       to   {opacity: 1; transform: scale(1);}
     }
 
-    .fade-in-up {
-      opacity: 0;
-      transform: translateY(50px);
-      transition: opacity 0.3s ease-out, transform 0.3s ease-out;
-    }
-    
-    .fade-in-up.show {
-      opacity: 1;
-      transform: translateY(0);
-    }
+/* Duplicate .fade-in-up removed — using definition from line ~957 */
     
     @media (max-width: 768px) {
        .event-btn {
