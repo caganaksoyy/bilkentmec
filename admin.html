@@ -555,7 +555,16 @@
             uploadPreset: 'bilkentmec'
         };
 
-        const ADMIN_PASSWORD = 'mec2025';
+        // SHA-256 Hashing Helper
+        async function hashPassword(password) {
+            const encoder = new TextEncoder();
+            const data = encoder.encode(password);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+            return hashHex;
+        }
+
         let isLoggedIn = false;
 
         // Sayfanın en başında localStorage'ı kontrol et ve temizle
@@ -571,26 +580,47 @@
         });
 
         // Login Handler
-        document.getElementById('loginForm').addEventListener('submit', function (e) {
+        document.getElementById('loginForm').addEventListener('submit', async function (e) {
             e.preventDefault();
             const passwordInput = document.getElementById('passwordInput');
             const password = passwordInput.value;
 
+            try {
+                // Fetch hashed password from Firestore
+                const authDocRef = db.collection('settings').doc('admin_auth');
+                let authDoc = await authDocRef.get();
+                let storedHash;
 
-            if (password === ADMIN_PASSWORD) {
-                console.log('✅ Login başarılı!');
-                isLoggedIn = true;
-                localStorage.setItem('adminLoggedIn', 'true');
-                document.getElementById('loginContainer').style.display = 'none';
-                document.getElementById('adminPanel').classList.add('active');
-                loadData();
-            } else {
-                console.log('❌ Login başarısız!');
-                document.getElementById('errorMessage').style.display = 'block';
-                setTimeout(() => {
-                    document.getElementById('errorMessage').style.display = 'none';
-                }, 3000);
-                passwordInput.value = '';
+                if (!authDoc.exists) {
+                    // Initialize with default hash if it does not exist (hash of 'mec2025')
+                    const defaultHash = '09dbae35a8216d1bc64345162e2fe9263566ba8be78e6663fcc91b02251c8dce';
+                    await authDocRef.set({ passwordHash: defaultHash }, { merge: true });
+                    storedHash = defaultHash;
+                    console.log('✅ Stored default password hash in Firestore');
+                } else {
+                    storedHash = authDoc.data().passwordHash;
+                }
+
+                const enteredHash = await hashPassword(password);
+
+                if (enteredHash === storedHash) {
+                    console.log('✅ Login başarılı!');
+                    isLoggedIn = true;
+                    localStorage.setItem('adminLoggedIn', 'true');
+                    document.getElementById('loginContainer').style.display = 'none';
+                    document.getElementById('adminPanel').classList.add('active');
+                    loadData();
+                } else {
+                    console.log('❌ Login başarısız!');
+                    document.getElementById('errorMessage').style.display = 'block';
+                    setTimeout(() => {
+                        document.getElementById('errorMessage').style.display = 'none';
+                    }, 3000);
+                    passwordInput.value = '';
+                }
+            } catch (error) {
+                console.error('Login hatası:', error);
+                alert('Giriş yapılırken bir hata oluştu: ' + error.message);
             }
         });
 
