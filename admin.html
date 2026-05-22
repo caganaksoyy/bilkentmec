@@ -3,14 +3,14 @@
 
 <head>
     <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-JZW2WY854K"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JZW2WY854K"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
 
-  gtag('config', 'G-JZW2WY854K');
-</script>
+        gtag('config', 'G-JZW2WY854K');
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bilkent MEC - Admin Panel</title>
@@ -379,11 +379,11 @@
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-JZW2WY854K"></script>
 <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
 
-  gtag('config', 'G-JZW2WY854K');
+    gtag('config', 'G-JZW2WY854K');
 </script>
 
 <body>
@@ -592,7 +592,6 @@
                 let storedHash;
 
                 if (!authDoc.exists) {
-                    // Initialize with default hash if it does not exist (hash of 'mec2025')
                     const defaultHash = '09dbae35a8216d1bc64345162e2fe9263566ba8be78e6663fcc91b02251c8dce';
                     await authDocRef.set({ passwordHash: defaultHash }, { merge: true });
                     storedHash = defaultHash;
