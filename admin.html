@@ -15,7 +15,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bilkent MEC - Admin Panel</title>
     <link rel="stylesheet" href="./style.css" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
     <style>
+        :root {
+            --bg-color: #F4F5F7;
+            --surface-color: #FFFFFF;
+            --primary-color: #9A1B1B;
+            --text-primary: #111827;
+            --text-muted: #6B7280;
+            --border-color: #E5E7EB;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -23,33 +35,42 @@
         }
 
         body {
-            font-family: 'Poppins', Arial, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Inter', Arial, sans-serif;
+            background: var(--bg-color);
+            color: var(--text-primary);
             min-height: 100vh;
+        }
+
+        /* --- Login Screen --- */
+        .login-wrapper {
             display: flex;
             justify-content: center;
             align-items: center;
+            min-height: 100vh;
             padding: 20px;
+            background: var(--bg-color);
         }
 
         .login-container {
-            background: white;
+            background: var(--surface-color);
             padding: 3rem;
-            border-radius: 15px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
             max-width: 400px;
             width: 100%;
-            text-align: center;
         }
 
         .login-container h1 {
-            color: #C73D29;
-            margin-bottom: 1rem;
-            font-size: 2rem;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            font-size: 1.5rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
         }
 
         .login-container p {
-            color: #666;
+            color: var(--text-muted);
             margin-bottom: 2rem;
             font-size: 0.95rem;
         }
@@ -62,154 +83,200 @@
 
         .login-form input {
             padding: 12px;
-            border: 2px solid #eee;
-            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
             font-size: 1rem;
-            transition: border-color 0.3s;
+            font-family: 'Inter', sans-serif;
+            transition: border-color 0.2s;
         }
 
         .login-form input:focus {
             outline: none;
-            border-color: #C73D29;
+            border-color: var(--primary-color);
         }
 
         .login-form button {
             padding: 12px;
-            background: linear-gradient(to right, #d32e11, #a31900);
+            background: var(--text-primary);
             color: white;
             border: none;
-            border-radius: 8px;
+            border-radius: 4px;
             font-size: 1rem;
-            font-weight: 600;
+            font-weight: 500;
             cursor: pointer;
-            transition: transform 0.2s;
+            transition: background 0.2s;
         }
 
         .login-form button:hover {
-            transform: translateY(-2px);
-        }
-
-        .login-form button:active {
-            transform: translateY(0);
+            background: var(--primary-color);
         }
 
         .error-message {
-            color: #dc3545;
+            color: var(--primary-color);
             font-size: 0.9rem;
             margin-top: 1rem;
             display: none;
         }
 
-        /* Admin Panel Styles */
+        /* --- Admin Dashboard --- */
         .admin-panel {
             display: none;
             min-height: 100vh;
-            background: #f5f5f5;
-            padding: 20px;
         }
 
         .admin-panel.active {
             display: block;
         }
 
-        .admin-header {
-            background: linear-gradient(to right, #d32e11, #a31900);
-            color: white;
-            padding: 2rem;
-            border-radius: 10px;
-            margin-bottom: 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-
-        .admin-header h1 {
-            font-size: 2rem;
-        }
-
-        .logout-btn {
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-            border: 2px solid white;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s;
-        }
-
-        .logout-btn:hover {
-            background: white;
-            color: #C73D29;
-        }
-
         .admin-container {
-            max-width: 1200px;
+            display: flex;
+            min-height: 100vh;
+            max-width: 1400px;
             margin: 0 auto;
+        }
+
+        /* Sidebar */
+        .admin-sidebar {
+            width: 260px;
+            background: var(--surface-color);
+            border-right: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            padding: 2rem 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .admin-sidebar-header h1 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 2rem;
+            letter-spacing: -0.02em;
         }
 
         .tabs {
             display: flex;
-            gap: 10px;
-            margin-bottom: 2rem;
-            flex-wrap: wrap;
+            flex-direction: column;
+            gap: 0.5rem;
+            flex: 1;
         }
 
         .tab-btn {
-            padding: 12px 25px;
-            background: white;
-            border: 2px solid #ddd;
-            border-radius: 8px;
+            padding: 10px 12px;
+            background: transparent;
+            border: none;
+            border-left: 3px solid transparent;
+            text-align: left;
             cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s;
-        }
-
-        .tab-btn.active {
-            background: #C73D29;
-            color: white;
-            border-color: #C73D29;
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            transition: all 0.2s;
         }
 
         .tab-btn:hover {
-            border-color: #C73D29;
+            color: var(--text-primary);
+        }
+
+        .tab-btn.active {
+            color: var(--primary-color);
+            border-left-color: var(--primary-color);
+            background: rgba(154, 27, 27, 0.04);
+        }
+
+        .logout-btn {
+            background: transparent;
+            color: var(--text-muted);
+            border: 1px solid var(--border-color);
+            padding: 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            transition: all 0.2s;
+            margin-top: 2rem;
+        }
+
+        .logout-btn:hover {
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        /* Main Content */
+        .admin-main {
+            flex: 1;
+            padding: 2rem 3rem;
+            background: var(--bg-color);
+            overflow-y: auto;
         }
 
         .tab-content {
             display: none;
-            background: white;
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
 
         .tab-content.active {
             display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(5px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h2 {
+            font-size: 1.75rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            letter-spacing: -0.02em;
+        }
+
+        h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        /* Forms */
+        .form-section {
+            background: var(--surface-color);
+            padding: 2rem;
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 2rem;
         }
 
         .form-group {
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.25rem;
         }
 
         .form-group label {
             display: block;
             margin-bottom: 0.5rem;
-            font-weight: 600;
-            color: #333;
+            font-weight: 500;
+            font-size: 0.9rem;
+            color: var(--text-primary);
         }
 
         .form-group input,
         .form-group textarea,
         .form-group select {
             width: 100%;
-            padding: 10px;
-            border: 2px solid #eee;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-family: 'Poppins', Arial, sans-serif;
-            transition: border-color 0.3s;
+            padding: 10px 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 0.95rem;
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-color);
+            transition: all 0.2s;
         }
 
         .form-group textarea {
@@ -221,157 +288,184 @@
         .form-group textarea:focus,
         .form-group select:focus {
             outline: none;
-            border-color: #C73D29;
+            border-color: var(--primary-color);
+            background: var(--surface-color);
+            box-shadow: 0 0 0 2px rgba(154, 27, 27, 0.1);
         }
 
         .btn-group {
             display: flex;
-            gap: 10px;
-            margin-top: 1.5rem;
-            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 2rem;
         }
 
         .btn-primary,
         .btn-danger,
         .btn-secondary {
-            padding: 12px 25px;
+            padding: 10px 20px;
             border: none;
-            border-radius: 8px;
+            border-radius: 4px;
             cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s;
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
             font-size: 0.95rem;
+            transition: all 0.2s;
         }
 
         .btn-primary {
-            background: #C73D29;
+            background: var(--text-primary);
             color: white;
         }
 
         .btn-primary:hover {
-            background: #a31900;
+            background: var(--primary-color);
         }
 
         .btn-danger {
-            background: #dc3545;
-            color: white;
+            background: white;
+            color: var(--primary-color);
+            border: 1px solid var(--primary-color);
         }
 
         .btn-danger:hover {
-            background: #c82333;
-        }
-
-        .btn-secondary {
-            background: #6c757d;
+            background: var(--primary-color);
             color: white;
         }
 
-        .btn-secondary:hover {
-            background: #5a6268;
-        }
-
+        /* Lists and Cards */
         .events-list,
-        .sponsors-list {
-            display: grid;
-            gap: 1.5rem;
+        .sponsors-list,
+        .team-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
         }
 
         .event-card,
-        .sponsor-card {
-            background: #f9f9f9;
+        .sponsor-card,
+        .team-member-card {
+            background: var(--surface-color);
             padding: 1.5rem;
-            border-radius: 10px;
-            border-left: 4px solid #C73D29;
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
+            display: flex;
+            gap: 1.5rem;
+            align-items: flex-start;
         }
 
         .event-card h3,
-        .sponsor-card h3 {
-            margin-bottom: 0.5rem;
-            color: #333;
+        .sponsor-card h3,
+        .team-member-card h3 {
+            margin-bottom: 0.25rem;
         }
 
         .event-card p,
-        .sponsor-card p {
-            color: #666;
+        .sponsor-card p,
+        .team-member-card p {
+            color: var(--text-muted);
             margin-bottom: 0.5rem;
             font-size: 0.95rem;
+            line-height: 1.5;
         }
 
         .event-card .event-date {
             display: inline-block;
-            background: #e9ecef;
-            padding: 5px 12px;
-            border-radius: 5px;
+            font-family: 'JetBrains Mono', monospace;
             font-size: 0.85rem;
+            color: var(--text-muted);
             margin-bottom: 1rem;
         }
 
-        .image-preview {
+        .team-member-card {
+            align-items: center;
+        }
+
+        .team-member-card img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1px solid var(--border-color);
+        }
+
+        .team-member-card .member-details {
+            flex: 1;
+        }
+
+        .team-member-card .member-details p strong {
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .team-member-card .member-details a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-top: 0.5rem;
+            display: inline-block;
+        }
+
+        .team-member-card .member-details a:hover {
+            text-decoration: underline;
+        }
+
+        /* Utilities */
+        .image-preview img,
+        .upload-preview img {
+            max-width: 200px;
+            max-height: 200px;
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
             margin-top: 1rem;
         }
 
-        .image-preview img {
-            max-width: 200px;
-            max-height: 200px;
-            border-radius: 8px;
-            margin-bottom: 1rem;
-        }
-
         .success-message {
-            background: #d4edda;
-            color: #155724;
+            background: #ECFDF5;
+            color: #065F46;
+            border: 1px solid #A7F3D0;
             padding: 1rem;
-            border-radius: 8px;
-            margin-bottom: 1rem;
+            border-radius: 4px;
+            margin-bottom: 2rem;
             display: none;
+            font-size: 0.95rem;
+            font-weight: 500;
         }
 
         .success-message.show {
             display: block;
         }
 
-        .cloudinary-widget {
-            margin-top: 1rem;
-        }
-
-        .upload-preview {
-            margin-top: 1rem;
-            padding: 1rem;
-            background: #f0f0f0;
-            border-radius: 8px;
-            text-align: center;
-        }
-
-        .upload-preview img {
-            max-width: 100%;
-            max-height: 300px;
-            border-radius: 8px;
-            margin-top: 1rem;
-        }
-
         @media (max-width: 768px) {
-            .admin-header {
+            .admin-container {
                 flex-direction: column;
             }
 
-            .admin-header h1 {
-                font-size: 1.5rem;
+            .admin-sidebar {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
+                padding: 1.5rem;
             }
 
             .tabs {
-                flex-direction: column;
+                flex-direction: row;
+                flex-wrap: wrap;
+                margin-bottom: 1rem;
             }
 
             .tab-btn {
-                width: 100%;
+                border-left: none;
+                border-bottom: 3px solid transparent;
+                padding: 8px 12px;
             }
 
-            .btn-group {
-                flex-direction: column;
+            .tab-btn.active {
+                border-bottom-color: var(--primary-color);
             }
 
-            .btn-group button {
-                width: 100%;
+            .admin-main {
+                padding: 1.5rem;
             }
         }
     </style>
@@ -387,140 +481,188 @@
 </script>
 
 <body>
-    <!-- Login Section -->
-    <div class="login-container" id="loginContainer">
-        <h1>🔐 Admin Panel</h1>
-        <p>Bilkent MEC Admin Paneline Hoş Geldiniz</p>
-        <form class="login-form" id="loginForm">
-            <input type="password" id="passwordInput" placeholder="Şifreyi girin" required autocomplete="new-password">
-            <button type="submit">Giriş Yap</button>
-            <div class="error-message" id="errorMessage">Hatalı şifre!</div>
-        </form>
+    <div id="loginWrapper" class="login-wrapper">
+        <!-- Login Section -->
+        <div class="login-container" id="loginContainer">
+            <h1>MEC Admin</h1>
+            <p>Bilkent MEC Yönetim Paneli</p>
+            <form class="login-form" id="loginForm">
+                <input type="password" id="passwordInput" placeholder="Şifreyi girin" required
+                    autocomplete="new-password">
+                <button type="submit">Giriş Yap</button>
+                <div class="error-message" id="errorMessage">Hatalı şifre!</div>
+            </form>
+        </div>
     </div>
 
     <!-- Admin Panel -->
     <div class="admin-panel" id="adminPanel">
         <div class="admin-container">
-            <div class="admin-header">
-                <h1>📊 Admin Paneli</h1>
+            <!-- Sidebar -->
+            <aside class="admin-sidebar">
+                <div class="admin-sidebar-header">
+                    <h1>MEC Admin</h1>
+                </div>
+                <nav class="tabs">
+                    <button class="tab-btn active" onclick="switchTab('events')">Etkinlikler</button>
+                    <button class="tab-btn" onclick="switchTab('sponsors')">Sponsorlar</button>
+                    <button class="tab-btn" onclick="switchTab('team')">Ekip Üyeleri</button>
+                    <button class="tab-btn" onclick="switchTab('settings')">Ayarlar</button>
+                </nav>
                 <button class="logout-btn" onclick="logout()">Çıkış Yap</button>
-            </div>
+            </aside>
 
-            <div class="success-message" id="successMessage">✅ Başarıyla kaydedildi!</div>
+            <!-- Main Content -->
+            <main class="admin-main">
+                <div class="success-message" id="successMessage">Başarıyla kaydedildi!</div>
 
-            <!-- Tabs -->
-            <div class="tabs">
-                <button class="tab-btn active" onclick="switchTab('events')">📅 Etkinlikler</button>
-                <button class="tab-btn" onclick="switchTab('sponsors')">🤝 Sponsorlar</button>
-                <button class="tab-btn" onclick="switchTab('settings')">⚙️ Ayarlar</button>
-            </div>
+                <!-- Events Tab -->
+                <div id="events" class="tab-content active">
+                    <h2>Etkinlikler Yönetimi</h2>
 
-            <!-- Events Tab -->
-            <div id="events" class="tab-content active">
-                <h2>Etkinlikler Yönetimi</h2>
+                    <div class="form-section">
+                        <h3>Yeni Etkinlik Ekle</h3>
+                        <form id="eventForm">
+                            <div class="form-group">
+                                <label>Etkinlik Başlığı</label>
+                                <input type="text" id="eventTitle" placeholder="örn: StepForward" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Açıklama</label>
+                                <textarea id="eventDescription" placeholder="Etkinlik hakkında açıklama"
+                                    required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Tarih ve Saat</label>
+                                <input type="datetime-local" id="eventDate" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Etkinlik Görseli</label>
+                                <input type="file" id="eventImage" accept="image/*">
+                                <div class="image-preview" id="eventImagePreview"></div>
+                            </div>
+                            <div class="form-group">
+                                <label>İnstagram Linki (Detaylar için)</label>
+                                <input type="url" id="eventLink" placeholder="https://instagram.com/bilkentmec">
+                            </div>
+                            <div class="btn-group">
+                                <button type="submit" class="btn-primary">Etkinlik Ekle</button>
+                            </div>
+                        </form>
+                    </div>
 
-                <div style="margin: 2rem 0; padding: 2rem; background: #f0f0f0; border-radius: 10px;">
-                    <h3>Yeni Etkinlik Ekle</h3>
-                    <form id="eventForm">
+                    <h3>Mevcut Etkinlikler</h3>
+                    <div class="events-list" id="eventsList"></div>
+                </div>
+
+                <!-- Sponsors Tab -->
+                <div id="sponsors" class="tab-content">
+                    <h2>Sponsorlar Yönetimi</h2>
+
+                    <div class="form-section">
+                        <h3>Sponsor Gruplarını Yönet</h3>
+                        <div style="display: flex; gap: 10px; margin-bottom: 1.5rem;">
+                            <input type="text" id="newGroupName" placeholder="Yeni Grup Adı (örn: Platin Sponsorlar)"
+                                style="flex: 1; padding: 10px 12px; border: 1px solid var(--border-color); border-radius: 4px; font-family: 'Inter', sans-serif;">
+                            <button type="button" class="btn-primary" onclick="addSponsorGroup()">Grup Ekle</button>
+                        </div>
+                        <div id="groupList" style="display: flex; flex-wrap: wrap; gap: 10px;">
+                            <span style="color: var(--text-muted);">Yükleniyor...</span>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>Yeni Sponsor Ekle</h3>
+                        <form id="sponsorForm">
+                            <div class="form-group">
+                                <label>Sponsor Adı</label>
+                                <input type="text" id="sponsorName" placeholder="örn: Samsung" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Sponsor Grubu</label>
+                                <select id="sponsorGroup" required>
+                                    <option value="">Yükleniyor...</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Logo Görseli</label>
+                                <input type="file" id="sponsorImage" accept="image/*" required>
+                                <div class="image-preview" id="sponsorImagePreview"></div>
+                            </div>
+                            <div class="btn-group">
+                                <button type="submit" class="btn-primary">Sponsor Ekle</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <h3>Mevcut Sponsorlar</h3>
+                    <div class="sponsors-list" id="sponsorsList"></div>
+                </div>
+
+                <!-- Team Tab -->
+                <div id="team" class="tab-content">
+                    <h2>Ekip Üyeleri Yönetimi</h2>
+
+                    <div class="form-section">
+                        <h3>Yeni Üye Ekle</h3>
+                        <form id="teamForm">
+                            <div class="form-group">
+                                <label>Fotoğraf</label>
+                                <input type="file" id="teamPhoto" accept="image/*">
+                                <div class="image-preview" id="teamPhotoPreview"></div>
+                            </div>
+                            <div class="form-group">
+                                <label>İsim Soyisim</label>
+                                <input type="text" id="teamName" placeholder="örn: Ceren Kantarcı" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Okuduğu Bölüm</label>
+                                <input type="text" id="teamDepartment" placeholder="örn: ECON, MAN, CS, IE" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Klüpteki Görevi</label>
+                                <input type="text" id="teamRole" placeholder="örn: Yönetim Kurulu Başkanı" required>
+                            </div>
+                            <div class="form-group">
+                                <label>LinkedIn Hesap Linki</label>
+                                <input type="url" id="teamLinkedin" placeholder="https://www.linkedin.com/in/...">
+                            </div>
+                            <div class="form-group">
+                                <label>Sıralama (küçük sayı = önce görünür)</label>
+                                <input type="number" id="teamOrder" placeholder="1" value="99">
+                            </div>
+                            <div class="btn-group">
+                                <button type="submit" class="btn-primary" id="teamSubmitBtn">Üye Ekle</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <h3>Mevcut Ekip Üyeleri</h3>
+                    <div class="team-list" id="teamMembersList"></div>
+                </div>
+
+                <!-- Settings Tab -->
+                <div id="settings" class="tab-content">
+                    <h2>Site Ayarları</h2>
+                    <div class="form-section">
                         <div class="form-group">
-                            <label>Etkinlik Başlığı</label>
-                            <input type="text" id="eventTitle" placeholder="örn: StepForward" required>
+                            <label>Site Başlığı</label>
+                            <input type="text" id="siteTitle" placeholder="Bilkent MEC">
                         </div>
                         <div class="form-group">
-                            <label>Açıklama</label>
-                            <textarea id="eventDescription" placeholder="Etkinlik hakkında açıklama"
-                                required></textarea>
+                            <label>Motto</label>
+                            <input type="text" id="siteMotto" placeholder="Yaratıcı ruh, profesyonel iş.">
                         </div>
                         <div class="form-group">
-                            <label>Tarih ve Saat</label>
-                            <input type="datetime-local" id="eventDate" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Etkinlik Görseli</label>
-                            <input type="file" id="eventImage" accept="image/*">
-                            <div class="image-preview" id="eventImagePreview"></div>
-                        </div>
-                        <div class="form-group">
-                            <label>İnstagram Linki (Detaylar için)</label>
-                            <input type="url" id="eventLink" placeholder="https://instagram.com/bilkentmec">
+                            <label>Ana Açıklama</label>
+                            <textarea id="siteDescription" placeholder="Hakkımız hakkında açıklama"></textarea>
                         </div>
                         <div class="btn-group">
-                            <button type="submit" class="btn-primary">Etkinlik Ekle</button>
+                            <button type="button" class="btn-primary" onclick="saveSettings()">Ayarları Kaydet</button>
                         </div>
-                    </form>
-                </div>
-
-                <h3 style="margin-top: 2rem;">Mevcut Etkinlikler</h3>
-                <div class="events-list" id="eventsList"></div>
-            </div>
-
-            <!-- Sponsors Tab -->
-            <div id="sponsors" class="tab-content">
-                <h2>Sponsorlar Yönetimi</h2>
-
-                <div
-                    style="margin: 2rem 0; padding: 2rem; background: #e8f4fd; border-radius: 10px; border: 1px solid #b6e0fe;">
-                    <h3>Sponsor Gruplarını Yönet</h3>
-                    <div style="display: flex; gap: 10px; margin-bottom: 1rem;">
-                        <input type="text" id="newGroupName" placeholder="Yeni Grup Adı (örn: Platin Sponsorlar)"
-                            style="flex: 1;">
-                        <button type="button" class="btn-primary" onclick="addSponsorGroup()">Grup Ekle</button>
-                    </div>
-                    <div id="groupList" style="display: flex; flex-wrap: wrap; gap: 10px;">
-                        <!-- Grupler buraya dinamik gelecek -->
-                        <span style="color: #666;">Yükleniyor...</span>
                     </div>
                 </div>
-
-                <div style="margin: 2rem 0; padding: 2rem; background: #f0f0f0; border-radius: 10px;">
-                    <h3>Yeni Sponsor Ekle</h3>
-                    <form id="sponsorForm">
-                        <div class="form-group">
-                            <label>Sponsor Adı</label>
-                            <input type="text" id="sponsorName" placeholder="örn: Samsung" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Sponsor Grubu</label>
-                            <select id="sponsorGroup" required>
-                                <option value="">Yükleniyor...</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Logo Görseli</label>
-                            <input type="file" id="sponsorImage" accept="image/*" required>
-                            <div class="image-preview" id="sponsorImagePreview"></div>
-                        </div>
-                        <div class="btn-group">
-                            <button type="submit" class="btn-primary">Sponsor Ekle</button>
-                        </div>
-                    </form>
-                </div>
-
-                <h3 style="margin-top: 2rem;">Mevcut Sponsorlar</h3>
-                <div class="sponsors-list" id="sponsorsList"></div>
-            </div>
-
-            <!-- Settings Tab -->
-            <div id="settings" class="tab-content">
-                <h2>Site Ayarları</h2>
-                <div style="padding: 2rem; background: #f0f0f0; border-radius: 10px;">
-                    <div class="form-group">
-                        <label>Site Başlığı</label>
-                        <input type="text" id="siteTitle" placeholder="Bilkent MEC">
-                    </div>
-                    <div class="form-group">
-                        <label>Motto</label>
-                        <input type="text" id="siteMotto" placeholder="Yaratıcı ruh, profesyonel iş.">
-                    </div>
-                    <div class="form-group">
-                        <label>Ana Açıklama</label>
-                        <textarea id="siteDescription" placeholder="Hakkımız hakkında açıklama"></textarea>
-                    </div>
-                    <div class="btn-group">
-                        <button type="button" class="btn-primary" onclick="saveSettings()">Ayarları Kaydet</button>
-                    </div>
-                </div>
-            </div>
+            </main>
         </div>
     </div>
 
@@ -606,7 +748,7 @@
                     console.log('✅ Login başarılı!');
                     isLoggedIn = true;
                     localStorage.setItem('adminLoggedIn', 'true');
-                    document.getElementById('loginContainer').style.display = 'none';
+                    document.getElementById('loginWrapper').style.display = 'none';
                     document.getElementById('adminPanel').classList.add('active');
                     loadData();
                 } else {
@@ -627,7 +769,7 @@
         window.addEventListener('load', function () {
             if (localStorage.getItem('adminLoggedIn') === 'true') {
                 isLoggedIn = true;
-                document.getElementById('loginContainer').style.display = 'none';
+                document.getElementById('loginWrapper').style.display = 'none';
                 document.getElementById('adminPanel').classList.add('active');
                 loadData();
             }
@@ -637,11 +779,12 @@
         function logout() {
             isLoggedIn = false;
             localStorage.removeItem('adminLoggedIn');
-            document.getElementById('loginContainer').style.display = 'flex';
+            document.getElementById('loginWrapper').style.display = 'flex';
             document.getElementById('adminPanel').classList.remove('active');
             document.getElementById('passwordInput').value = '';
             document.getElementById('eventForm').reset();
             document.getElementById('sponsorForm').reset();
+            document.getElementById('teamForm').reset();
         }
 
         // Switch tabs
@@ -701,6 +844,7 @@
 
         uploadToCloudinary('eventImage', 'eventImagePreview');
         uploadToCloudinary('sponsorImage', 'sponsorImagePreview');
+        uploadToCloudinary('teamPhoto', 'teamPhotoPreview');
 
         // SPONSOR GRUP YÖNETİMİ
         const SETTINGS_DOC_ID = 'site_metadata'; // Tek bir döküman altında tutacağız
@@ -792,6 +936,12 @@
                 loadSponsors();
             } catch (e) {
                 console.error("loadSponsors hatası:", e);
+            }
+
+            try {
+                loadTeamMembers();
+            } catch (e) {
+                console.error("loadTeamMembers hatası:", e);
             }
 
             // Site ayarlarını da yükle
@@ -1057,6 +1207,157 @@
             };
             localStorage.setItem('siteSettings', JSON.stringify(settings));
             showSuccess();
+        }
+
+        // === TEAM MEMBERS ===
+        let editingTeamMemberId = null;
+        let teamMembersListCache = [];
+
+        window.cancelTeamEdit = function () {
+            editingTeamMemberId = null;
+            document.getElementById('teamForm').reset();
+            document.getElementById('teamPhotoPreview').innerHTML = '';
+            document.getElementById('teamOrder').value = '99';
+            document.getElementById('teamSubmitBtn').textContent = 'Üye Ekle';
+            const cancelBtn = document.getElementById('teamCancelBtn');
+            if (cancelBtn) cancelBtn.style.display = 'none';
+        };
+
+        window.editTeamMember = function (id) {
+            const member = teamMembersListCache.find(m => m.id === id);
+            if (!member) return;
+
+            editingTeamMemberId = id;
+            document.getElementById('teamName').value = member.name || '';
+            document.getElementById('teamDepartment').value = member.department || '';
+            document.getElementById('teamRole').value = member.role || '';
+            document.getElementById('teamLinkedin').value = member.linkedin || '';
+            document.getElementById('teamOrder').value = member.order || 99;
+
+            if (member.photo) {
+                document.getElementById('teamPhotoPreview').innerHTML = `
+                    <img src="${member.photo}" style="max-width:200px; border-radius:8px;">
+                    <input type="hidden" class="imageUrl" value="${member.photo}">
+                `;
+            } else {
+                document.getElementById('teamPhotoPreview').innerHTML = '';
+            }
+
+            document.getElementById('teamSubmitBtn').textContent = 'Değişiklikleri Kaydet';
+
+            let cancelBtn = document.getElementById('teamCancelBtn');
+            if (!cancelBtn) {
+                cancelBtn = document.createElement('button');
+                cancelBtn.type = 'button';
+                cancelBtn.id = 'teamCancelBtn';
+                cancelBtn.className = 'btn-secondary';
+                cancelBtn.textContent = 'İptal';
+                cancelBtn.onclick = window.cancelTeamEdit;
+                document.querySelector('#teamForm .btn-group').appendChild(cancelBtn);
+            }
+            cancelBtn.style.display = 'inline-block';
+
+            document.getElementById('team').scrollIntoView({ behavior: 'smooth' });
+        };
+
+        // Add or Edit Team Member
+        document.getElementById('teamForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            const imageUrlInput = document.querySelector('#teamPhotoPreview .imageUrl');
+            const imageUrl = imageUrlInput ? imageUrlInput.value : '';
+
+            if (!imageUrl) {
+                alert('Lütfen üye fotoğrafını yükleyin!');
+                return;
+            }
+
+            const memberData = {
+                name: document.getElementById('teamName').value,
+                department: document.getElementById('teamDepartment').value,
+                role: document.getElementById('teamRole').value,
+                linkedin: document.getElementById('teamLinkedin').value,
+                photo: imageUrl,
+                order: parseInt(document.getElementById('teamOrder').value) || 99,
+                updatedAt: new Date()
+            };
+
+            try {
+                if (editingTeamMemberId) {
+                    await db.collection('team_members').doc(editingTeamMemberId).update(memberData);
+                    console.log("Firebase'de güncellendi: ", memberData);
+                    window.cancelTeamEdit();
+                } else {
+                    memberData.createdAt = new Date();
+                    await db.collection('team_members').add(memberData);
+                    console.log("Firebase'ye kaydedildi: ", memberData);
+                    document.getElementById('teamForm').reset();
+                    document.getElementById('teamPhotoPreview').innerHTML = '';
+                    document.getElementById('teamOrder').value = '99';
+                }
+
+                showSuccess();
+            } catch (err) {
+                console.error('Firebase kayıt hatası:', err);
+                alert('İşlem başarısız: ' + err.message);
+            }
+        });
+
+        // Load Team Members
+        function loadTeamMembers() {
+            try {
+                db.collection('team_members').orderBy('order', 'asc').onSnapshot((snapshot) => {
+                    const members = [];
+                    snapshot.forEach((doc) => {
+                        members.push({
+                            id: doc.id,
+                            ...doc.data()
+                        });
+                    });
+
+                    console.log("Firebase'den ekip üyeleri yüklendi: ", members.length);
+                    teamMembersListCache = members;
+
+                    const teamList = document.getElementById('teamMembersList');
+
+                    if (members.length === 0) {
+                        teamList.innerHTML = '<p style="color: var(--text-muted);">Henüz ekip üyesi eklenmedi.</p>';
+                        return;
+                    }
+
+                    teamList.innerHTML = members.map(member => `
+                        <div class="team-member-card">
+                            ${member.photo ? `<img src="${member.photo}" alt="${member.name}">` : '<div style="width:60px;height:60px;border-radius:50%;background:#ddd;display:flex;align-items:center;justify-content:center;">👤</div>'}
+                            <div class="member-details">
+                                <h3>${member.name}</h3>
+                                <p><strong>Bölüm:</strong> ${member.department}</p>
+                                <p><strong>Görev:</strong> ${member.role}</p>
+                                <p><strong>Sıra:</strong> ${member.order || '-'}</p>
+                                ${member.linkedin ? `<a href="${member.linkedin}" target="_blank">LinkedIn Profili</a>` : ''}
+                            </div>
+                            <div class="btn-group" style="flex-direction: column; margin-top: 0;">
+                                <button class="btn-secondary" onclick="editTeamMember('${member.id}')">Düzenle</button>
+                                <button class="btn-danger" onclick="deleteTeamMember('${member.id}')">Sil</button>
+                            </div>
+                        </div>
+                    `).join('');
+                });
+            } catch (err) {
+                console.error('loadTeamMembers hatası:', err);
+                document.getElementById('teamMembersList').innerHTML = '<p style="color: red;">Veri yükleme hatası!</p>';
+            }
+        }
+
+        // Delete Team Member
+        function deleteTeamMember(id) {
+            if (confirm('Bu üyeyi silmek istediğinizden emin misiniz?')) {
+                db.collection('team_members').doc(id).delete()
+                    .then(() => {
+                        console.log('Ekip üyesi silindi');
+                        showSuccess();
+                    })
+                    .catch(err => console.error('Silme hatası:', err));
+            }
         }
 
         // Show Success Message
