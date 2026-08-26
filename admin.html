@@ -488,7 +488,7 @@
             <p>Bilkent MEC Yönetim Paneli</p>
             <form class="login-form" id="loginForm">
                 <input type="password" id="passwordInput" placeholder="Şifreyi girin" required
-                    autocomplete="new-password">
+                    autocomplete="current-password">
                 <button type="submit">Giriş Yap</button>
                 <div class="error-message" id="errorMessage">Hatalı şifre!</div>
             </form>
@@ -671,6 +671,7 @@
 
     <!-- Firebase SDK (v8 CDN - exposes global `firebase` for legacy code) -->
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
 
     <script>
@@ -688,6 +689,7 @@
         // Firebase Initialize
         firebase.initializeApp(firebaseConfig);
         window.db = firebase.firestore(); // Make db global
+        const auth = firebase.auth();
 
         console.log('Firebase initialized!', window.db);
 
@@ -697,90 +699,50 @@
             uploadPreset: 'bilkentmec'
         };
 
-        // SHA-256 Hashing Helper
-        async function hashPassword(password) {
-            const encoder = new TextEncoder();
-            const data = encoder.encode(password);
-            const hashBuffer = await crypto.subtle.digest('SHA-256', data);
-            const hashArray = Array.from(new Uint8Array(hashBuffer));
-            const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-            return hashHex;
-        }
-
         let isLoggedIn = false;
+        let dataLoaded = false;
 
-        // Sayfanın en başında localStorage'ı kontrol et ve temizle
-        window.addEventListener('load', function () {
-            console.log('Admin panel yükleniyor...');
-            console.log('localStorage adminLoggedIn:', localStorage.getItem('adminLoggedIn'));
-            // İlk ziyarette localStorage'ı temizle
-            if (!localStorage.getItem('adminPanelInitialized')) {
-                localStorage.removeItem('adminLoggedIn');
-                localStorage.setItem('adminPanelInitialized', 'true');
-                console.log('localStorage temizlendi');
-            }
-        });
+        // Admin hesabının e-postası. Kullanıcı bunu GİRMEZ; sadece şifre girer.
+        // Firebase Auth'un çalışması için sabit bir "kullanıcı adı" görevi görür.
+        // Firebase Console > Authentication'da bu e-posta ile TEK bir hesap oluştur.
+        const ADMIN_EMAIL = 'admin@bilkentmec.com';
 
-        // Login Handler
+        // Login Handler — kullanıcı sadece şifre girer, e-posta arka planda sabit.
         document.getElementById('loginForm').addEventListener('submit', async function (e) {
             e.preventDefault();
             const passwordInput = document.getElementById('passwordInput');
-            const password = passwordInput.value;
+            const errorMessage = document.getElementById('errorMessage');
 
             try {
-                // Fetch hashed password from Firestore
-                const authDocRef = db.collection('settings').doc('admin_auth');
-                let authDoc = await authDocRef.get();
-                let storedHash;
-
-                if (!authDoc.exists) {
-                    const defaultHash = '09dbae35a8216d1bc64345162e2fe9263566ba8be78e6663fcc91b02251c8dce';
-                    await authDocRef.set({ passwordHash: defaultHash }, { merge: true });
-                    storedHash = defaultHash;
-                    console.log('✅ Stored default password hash in Firestore');
-                } else {
-                    storedHash = authDoc.data().passwordHash;
-                }
-
-                const enteredHash = await hashPassword(password);
-
-                if (enteredHash === storedHash) {
-                    console.log('✅ Login başarılı!');
-                    isLoggedIn = true;
-                    localStorage.setItem('adminLoggedIn', 'true');
-                    document.getElementById('loginWrapper').style.display = 'none';
-                    document.getElementById('adminPanel').classList.add('active');
-                    loadData();
-                } else {
-                    console.log('❌ Login başarısız!');
-                    document.getElementById('errorMessage').style.display = 'block';
-                    setTimeout(() => {
-                        document.getElementById('errorMessage').style.display = 'none';
-                    }, 3000);
-                    passwordInput.value = '';
-                }
+                await auth.signInWithEmailAndPassword(ADMIN_EMAIL, passwordInput.value);
+                // UI, aşağıdaki onAuthStateChanged tarafından değiştirilir.
             } catch (error) {
-                console.error('Login hatası:', error);
-                alert('Giriş yapılırken bir hata oluştu: ' + error.message);
+                console.error('Login hatası:', error.code);
+                errorMessage.style.display = 'block';
+                setTimeout(() => { errorMessage.style.display = 'none'; }, 3000);
             }
+            passwordInput.value = '';
         });
 
-        // Check if already logged in
-        window.addEventListener('load', function () {
-            if (localStorage.getItem('adminLoggedIn') === 'true') {
+        // Auth state drives the UI. Firestore Security Rules are the real gate:
+        // even a signed-in non-admin can see this panel but cannot write anything.
+        auth.onAuthStateChanged(function (user) {
+            if (user) {
                 isLoggedIn = true;
                 document.getElementById('loginWrapper').style.display = 'none';
                 document.getElementById('adminPanel').classList.add('active');
-                loadData();
+                if (!dataLoaded) { loadData(); dataLoaded = true; }
+            } else {
+                isLoggedIn = false;
+                dataLoaded = false;
+                document.getElementById('loginWrapper').style.display = 'flex';
+                document.getElementById('adminPanel').classList.remove('active');
             }
         });
 
         // Logout
         function logout() {
-            isLoggedIn = false;
-            localStorage.removeItem('adminLoggedIn');
-            document.getElementById('loginWrapper').style.display = 'flex';
-            document.getElementById('adminPanel').classList.remove('active');
+            auth.signOut();
             document.getElementById('passwordInput').value = '';
             document.getElementById('eventForm').reset();
             document.getElementById('sponsorForm').reset();

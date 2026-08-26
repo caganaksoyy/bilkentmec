@@ -1,0 +1,47 @@
+rules_version = '2';
+
+// Bilkent MEC — Firestore Security Rules
+//
+// Model: public content is READ-ONLY for everyone; ONLY signed-in admins can write.
+// "Admin" = a signed-in Firebase Auth user whose UID has a doc in the `admins`
+// collection. The `admins` collection is managed by hand in the Firebase Console
+// (see SETUP below) and is NOT writable from the client.
+//
+// SETUP (one time):
+//   1. Firebase Console > Authentication > Sign-in method > enable Email/Password.
+//   2. Authentication > Users > "Add user" -> create your admin account.
+//      Copy its "User UID".
+//   3. Firestore > start a collection `admins`, add a document whose ID is that UID.
+//      Firestore forces at least one field — put any dummy value, e.g.
+//      role: "admin". Only the document's EXISTENCE matters, not its contents.
+//   4. Firestore > Rules > paste this file > Publish.
+//   5. Delete the now-unused `settings/admin_auth` document (old password hash).
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // True only for a signed-in user listed in the `admins` collection.
+    function isAdmin() {
+      return request.auth != null
+        && exists(/databases/$(database)/documents/admins/$(request.auth.uid));
+    }
+
+    // Public content: anyone may read, only admins may write.
+    match /events/{doc}   { allow read: if true; allow write: if isAdmin(); }
+    match /sponsors/{doc} { allow read: if true; allow write: if isAdmin(); }
+    match /team/{doc}     { allow read: if true; allow write: if isAdmin(); }
+
+    // Site settings (e.g. sponsorGroups) are read publicly, written by admins only.
+    match /settings/{doc} { allow read: if true; allow write: if isAdmin(); }
+
+    // Admin allowlist: a user may check their own membership; nobody may edit it
+    // from the client (managed in the Firebase Console only).
+    match /admins/{uid} {
+      allow read:  if request.auth != null && request.auth.uid == uid;
+      allow write: if false;
+    }
+
+    // Default deny: anything not matched above is fully locked down.
+    match /{document=**} { allow read, write: if false; }
+  }
+}

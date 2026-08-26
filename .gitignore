@@ -1,0 +1,21 @@
+# ---- OS / editor junk ----
+.DS_Store
+**/.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# ---- Local env / secrets (server-side keys only; NOT the Firebase web config) ----
+.env
+.env.*
+*.local
+secrets.json
+serviceAccountKey*.json
+firebase-adminsdk*.json
+*.pem
+*.key
+
+# ---- Dependencies / build ----
+node_modules/
+dist/
+build/

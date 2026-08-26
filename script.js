@@ -517,3 +517,104 @@ function loadSponsorsFromStorage() {
 
 
 
+
+// ============================================================
+// BAŞVURU DUYURUSU — sol alt köşe
+// Duyuru metnini/linkleri değiştirdiğinde STORAGE_KEY'i de güncelle ki
+// daha önce kapatmış olanlara yeni duyuru tekrar görünsün.
+// ============================================================
+const CASE_TOAST = {
+  storageKey: 'mec_case_toast_akbank_2026',
+  eyebrow: 'Başvurular açık',
+  title: 'Akbank Case Maratonu başvuruları başladı!',
+  note: 'Program akışı, saatler ve başvuru formları etkinlik sayfasında.',
+  page: 'akbankcase.html',
+  links: [
+    {
+      label: 'Daha fazlası için tıkla',
+      hint: 'Program, ödüller ve başvuru',
+      url: './akbankcase.html'
+    }
+  ]
+};
+
+function initCaseToast() {
+  if (document.getElementById('case-toast')) return;
+  // Etkinlik sayfasındayken duyuruyu gösterme (zaten oradasın)
+  if (CASE_TOAST.page && location.pathname.split('/').pop() === CASE_TOAST.page) return;
+
+  try {
+    if (sessionStorage.getItem(CASE_TOAST.storageKey) === 'closed') return;
+  } catch (err) {
+    // sessionStorage kapalıysa duyuruyu yine de göster
+  }
+
+  const toast = document.createElement('aside');
+  toast.className = 'case-toast';
+  toast.id = 'case-toast';
+  toast.setAttribute('role', 'complementary');
+  toast.setAttribute('aria-label', 'Başvuru duyurusu');
+
+  const linksHTML = CASE_TOAST.links.map(function (link) {
+    const isExternal = /^https?:/i.test(link.url);
+    const target = isExternal ? ' target="_blank" rel="noopener"' : '';
+    return '<a class="case-link" href="' + link.url + '"' + target + '>' +
+      '<span>' + link.label + '<small>' + link.hint + '</small></span>' +
+      '<span class="case-arrow" aria-hidden="true">&rarr;</span>' +
+      '</a>';
+  }).join('');
+
+  toast.innerHTML =
+    '<div class="case-spine" aria-hidden="true"><span>MEC</span></div>' +
+    '<div class="case-body">' +
+    '<div class="case-head">' +
+    '<button class="case-close" type="button" aria-label="Duyuruyu kapat">&times;</button>' +
+    '<p class="case-eyebrow"><span class="case-dot" aria-hidden="true"></span>' + CASE_TOAST.eyebrow + '</p>' +
+    '<h2 class="case-title">' + CASE_TOAST.title + '</h2>' +
+    '<p class="case-note">' + CASE_TOAST.note + '</p>' +
+    '</div>' +
+    '<div class="case-perf" aria-hidden="true"></div>' +
+    linksHTML +
+    '</div>';
+
+  document.body.appendChild(toast);
+
+  function closeCaseToast() {
+    toast.classList.add('is-closing');
+    toast.classList.remove('is-open');
+    document.removeEventListener('keydown', onKeydown);
+    setTimeout(function () { toast.remove(); }, 500);
+    try {
+      sessionStorage.setItem(CASE_TOAST.storageKey, 'closed');
+    } catch (err) {
+      // sessionStorage yoksa sessizce geç
+    }
+  }
+
+  function onKeydown(e) {
+    if (e.key === 'Escape' && toast.contains(document.activeElement)) closeCaseToast();
+  }
+
+  toast.querySelector('.case-close').addEventListener('click', closeCaseToast);
+  document.addEventListener('keydown', onKeydown);
+
+  // Etkinlik popup'ı açıkken bekle, kapanınca kayarak gir
+  const welcome = document.getElementById('welcomepopup');
+  function isWelcomeVisible() {
+    return welcome && window.getComputedStyle(welcome).display !== 'none';
+  }
+
+  function reveal() {
+    if (isWelcomeVisible()) {
+      setTimeout(reveal, 600);
+      return;
+    }
+    requestAnimationFrame(function () { toast.classList.add('is-open'); });
+  }
+
+  setTimeout(reveal, 2200);
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+  initCaseToast();
+});

@@ -1537,3 +1537,508 @@ main h1,
     font-size: 0.65rem;
   }
 }
+
+/* ============================================================
+   Başvuru duyurusu — sol alt köşe (başvuru fişi)
+   ============================================================ */
+.case-toast {
+  --cm-ink: #17110F;
+  --cm-red: var(--main-color);
+  --cm-red-deep: #8C2415;
+  --cm-paper: #FFFFFF;
+  --cm-line: #E7DEDB;
+  --cm-muted: #7A6863;
+
+  position: fixed;
+  left: 24px;
+  bottom: 24px;
+  z-index: 9000;
+  width: 340px;
+  max-width: calc(100vw - 32px);
+  display: flex;
+  overflow: hidden;
+  text-align: left;
+  background: var(--cm-paper);
+  border-radius: 10px;
+  box-shadow: 0 18px 40px -12px rgba(23, 17, 15, 0.28), 0 2px 8px rgba(23, 17, 15, 0.08);
+  transform: translateX(calc(-100% - 32px));
+  opacity: 0;
+  transition: transform 0.62s cubic-bezier(0.16, 0.9, 0.28, 1), opacity 0.3s ease;
+}
+
+.case-toast.is-open {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.case-toast.is-closing {
+  transform: translateX(calc(-100% - 32px));
+  opacity: 0;
+}
+
+/* Sol sırt — dosya kenarı */
+.case-spine {
+  flex: 0 0 26px;
+  background: linear-gradient(180deg, var(--cm-red) 0%, var(--cm-red-deep) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.case-spine span {
+  font-family: 'Inter', Arial, sans-serif;
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  color: rgba(255, 255, 255, 0.85);
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  text-transform: uppercase;
+}
+
+.case-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.case-head {
+  padding: 0.95rem 1rem 0.9rem 1.1rem;
+  position: relative;
+}
+
+.case-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-family: 'Inter', Arial, sans-serif;
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cm-red);
+  margin: 0 0 0.5rem;
+}
+
+.case-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--cm-red);
+  box-shadow: 0 0 0 0 rgba(199, 61, 41, 0.55);
+  animation: caseDotPulse 2.2s ease-out infinite;
+}
+
+@keyframes caseDotPulse {
+  0% { box-shadow: 0 0 0 0 rgba(199, 61, 41, 0.5); }
+  70% { box-shadow: 0 0 0 7px rgba(199, 61, 41, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(199, 61, 41, 0); }
+}
+
+.case-title {
+  margin: 0;
+  font-family: 'Poppins', 'Inter', Arial, sans-serif;
+  font-size: 1.16rem;
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: -0.015em;
+  color: var(--cm-ink);
+}
+
+.case-note {
+  margin: 0.4rem 0 0;
+  font-family: 'Inter', Arial, sans-serif;
+  font-size: 0.8rem;
+  line-height: 1.45;
+  color: var(--cm-muted);
+}
+
+.case-close {
+  position: absolute;
+  top: 0.55rem;
+  right: 0.5rem;
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--cm-muted);
+  font-size: 1.05rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.18s ease, color 0.18s ease;
+}
+
+.case-close:hover {
+  background: #F5EFED;
+  color: var(--cm-ink);
+}
+
+.case-close:focus-visible,
+.case-link:focus-visible {
+  outline: 2px solid var(--cm-red);
+  outline-offset: -3px;
+}
+
+/* Perforasyon — fişin koparma çizgisi */
+.case-perf {
+  height: 0;
+  border-top: 1px dashed var(--cm-line);
+  margin: 0 0.6rem;
+}
+
+.case-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.78rem 1rem 0.78rem 1.1rem;
+  text-decoration: none;
+  color: var(--cm-ink);
+  font-family: 'Inter', Arial, sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: background 0.18s ease, color 0.18s ease;
+}
+
+.case-link + .case-link {
+  border-top: 1px solid var(--cm-line);
+}
+
+.case-link:hover {
+  background: #FBF3F1;
+  color: var(--cm-red);
+}
+
+.case-link small {
+  display: block;
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--cm-muted);
+  margin-top: 0.12rem;
+}
+
+.case-arrow {
+  flex: 0 0 auto;
+  font-size: 0.95rem;
+  color: var(--cm-red);
+  transition: transform 0.22s ease;
+}
+
+.case-link:hover .case-arrow {
+  transform: translateX(4px);
+}
+
+@media (max-width: 768px) {
+  .case-toast {
+    left: 12px;
+    right: 12px;
+    bottom: 12px;
+    width: auto;
+  }
+
+  .case-title {
+    font-size: 1.05rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .case-toast {
+    transition: opacity 0.2s ease;
+    transform: none;
+  }
+
+  .case-toast.is-closing {
+    transform: none;
+  }
+
+  .case-dot {
+    animation: none;
+  }
+
+  .case-arrow {
+    transition: none;
+  }
+}
+
+
+/* ============================================================
+   Akbank Case Maratonu etkinlik sayfası (akbankcase.html)
+   ============================================================ */
+.case-hero {
+  padding: 56px 24px 48px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.case-eyebrow-lg {
+  margin: 0;
+  font-family: 'Inter', Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--hover-color);
+}
+
+.case-hero h1 {
+  margin: 14px 0 0;
+  font-size: 58px;
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--text-color);
+}
+
+.case-lead {
+  margin: 18px auto 0;
+  max-width: 620px;
+  font-family: 'Inter', Arial, sans-serif;
+  font-size: 17px;
+  line-height: 1.55;
+  color: #57504E;
+}
+
+.case-meta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 32px;
+  margin-top: 26px;
+  font-family: 'Inter', Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.case-meta-sep {
+  color: #D9CFCC;
+}
+
+.case-cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 34px;
+}
+
+.case-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+  padding: 0 30px;
+  border-radius: 5px;
+  font-size: 19px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease;
+}
+
+.case-btn:hover {
+  transform: translateY(-2px);
+}
+
+.case-btn-filled {
+  background: linear-gradient(to right, #d32e11, #a31900);
+  color: var(--bg-color);
+}
+
+.case-btn-outline {
+  border: 2px solid var(--main-color);
+  color: var(--main-color);
+}
+
+.case-btn-outline:hover {
+  background: var(--main-color);
+  color: var(--bg-color);
+}
+
+.case-motto {
+  padding-left: 24px;
+  padding-right: 24px;
+  margin: 8px 0 0;
+  font-size: 36px;
+}
+
+.case-program {
+  padding: 44px 24px 0;
+}
+
+.case-program h2 {
+  margin: 0 0 4px;
+  font-size: 34px;
+  font-weight: 700;
+  color: var(--text-color);
+}
+
+.case-program-note {
+  margin: 0 0 28px;
+  font-family: 'Inter', Arial, sans-serif;
+  font-size: 14px;
+  color: #8A7C78;
+}
+
+.case-schedule {
+  max-width: 760px;
+  margin: 0 auto;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: left;
+}
+
+.case-row {
+  display: grid;
+  grid-template-columns: 168px 1fr;
+  align-items: center;
+  gap: 0;
+  padding: 16px 24px;
+  background: var(--bg-color);
+  font-family: 'Inter', Arial, sans-serif;
+}
+
+.case-row:nth-child(even) {
+  background: #FAF7F6;
+}
+
+.case-row + .case-row {
+  border-top: 1px solid #EFE8E6;
+}
+
+.case-time {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--main-color);
+}
+
+.case-row .case-title {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--text-color);
+}
+
+.case-row-break .case-time {
+  color: #A99C98;
+}
+
+.case-row-break .case-title {
+  color: #6E625F;
+}
+
+.case-row-final {
+  background: #FFF6F4;
+}
+
+.case-row-final .case-title {
+  font-weight: 600;
+  color: var(--main-color);
+}
+
+.case-signup {
+  max-width: 900px;
+  margin: 44px auto 60px;
+  padding: 34px 40px;
+  border-radius: 10px;
+  background: linear-gradient(to right, #d32e11, #a31900);
+}
+
+.case-signup h3 {
+  margin: 0;
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--bg-color);
+}
+
+.case-signup p {
+  margin: 8px 0 0;
+  font-family: 'Inter', Arial, sans-serif;
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.case-signup .case-cta-row {
+  margin-top: 20px;
+  gap: 14px;
+}
+
+.case-btn-light {
+  min-height: 48px;
+  padding: 0 26px;
+  font-size: 16px;
+  background: var(--bg-color);
+  color: var(--main-color);
+}
+
+.case-btn-ghost {
+  min-height: 48px;
+  padding: 0 26px;
+  font-size: 16px;
+  border: 1.5px solid rgba(255, 255, 255, 0.75);
+  color: var(--bg-color);
+}
+
+.case-btn-ghost:hover {
+  background: rgba(255, 255, 255, 0.14);
+}
+
+@media (max-width: 768px) {
+  .case-hero {
+    padding: 36px 18px 34px;
+  }
+
+  .case-hero h1 {
+    font-size: 34px;
+  }
+
+  .case-lead {
+    font-size: 15px;
+  }
+
+  .case-meta {
+    gap: 14px;
+    font-size: 14px;
+  }
+
+  .case-meta-sep {
+    display: none;
+  }
+
+  .case-cta-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .case-btn {
+    font-size: 16px;
+    padding: 0 20px;
+  }
+
+  .case-motto {
+    font-size: 26px;
+  }
+
+  .case-program {
+    padding: 32px 14px 0;
+  }
+
+  .case-program h2 {
+    font-size: 26px;
+  }
+
+  .case-row {
+    grid-template-columns: 1fr;
+    gap: 4px;
+    padding: 14px 18px;
+  }
+
+  .case-signup {
+    margin: 32px 14px 44px;
+    padding: 26px 20px;
+  }
+}
