@@ -389,7 +389,7 @@ function loadEventsFromStorage() {
 // TÜM ETKİNLİKLER SAYFASI - Tüm etkinlikleri yükle
 function loadAllEventsPage() {
   const allEventsGrid = document.getElementById('allEventsGrid');
-  if (!allEventsGrid) return; // Eğer Etkinliklerimiz.html'de değilsek çalışma
+  if (!allEventsGrid) return; // Eğer etkinliklerimiz sayfasında değilsek çalışma
 
   if (typeof window.db === 'undefined') {
     setTimeout(loadAllEventsPage, 500);
@@ -534,12 +534,12 @@ const CASE_TOAST = {
   eyebrow: 'Başvurular açık',
   title: 'Akbank Case Maratonu başvuruları başladı!',
   note: 'Program akışı, saatler ve başvuru formları etkinlik sayfasında.',
-  page: 'akbankcase.html',
+  page: 'akbankcase',
   links: [
     {
       label: 'Daha fazlası için tıkla',
       hint: 'Program, ödüller ve başvuru',
-      url: './akbankcase.html'
+      url: '/akbankcase'
     }
   ]
 };
@@ -547,7 +547,7 @@ const CASE_TOAST = {
 function initCaseToast() {
   if (document.getElementById('case-toast')) return;
   // Etkinlik sayfasındayken duyuruyu gösterme (zaten oradasın)
-  if (CASE_TOAST.page && location.pathname.split('/').pop() === CASE_TOAST.page) return;
+  if (CASE_TOAST.page && location.pathname.split('/').pop().replace(/\.html$/, '') === CASE_TOAST.page) return;
 
   try {
     if (sessionStorage.getItem(CASE_TOAST.storageKey) === 'closed') return;

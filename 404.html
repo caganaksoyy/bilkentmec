@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="robots" content="noindex">
+  <script>
+    // GitHub Pages has no server-side redirects, so old .html links land here and get forwarded.
+    (function () {
+      var pages = { '': '/', 'index': '/', 'about': '/hakkimizda', 'hakkimizda': '/hakkimizda', 'etkinliklerimiz': '/etkinliklerimiz', 'akbankcase': '/akbankcase' };
+      var key = location.pathname.replace(/^\/+|\/+$/g, '').replace(/\.html$/i, '').toLowerCase();
+      var target = pages[key];
+      if (target && target !== location.pathname) {
+        location.replace(target + location.search + location.hash);
+      }
+    })();
+  </script>
+  <!-- 404 can be served at any depth, so asset paths must be root-absolute -->
+  <link rel="stylesheet" href="/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@400;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="icon" href="/assets/mec_logo400x174.png" type="image/x-icon">
+
+  <title>MEC - Sayfa Bulunamadı</title>
+</head>
+
+<body>
+
+  <header>
+    <a href="/"><img class="navigatorLogo" src="/assets/mecwhite.png" /></a>
+    <button class="hamburger" type="button" aria-label="Menüyü aç" aria-expanded="false" aria-controls="site-nav">☰</button>
+    <nav>
+      <ul class="nav-links" id="site-nav">
+        <li><a href="/">Anasayfa</a></li>
+        <li><a href="/etkinliklerimiz">Etkinliklerimiz</a></li>
+        <li><a href="/hakkimizda">Hakkımızda</a></li>
+        <li><a href="/#sponsors">Sponsorlarımız</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 4rem 16px;">
+    <h1>Sayfa bulunamadı</h1>
+    <p>Aradığınız sayfa taşınmış ya da kaldırılmış olabilir.</p>
+    <div class="HomePage_buttons">
+      <a href="/" class="hero-btn red">Anasayfaya dön</a>
+    </div>
+  </main>
+
+  <script src="/hamburger.js"></script>
+</body>
+
+</html>

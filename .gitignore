@@ -2,10 +2,14 @@
 .DS_Store
 **/.DS_Store
 Thumbs.db
+Desktop.ini
 .vscode/
 .idea/
+*.swp
+*.swo
+*~
 
-# ---- Local env / secrets (server-side keys only; NOT the Firebase web config) ----
+# ---- Local env / secrets ----
 .env
 .env.*
 *.local
@@ -19,3 +23,12 @@ firebase-adminsdk*.json
 node_modules/
 dist/
 build/
+package-lock.json
+yarn.lock
+
+# ---- Logs ----
+*.log
+npm-debug.log*
+
+# ---- Antigravity / Gemini ----
+.gemini/

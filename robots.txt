@@ -1,5 +1,5 @@
 User-agent: *
 Allow: /
-Disallow: /admin.html
+Disallow: /admin
 
 Sitemap: https://bilkentmec.com/sitemap.xml
