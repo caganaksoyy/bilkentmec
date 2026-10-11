@@ -133,6 +133,12 @@ window.addEventListener('scroll', () => {
   const currentScrollY = window.scrollY;
   const headerHeight = header.offsetHeight;
 
+  // Mobil menü açıkken header'ı gizleme, menü onunla birlikte kaybolmasın
+  if (header.querySelector('.nav-links.show')) {
+    lastScrollY = currentScrollY;
+    return;
+  }
+
   if (currentScrollY > lastScrollY && currentScrollY > 50) {
     // Aşağı kaydırıyor → gizle
     header.style.top = `-${headerHeight}px`;

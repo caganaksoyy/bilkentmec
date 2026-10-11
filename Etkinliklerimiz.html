@@ -12,14 +12,14 @@
         gtag('config', 'G-JZW2WY854K');
     </script>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Etkinliklerimiz | MEC Bilkent</title>
     <meta name="description" content="Bilkent MEC etkinlikleri: konferanslar, şirket turları, vaka çalışmaları ve kariyer fuarları. Tüm etkinliklerimizi keşfedin.">
     <meta property="og:title" content="Etkinliklerimiz | MEC Bilkent">
     <meta property="og:description" content="Bilkent MEC etkinlikleri: konferanslar, şirket turları, vaka çalışmaları.">
     <meta property="og:image" content="https://bilkentmec.com/assets/mec_logo400x174.png">
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@400;600;700&display=swap"
         rel="stylesheet">
@@ -29,10 +29,10 @@
 <body>
     <header>
         <a href="index.html"><img class="navigatorLogo" src="./assets/mecwhite.png" /></a>
-        <div class="hamburger" id="hamburger" aria-label="Menüyü aç/kapat" role="button" tabindex="0">☰</div>
+        <button class="hamburger" type="button" aria-label="Menüyü aç" aria-expanded="false" aria-controls="site-nav">☰</button>
 
         <nav>
-            <ul class="nav-links">
+            <ul class="nav-links" id="site-nav">
                 <li><a href="./index.html">Anasayfa</a></li>
                 <li><a href="./Etkinliklerimiz.html">Etkinliklerimiz</a></li>
                 <li><a href="./About.html">Hakkımızda</a></li>
@@ -67,9 +67,9 @@
                 </a>
             </div>
             <div class="footer-links">
-                <a href="./About.html">Hakkımızda</a> |
-                <a href="./Etkinliklerimiz.html">Etkinliklerimiz</a> |
-                <a href="index.html#sponsors">Sponsorlarımız</a> |
+                <a href="./About.html">Hakkımızda</a>
+                <a href="./Etkinliklerimiz.html">Etkinliklerimiz</a>
+                <a href="index.html#sponsors">Sponsorlarımız</a>
                 <a href="./About.html#team">Ekibimiz</a>
             </div>
             <p>&copy; <script>document.write(new Date().getFullYear())</script> Bilkent Management & Economics Community (MEC). Tüm hakları saklıdır.</p>
