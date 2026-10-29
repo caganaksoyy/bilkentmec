@@ -530,16 +530,16 @@ function loadSponsorsFromStorage() {
 // daha önce kapatmış olanlara yeni duyuru tekrar görünsün.
 // ============================================================
 const CASE_TOAST = {
-  storageKey: 'mec_case_toast_akbank_2026',
+  storageKey: 'mec_case_toast_pg_2026',
   eyebrow: 'Başvurular açık',
-  title: 'Akbank Case Maratonu başvuruları başladı!',
-  note: 'Program akışı, saatler ve başvuru formları etkinlik sayfasında.',
-  page: 'akbankcase',
+  title: 'P&G Case başvuruları başladı!',
+  note: '21 Kasım, 3. ve 4. sınıflara açık. Son başvuru 14 Kasım 23.59.',
+  page: 'pgcase',
   links: [
     {
       label: 'Daha fazlası için tıkla',
-      hint: 'Program, ödüller ve başvuru',
-      url: '/akbankcase'
+      hint: 'Etkinlik detayları ve başvuru',
+      url: '/pgcase'
     }
   ]
 };
