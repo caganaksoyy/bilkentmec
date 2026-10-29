@@ -8,7 +8,7 @@
   <script>
     // GitHub Pages has no server-side redirects, so old .html links land here and get forwarded.
     (function () {
-      var pages = { '': '/', 'index': '/', 'about': '/hakkimizda', 'hakkimizda': '/hakkimizda', 'etkinliklerimiz': '/etkinliklerimiz', 'akbankcase': '/akbankcase', 'pgcase': '/pgcase', 'p&g': '/pgcase', 'p%26g': '/pgcase', 'pg': '/pgcase' };
+      var pages = { '': '/', 'index': '/', 'about': '/hakkimizda', 'hakkimizda': '/hakkimizda', 'etkinliklerimiz': '/etkinliklerimiz', 'pgcase': '/pgcase', 'p&g': '/pgcase', 'p%26g': '/pgcase', 'pg': '/pgcase' };
       var key = location.pathname.replace(/^\/+|\/+$/g, '').replace(/\.html$/i, '').toLowerCase();
       var target = pages[key];
       if (target && target !== location.pathname) {

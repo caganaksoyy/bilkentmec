@@ -1205,7 +1205,7 @@ main h1,
 
 /* ============================================================
    Responsive — tüm sayfaların tablet / mobil kuralları
-   (akbankcase ve duyuru kartının kuralları kendi bölümlerinde)
+   (case sayfası ve duyuru kartının kuralları kendi bölümlerinde)
    ============================================================ */
 @media (max-width: 1024px) {
   header nav ul {
@@ -1966,7 +1966,7 @@ main h1,
 
 
 /* ============================================================
-   Akbank Case Maratonu etkinlik sayfası (akbankcase.html)
+   Case etkinlik sayfası (pgcase.html)
    ============================================================ */
 .case-hero {
   padding: 56px 24px 48px;
